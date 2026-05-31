@@ -148,12 +148,120 @@ Edit this file to update:
 - Case cards
 - News placeholders
 
-The current images use Unsplash URLs. To replace them:
+The current images use Unsplash URLs. To replace them with real company or product images:
 
-1. Add real images to a `public/images` folder.
+1. Add real images to the prepared folders:
+   - `public/images/hero` - homepage hero and business cooperation visuals
+   - `public/images/products` - denim, casual, functional and custom fabric product photos
+   - `public/images/supply-chain` - yarn, weaving, finishing, inspection and warehouse photos
+   - `public/images/cases` - project or material reference images
+   - `public/images/about` - company, location or team-related images
 2. Change image paths in `data/content.ts` and `app/page.tsx`.
 3. Use paths like `/images/denim-fabric.jpg`.
 4. Keep descriptive `alt` text for SEO and accessibility.
+
+## Next Editing Guide
+
+### Edit Company Text
+
+Main bilingual company copy is in:
+
+```text
+data/content.ts
+```
+
+Update the `pages`, `rdContent`, `cases`, `news` and `supplySteps` sections. Keep claims realistic and avoid adding unverified certificates, client names, export countries, factory size or annual production data.
+
+### Edit Product Data
+
+Product cards and product modal details are controlled by the `products` array in:
+
+```text
+data/content.ts
+```
+
+Edit product name, category, description, composition, width, weight, application, MOQ, lead time and tags there.
+
+### Replace Images
+
+Use the prepared folder structure under:
+
+```text
+public/images
+```
+
+Recommended mapping:
+
+- Hero images: `public/images/hero`
+- Product images: `public/images/products`
+- Supply chain process images: `public/images/supply-chain`
+- Case images: `public/images/cases`
+- About/location images: `public/images/about`
+
+After adding files, replace Unsplash URLs with local paths such as:
+
+```text
+/images/products/denim-fabric.jpg
+```
+
+### Change Contact Information
+
+Editable contact details are centralized in:
+
+```text
+data/content.ts
+```
+
+Update the `contactInfo` object:
+
+- Email: `info@ruilonginternational.com`
+- Phone: `+86 XXX XXXX XXXX`
+- WhatsApp: `+86 XXX XXXX XXXX`
+- WeChat: `RuilongInternational`
+- Address: `Xiqiao, Foshan, Guangdong, China`
+
+These values are used by the Contact page, Footer and Floating Contact buttons.
+
+### Connect Real Inquiry Receiving Later
+
+Forms currently show a success message only. The form logic is in:
+
+```text
+components/InquiryForm.tsx
+```
+
+Future integration options:
+
+- Formspree
+- EmailJS
+- Resend
+- Supabase
+- Vercel API route
+
+Do not add a database or admin dashboard unless Phase 2 requires it.
+
+### Redeploy After GitHub Push
+
+After editing locally:
+
+```bash
+npm run build
+git add .
+git commit -m "Update website content"
+git push
+```
+
+Vercel will automatically redeploy the latest `main` branch commit.
+
+### Connect a Custom Domain Later
+
+In Vercel:
+
+1. Open the project dashboard.
+2. Go to **Settings > Domains**.
+3. Add your domain.
+4. Follow Vercel's DNS instructions.
+5. Wait for DNS verification and SSL certificate activation.
 
 ## Important Files to Check Before Uploading
 

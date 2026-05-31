@@ -16,6 +16,9 @@ export function InquiryForm({ compact = false, title }: InquiryFormProps) {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // Phase 1.5 keeps submissions client-side only.
+    // Future email/CRM options: Formspree, EmailJS, Resend, Supabase,
+    // or a Vercel API route that forwards inquiries to the sales inbox.
     setSubmitted(true);
     event.currentTarget.reset();
   }

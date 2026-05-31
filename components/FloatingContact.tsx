@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
+import { contactInfo } from "@/data/content";
 
 const items = [
-  { label: "Phone", icon: Phone, href: "tel:+8600000000000" },
+  { label: "Phone", icon: Phone, href: "/contact" },
   { label: "WeChat", icon: MessageCircle, href: "/contact" },
-  { label: "WhatsApp", icon: Send, href: "https://wa.me/8600000000000" },
-  { label: "Email", icon: Mail, href: "mailto:sales@example.com" },
+  { label: "WhatsApp", icon: Send, href: "/contact" },
+  { label: "Email", icon: Mail, href: `mailto:${contactInfo.email}` },
   { label: "Inquiry", icon: MessageCircle, href: "/contact" }
 ];
 

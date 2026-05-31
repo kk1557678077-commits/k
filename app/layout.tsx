@@ -7,15 +7,23 @@ import { FloatingContact } from "@/components/FloatingContact";
 
 export const metadata: Metadata = {
   title: {
-    default: "Ruilong International | Foshan Textile Supply Chain Partner",
+    default: "Ruilong International | Foshan Textile Sourcing & Custom Fabric Supplier",
     template: "%s | Ruilong International"
   },
   description:
-    "B2B textile sourcing, denim fabric, custom fabric development and supply chain coordination from Xiqiao, Foshan, Guangdong, China.",
+    "Ruilong International connects global buyers with textile sourcing, denim fabric, custom fabric development and supply chain coordination resources from Xiqiao, Foshan, China.",
+  keywords: [
+    "Foshan textile sourcing",
+    "Xiqiao textile",
+    "denim fabric supplier",
+    "custom fabric China",
+    "textile export support",
+    "fabric sourcing China"
+  ],
   openGraph: {
-    title: "Ruilong International",
+    title: "Ruilong International | Foshan Textile Sourcing & Custom Fabric Supplier",
     description:
-      "Connecting global buyers with Foshan textile supply chain resources.",
+      "Ruilong International connects global buyers with textile sourcing, denim fabric, custom fabric development and supply chain coordination resources from Xiqiao, Foshan, China.",
     type: "website",
     locale: "en_US"
   }

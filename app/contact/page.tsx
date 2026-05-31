@@ -3,24 +3,25 @@
 import { InquiryForm } from "@/components/InquiryForm";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useLanguage } from "@/components/LanguageProvider";
+import { contactInfo } from "@/data/content";
 
 export default function ContactPage() {
   const { lang } = useLanguage();
   const labels = lang === "en"
     ? {
         title: "Contact / Inquiry",
-        text: "Use the forms below to request samples, ask for a quotation or start a sourcing discussion.",
+        text: "Use the forms below to request fabric samples, ask for a quotation or start a sourcing discussion with Ruilong International.",
         info: "Contact Information",
-        map: "Map placeholder - replace with an embedded map later.",
+        map: "Map placeholder - replace with an embedded Xiqiao, Foshan map later.",
         inquiry: "Inquiry Form",
         samples: "Request Samples",
         quote: "Get a Quote"
       }
     : {
         title: "联系 / 询盘",
-        text: "您可以通过以下表单申请样品、获取报价或沟通采购需求。",
+        text: "您可以通过以下表单申请面料样品、获取报价或与瑞隆国际沟通采购需求。",
         info: "联系信息",
-        map: "地图占位 - 后续可替换为嵌入地图。",
+        map: "地图占位 - 后续可替换为佛山西樵嵌入地图。",
         inquiry: "询盘表单",
         samples: "申请样品",
         quote: "获取报价"
@@ -34,12 +35,12 @@ export default function ContactPage() {
           <aside className="rounded-lg border border-line bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-navy">{labels.info}</h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-muted">
-              <span>Company: Ruilong International</span>
-              <span>Location: Xiqiao, Foshan, Guangdong, China</span>
-              <span>Email: sales@example.com (editable)</span>
-              <span>Phone: +86-000-0000-0000 (editable)</span>
-              <span>WeChat: editable</span>
-              <span>WhatsApp: editable</span>
+              <span>Company: {contactInfo.company}</span>
+              <span>Address: {contactInfo.address}</span>
+              <span>Email: {contactInfo.email} (editable)</span>
+              <span>Phone: {contactInfo.phone} (editable)</span>
+              <span>WhatsApp: {contactInfo.whatsapp} (editable)</span>
+              <span>WeChat: {contactInfo.wechat} (editable)</span>
             </div>
             <div className="mt-6 flex min-h-56 items-center justify-center rounded-lg border border-dashed border-line bg-slate-50 p-6 text-center text-sm font-medium text-muted">
               {labels.map}
