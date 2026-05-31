@@ -4,10 +4,11 @@ type EmbeddedMapProps = {
   address: string;
   title: string;
   placeholderText: string;
+  mapEmbedUrl?: string;
 };
 
-export function EmbeddedMap({ address, title, placeholderText }: EmbeddedMapProps) {
-  const mapUrl = process.env.NEXT_PUBLIC_MAP_EMBED_URL;
+export function EmbeddedMap({ address, title, placeholderText, mapEmbedUrl }: EmbeddedMapProps) {
+  const mapUrl = mapEmbedUrl || process.env.NEXT_PUBLIC_MAP_EMBED_URL;
   const canEmbed = Boolean(mapUrl && /^https?:\/\//.test(mapUrl));
 
   return (

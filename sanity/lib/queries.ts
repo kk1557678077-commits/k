@@ -59,3 +59,51 @@ export const allCasesQuery = `*[_type == "caseStudy"] | order(_createdAt desc) {
   image,
   language
 }`;
+
+export const activeDownloadItemsQuery = `*[_type == "downloadItem" && isActive == true] | order(sortOrder asc, title asc) {
+  _id,
+  title,
+  description,
+  category,
+  fileType,
+  fileUrl,
+  language,
+  sortOrder,
+  isActive
+}`;
+
+export const activeFaqItemsQuery = `*[_type == "faqItem" && isActive == true] | order(sortOrder asc, question asc) {
+  _id,
+  question,
+  answer,
+  category,
+  language,
+  sortOrder,
+  isActive
+}`;
+
+export const activeContactInfoQuery = `*[_type == "contactInfo" && isActive == true] | order(_updatedAt desc) [0] {
+  _id,
+  companyName,
+  email,
+  phone,
+  whatsapp,
+  wechat,
+  address,
+  mapEmbedUrl,
+  businessHours,
+  language,
+  isActive
+}`;
+
+export const activeHomepageContentQuery = `*[_type == "homepageContent" && isActive == true] | order(_updatedAt desc) {
+  _id,
+  heroTitle,
+  heroSubtitle,
+  primaryButtonText,
+  secondaryButtonText,
+  finalCtaTitle,
+  finalCtaSubtitle,
+  language,
+  isActive
+}`;

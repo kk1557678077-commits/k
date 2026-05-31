@@ -323,6 +323,121 @@ OpenStreetMap option:
 
 Do not add private API keys to the frontend. The current map setup only needs a public iframe URL.
 
+## Phase 3C CMS Editing Guide
+
+Sanity CMS can now manage:
+
+- Products
+- News
+- Case Studies
+- Downloads
+- FAQ
+- Contact Info
+- Homepage Content
+
+### Edit Downloads
+
+Open `/admin`, choose **Download Item**, then add:
+
+- Title
+- Description
+- Category
+- File type
+- File URL if an official file is ready
+- Language
+- Sort order
+- Active status
+
+Do not upload fake certificates, fake reports or unconfirmed documents. If `fileUrl` is empty, the frontend shows a coming soon placeholder.
+
+### Edit FAQ
+
+Open `/admin`, choose **FAQ Item**, then add:
+
+- Question
+- Answer
+- Category
+- Language
+- Sort order
+- Active status
+
+FAQ appears on the Contact page. If Sanity has no active FAQ items, local fallback FAQ is shown.
+
+### Edit Contact Info
+
+Open `/admin`, choose **Contact Info**, then add:
+
+- Company name
+- Email
+- Phone
+- WhatsApp
+- WeChat
+- Address
+- Map embed URL
+- Business hours
+- Language
+- Active status
+
+Only one active contact info document is used on the frontend. If Sanity contact info is empty, local fallback contact details from `data/content.ts` are used.
+
+If both `mapEmbedUrl` in Sanity and `NEXT_PUBLIC_MAP_EMBED_URL` in Vercel exist, the Sanity `mapEmbedUrl` takes priority.
+
+### Edit Homepage Content
+
+Open `/admin`, choose **Homepage Content**, then add:
+
+- Hero title
+- Hero subtitle
+- Primary button text
+- Secondary button text
+- Final CTA title
+- Final CTA subtitle
+- Language
+- Active status
+
+If Sanity homepage content is empty, the homepage uses local fallback content from `data/content.ts`.
+
+### Edit Products, News and Case Studies
+
+Use `/admin` to manage:
+
+- **Product** for product listing and modal content
+- **News** for news listing
+- **Case Study** for case cards
+
+For bilingual content, create separate documents and set `language` to `en` or `zh`.
+
+### Fallback Content
+
+Fallback content means the public site remains usable when:
+
+- Sanity is empty
+- Sanity is not configured
+- A Sanity request fails
+- A specific language has no CMS entry yet
+
+Fallback content lives in:
+
+```text
+data/content.ts
+```
+
+### Publishing and Frontend Sync
+
+After editing in Sanity:
+
+1. Click **Publish**.
+2. Refresh the frontend page.
+3. If content does not update immediately, wait around one minute and refresh again.
+
+Most CMS content uses a short revalidation window, so a full Vercel redeploy is usually not required after normal Sanity content edits.
+
+Redeploy is needed when:
+
+- Code changes are pushed
+- Environment variables are changed in Vercel
+- New schemas or frontend fields are added
+
 ## Push to GitHub
 
 Create a new GitHub repository, then run these commands inside the project folder:
