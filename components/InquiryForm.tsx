@@ -6,21 +6,75 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 type InquiryFormProps = {
   compact?: boolean;
+  formType?: "Quick Inquiry" | "Request Samples" | "Get a Quote" | "Custom Fabric";
   title?: string;
 };
 
-export function InquiryForm({ compact = false, title }: InquiryFormProps) {
+type SubmitState = "idle" | "loading" | "success" | "error";
+
+export function InquiryForm({
+  compact = false,
+  formType = "Quick Inquiry",
+  title
+}: InquiryFormProps) {
   const { lang } = useLanguage();
   const t = ui[lang];
-  const [submitted, setSubmitted] = useState(false);
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const formMessages =
+    lang === "en"
+      ? {
+          sending: "Sending...",
+          success: "Thank you. Your inquiry has been sent successfully.",
+          error: "Sorry, the form could not be sent. Please try again or email us directly.",
+          missingEndpoint:
+            "Form service is not configured yet. Please add NEXT_PUBLIC_FORMSPREE_ENDPOINT in Vercel environment variables."
+        }
+      : {
+          sending: "正在发送...",
+          success: "感谢您提交询盘，我们已收到您的信息。",
+          error: "抱歉，表单暂时未能发送。请稍后重试，或直接通过邮箱联系我们。",
+          missingEndpoint:
+            "表单服务尚未配置。请在 Vercel 环境变量中添加 NEXT_PUBLIC_FORMSPREE_ENDPOINT。"
+        };
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Phase 1.5 keeps submissions client-side only.
-    // Future email/CRM options: Formspree, EmailJS, Resend, Supabase,
-    // or a Vercel API route that forwards inquiries to the sales inbox.
-    setSubmitted(true);
-    event.currentTarget.reset();
+    const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+
+    if (!endpoint) {
+      setSubmitState("error");
+      setErrorMessage(formMessages.missingEndpoint);
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.set("formType", formType);
+    formData.set("_subject", `Ruilong International - ${formType}`);
+
+    setSubmitState("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Formspree submission failed");
+      }
+
+      setSubmitState("success");
+      form.reset();
+    } catch {
+      setSubmitState("error");
+      setErrorMessage(formMessages.error);
+    }
   }
 
   const fields = [
@@ -36,6 +90,7 @@ export function InquiryForm({ compact = false, title }: InquiryFormProps) {
   return (
     <form onSubmit={onSubmit} className="rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6">
       {title && <h3 className="mb-5 text-xl font-bold text-navy">{title}</h3>}
+      <input type="hidden" name="formType" value={formType} />
       <div className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
         {fields.map(([name, label]) => (
           <label key={name} className="grid gap-2 text-sm font-medium text-charcoal">
@@ -44,6 +99,7 @@ export function InquiryForm({ compact = false, title }: InquiryFormProps) {
               name={name}
               type={name === "email" ? "email" : "text"}
               required={["name", "email"].includes(name)}
+              autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"}
               className="focus-ring rounded-lg border border-line px-3 py-3 text-sm"
             />
           </label>
@@ -53,19 +109,26 @@ export function InquiryForm({ compact = false, title }: InquiryFormProps) {
           <textarea
             name="message"
             rows={5}
+            required
             className="focus-ring rounded-lg border border-line px-3 py-3 text-sm"
           />
         </label>
       </div>
       <button
         type="submit"
+        disabled={submitState === "loading"}
         className="focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"
       >
-        {t.cta.submit}
+        {submitState === "loading" ? formMessages.sending : t.cta.submit}
       </button>
-      {submitted && (
+      {submitState === "success" && (
         <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
-          {t.forms.success}
+          {formMessages.success}
+        </p>
+      )}
+      {submitState === "error" && (
+        <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+          {errorMessage}
         </p>
       )}
     </form>

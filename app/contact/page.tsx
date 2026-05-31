@@ -47,10 +47,10 @@ export default function ContactPage() {
             </div>
           </aside>
           <div className="grid gap-6">
-            <InquiryForm title={labels.inquiry} />
+            <InquiryForm formType="Quick Inquiry" title={labels.inquiry} />
             <div className="grid gap-6 md:grid-cols-2">
-              <InquiryForm compact title={labels.samples} />
-              <InquiryForm compact title={labels.quote} />
+              <InquiryForm compact formType="Request Samples" title={labels.samples} />
+              <InquiryForm compact formType="Get a Quote" title={labels.quote} />
             </div>
           </div>
         </div>

@@ -72,6 +72,48 @@ Preview the production build locally:
 npm run start
 ```
 
+## How to Connect Formspree
+
+The inquiry forms are ready to send messages through Formspree. No private token is stored in the codebase.
+
+1. Create a Formspree account at `https://formspree.io`.
+2. Create a new form in Formspree.
+3. Copy the form endpoint. It should look like:
+
+```text
+https://formspree.io/f/YOUR_FORM_ID
+```
+
+4. Create a local `.env.local` file in the project root:
+
+```bash
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+```
+
+5. In Vercel, open the project dashboard and go to **Settings > Environment Variables**.
+6. Add the same variable:
+
+```text
+NEXT_PUBLIC_FORMSPREE_ENDPOINT
+```
+
+Value:
+
+```text
+https://formspree.io/f/YOUR_FORM_ID
+```
+
+7. Save the variable for Production, Preview and Development if you want all deployments to use the same form.
+8. Redeploy the project from Vercel or push a new commit to GitHub.
+
+The example file is:
+
+```text
+.env.example
+```
+
+Do not commit `.env.local`.
+
 ## Push to GitHub
 
 Create a new GitHub repository, then run these commands inside the project folder:
@@ -224,13 +266,25 @@ These values are used by the Contact page, Footer and Floating Contact buttons.
 
 ### Connect Real Inquiry Receiving Later
 
-Forms currently show a success message only. The form logic is in:
+Forms submit to Formspree when `NEXT_PUBLIC_FORMSPREE_ENDPOINT` is configured. The form logic is in:
 
 ```text
 components/InquiryForm.tsx
 ```
 
-Future integration options:
+The current payload includes:
+
+- `formType`
+- `name`
+- `company`
+- `country`
+- `email`
+- `contact`
+- `productType`
+- `quantity`
+- `message`
+
+Alternative future integration options:
 
 - Formspree
 - EmailJS

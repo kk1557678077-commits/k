@@ -114,7 +114,7 @@ export default function HomePage() {
       <section className="section bg-slate-50">
         <div className="container-page grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <SectionHeading title={home.inquiryTitle} text={home.heroSubtitle} />
-          <InquiryForm />
+          <InquiryForm formType="Quick Inquiry" />
         </div>
       </section>
       <ProductModal product={selected} onClose={() => setSelected(null)} />
