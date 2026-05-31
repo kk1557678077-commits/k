@@ -44,7 +44,7 @@ export const ui = {
       close: "Close"
     },
     forms: {
-      success: "Thank you. Your inquiry has been received in this Phase 1.5 demo. Please connect an email or CRM service before using the form for live buyer submissions.",
+      success: "Thank you. Your inquiry has been sent successfully. We will review your information and reply when possible.",
       name: "Name",
       company: "Company",
       country: "Country / Region",
@@ -60,11 +60,12 @@ export const ui = {
       products: "Products",
       contact: "Contact",
       privacy: "Privacy Policy",
+      terms: "Terms / Disclaimer",
       copyright: "All rights reserved."
     }
   },
   zh: {
-    brand: "瑞隆国际",
+    brand: "Ruilong International",
     nav: {
       home: "首页",
       about: "关于我们",
@@ -85,7 +86,7 @@ export const ui = {
       close: "关闭"
     },
     forms: {
-      success: "感谢您提交信息。当前为 Phase 1.5 演示提交，正式接收买家询盘前请接入邮箱、CRM 或数据库服务。",
+      success: "感谢您提交询盘。我们会查看您的信息，并在可行时尽快回复。",
       name: "姓名",
       company: "公司",
       country: "国家/地区",
@@ -101,6 +102,7 @@ export const ui = {
       products: "产品",
       contact: "联系方式",
       privacy: "隐私政策",
+      terms: "条款 / 免责声明",
       copyright: "版权所有。"
     }
   }
@@ -120,12 +122,12 @@ export const pages = {
       trustTitle: "Practical Trust Signals for B2B Buyers",
       trustText:
         "We keep the cooperation process transparent: clear requirements, realistic sample discussion, written quotation points and inspection coordination before delivery.",
-      howWorkTitle: "How We Work",
+      howWorkTitle: "Buyer Service Flow",
       howWorkText:
         "A straightforward service flow for buyers who need fabric sourcing, sample development or quotation support from Foshan.",
-      finalCtaTitle: "Ready to discuss a fabric requirement?",
+      finalCtaTitle: "Ready to discuss your fabric sourcing needs?",
       finalCtaText:
-        "Share your fabric type, application, estimated quantity, target price and delivery country. We will review the details and reply with a practical next step.",
+        "Send us your fabric type, quantity, application and delivery country. We will help confirm suitable sourcing or custom development options.",
       strengths: [
         ["Foshan Textile Sourcing", "Based in Xiqiao, Foshan, we help buyers communicate with relevant fabric, finishing and garment-related resources."],
         ["Buyer Requirement Clarification", "We support specification discussion, fabric comparison, sample direction and quotation preparation."],
@@ -149,12 +151,12 @@ export const pages = {
         ["Buyer-focused follow-up", "The process is built around clear next steps, realistic timelines and practical feedback after each stage."]
       ],
       howWeWork: [
-        ["Submit Inquiry", "Send fabric type, application, estimated quantity and any reference sample or photos."],
-        ["Confirm Requirements", "We clarify composition, width, weight, handfeel, color, function and delivery expectations."],
-        ["Recommend Fabric / Develop Sample", "Suitable stock directions or custom sample routes are discussed according to the project."],
+        ["Send Inquiry", "Send fabric type, application, estimated quantity and any reference sample or photos."],
+        ["Confirm Fabric Requirements", "We clarify composition, width, weight, handfeel, color, function and delivery expectations."],
+        ["Recommend Options", "Suitable stock directions or sourcing options are discussed according to the project."],
+        ["Sample / Development", "Sample request or custom development notes are coordinated after the direction is clear."],
         ["Quotation", "Quotation points are prepared after specifications, sample route and quantity direction are clear."],
-        ["Sample Confirmation", "Buyer feedback is collected and adjustment points are communicated before order follow-up."],
-        ["Production Coordination", "Order notes, timing and technical requirements are coordinated with relevant supply chain resources."],
+        ["Order Coordination", "Order notes, timing and technical requirements are coordinated with relevant supply chain resources."],
         ["Inspection", "Appearance, specification and packing checks are coordinated according to agreed requirements."],
         ["Delivery Support", "Delivery details and export communication are followed up based on buyer instructions."]
       ]
@@ -169,10 +171,10 @@ export const pages = {
       inquiryTitle: "快速询盘",
       trustTitle: "面向B2B买家的务实信任支持",
       trustText: "我们重视透明协作：明确需求、务实讨论样品方向、整理报价要点，并在交付前协调检验事项。",
-      howWorkTitle: "服务流程",
+      howWorkTitle: "买家服务流程",
       howWorkText: "面向需要佛山面料采购、样品开发或报价支持的买家，提供清晰直接的服务流程。",
-      finalCtaTitle: "准备沟通面料需求？",
-      finalCtaText: "请提供面料类型、用途、预计数量、目标价格与交付国家/地区。我们会评估信息并回复可执行的下一步。",
+      finalCtaTitle: "准备沟通您的面料采购需求？",
+      finalCtaText: "请发送面料类型、数量、用途与交付国家/地区。我们会协助确认合适的采购或定制开发方向。",
       strengths: [
         ["佛山纺织采购资源", "立足佛山西樵，协助买家与相关面料、后整理及服装配套资源进行沟通。"],
         ["买家需求梳理", "支持规格沟通、面料方案比较、打样方向确认与报价准备。"],
@@ -196,12 +198,12 @@ export const pages = {
         ["以买家为中心的跟进", "流程围绕清晰下一步、务实时间安排与阶段性反馈展开。"]
       ],
       howWeWork: [
-        ["提交询盘", "发送面料类型、用途、预计数量，以及参考样或图片。"],
-        ["确认需求", "明确成分、门幅、克重、手感、颜色、功能与交付预期。"],
-        ["推荐面料 / 开发样品", "根据项目讨论现货方向或定制打样路线。"],
+        ["发送询盘", "发送面料类型、用途、预计数量，以及参考样或图片。"],
+        ["确认面料需求", "明确成分、门幅、克重、手感、颜色、功能与交付预期。"],
+        ["推荐选项", "根据项目讨论合适的现货方向或采购选项。"],
+        ["样品 / 开发", "方向明确后协调样品申请或定制开发说明。"],
         ["报价", "在规格、样品路线与数量方向明确后整理报价要点。"],
-        ["样品确认", "收集买家反馈，并在订单跟进前沟通调整点。"],
-        ["生产协调", "与相关供应链资源协调订单说明、时间安排与技术要求。"],
+        ["订单协调", "与相关供应链资源协调订单说明、时间安排与技术要求。"],
         ["检验", "根据约定需求协调外观、规格与包装检查。"],
         ["交付支持", "根据买家指示跟进交付细节与出口沟通。"]
       ]

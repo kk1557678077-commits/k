@@ -22,7 +22,7 @@ export default function ContactPage() {
         reminder:
           "Please include fabric type, quantity, application, target price and delivery country when submitting an inquiry.",
         guideTitle: "Inquiry checklist",
-        guide: ["Fabric type", "Composition", "Weight / width", "Quantity", "Application", "Target price", "Delivery country", "Sample requirement"],
+        guide: ["Fabric type", "Composition", "Weight / width", "Quantity", "Application", "Target price", "Delivery country", "Sample requirement", "Reference image or specification if available"],
         cards: [
           ["Request Samples", "Share fabric direction, color, handfeel, application and delivery address for sample discussion."],
           ["Get a Quote", "Send composition, width, weight, color, quantity and packing notes for quotation preparation."],
@@ -50,7 +50,7 @@ export default function ContactPage() {
         reminderTitle: "为了更快跟进",
         reminder: "提交询盘时请尽量包含面料类型、数量、用途、目标价格与交付国家/地区。",
         guideTitle: "询盘信息清单",
-        guide: ["面料类型", "成分", "克重 / 门幅", "数量", "用途", "目标价格", "交付国家/地区", "样品需求"],
+        guide: ["面料类型", "成分", "克重 / 门幅", "数量", "用途", "目标价格", "交付国家/地区", "样品需求", "可提供参考图片或规格"],
         cards: [
           ["申请样品", "请提供面料方向、颜色、手感、用途与收样地址，便于样品沟通。"],
           ["获取报价", "请发送成分、门幅、克重、颜色、数量与包装要求，便于报价准备。"],
@@ -93,6 +93,7 @@ export default function ContactPage() {
             <div className="mt-6 rounded-lg bg-slate-50 p-5">
               <h3 className="font-bold text-navy">{labels.reminderTitle}</h3>
               <p className="mt-2 text-sm leading-6 text-muted">{labels.reminder}</p>
+              <h4 className="mt-4 text-sm font-bold text-navy">{labels.guideTitle}</h4>
               <div className="mt-4 flex flex-wrap gap-2">
                 {labels.guide.map((item) => (
                   <span key={item} className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-charcoal">

@@ -513,6 +513,49 @@ git push
 
 Vercel will automatically redeploy the latest GitHub commit.
 
+## Real Launch Checklist
+
+Before using the website for real public business promotion, check:
+
+- Replace placeholder contact details in `data/content.ts`
+- Replace product images in `public/images/products`
+- Replace sample product data with real product directions
+- Add a real company email address
+- Add real WhatsApp and WeChat information
+- Confirm `NEXT_PUBLIC_FORMSPREE_ENDPOINT` is set in Vercel
+- Test all inquiry forms:
+  - Quick Inquiry
+  - Request Samples
+  - Get a Quote
+  - Custom Fabric
+- Confirm Formspree receives test submissions
+- Connect a custom domain
+- Check mobile layout on a real phone
+- Check SEO title and description in `app/layout.tsx`
+- Review Privacy Policy and Terms / Disclaimer pages
+- Confirm ICP filing text before using mainland China hosting
+
+## Domain Preparation Notes
+
+Possible domain options:
+
+- `ruilonginternational.com`
+- `ruilongtextile.com`
+- `ruilong-sourcing.com`
+- `ruilongfabric.com`
+
+To connect a custom domain in Vercel:
+
+1. Buy the domain from a domain registrar.
+2. Open the Vercel project dashboard.
+3. Go to **Settings > Domains**.
+4. Add the domain.
+5. Follow Vercel's DNS instructions.
+6. Update DNS records at the domain registrar.
+7. Wait for Vercel to verify DNS and issue SSL.
+
+Keep contact email, WhatsApp and WeChat updated before promoting the custom domain.
+
 ## Phase 2 Upgrade Ideas
 
 - Real product photos and PDF catalog download

@@ -205,6 +205,7 @@ export default function HomePage() {
               <p className="mt-3 max-w-3xl text-sm leading-6 text-white/75">{home.finalCtaText}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+              <ButtonLink href="/contact" variant="secondary">{t.cta.samples}</ButtonLink>
               <ButtonLink href="/contact" variant="secondary">{t.cta.quote}</ButtonLink>
               <ButtonLink href="/products" variant="secondary">{t.cta.products}</ButtonLink>
             </div>

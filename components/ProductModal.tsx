@@ -72,12 +72,26 @@ export function ProductModal({
                 ))}
               </ul>
             </div>
-            <Link
-              href="/contact"
-              className="focus-ring mt-6 inline-flex rounded-full bg-gold px-5 py-3 text-sm font-semibold text-white"
-            >
-              {t.cta.inquire}
-            </Link>
+            <div className="mt-6 grid gap-2 sm:grid-cols-3">
+              <Link
+                href="/contact"
+                className="focus-ring rounded-full border border-navy px-4 py-2.5 text-center text-sm font-semibold text-navy hover:bg-slate-50"
+              >
+                {t.cta.samples}
+              </Link>
+              <Link
+                href="/contact"
+                className="focus-ring rounded-full bg-gold px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#a27f43]"
+              >
+                {t.cta.quote}
+              </Link>
+              <Link
+                href="/contact"
+                className="focus-ring rounded-full bg-navy px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-charcoal"
+              >
+                {lang === "en" ? "Custom Fabric" : "定制面料"}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

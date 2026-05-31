@@ -57,6 +57,16 @@ export default function ProductsPage() {
               ? "Select a fabric category or send us your target composition, weight, application and quantity. Our team will help confirm suitable sourcing options."
               : "请选择面料分类，或直接发送目标成分、克重、用途与数量。我们会协助确认合适的采购方向。"}
           </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {(lang === "en"
+              ? ["Fabric type", "Composition", "Weight / width", "Quantity", "Application", "Target price", "Delivery country", "Sample requirement", "Reference image or specification"]
+              : ["面料类型", "成分", "克重 / 门幅", "数量", "用途", "目标价格", "交付国家/地区", "样品需求", "参考图片或规格"]
+            ).map((item) => (
+              <span key={item} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-charcoal">
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="mb-8 grid gap-4 rounded-lg border border-line bg-white p-5 shadow-sm md:grid-cols-3">
           <Filter label={labels.category} value={category} options={categories} onChange={setCategory} />

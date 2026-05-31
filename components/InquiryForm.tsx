@@ -66,6 +66,10 @@ export function InquiryForm({
           missingEndpoint:
             "表单服务尚未配置。请在 Vercel 环境变量中添加 NEXT_PUBLIC_FORMSPREE_ENDPOINT。"
         };
+  const trustText =
+    lang === "en"
+      ? "Your information will only be used to respond to your textile sourcing inquiry."
+      : "您的信息仅用于回复您的纺织面料采购咨询。";
 
   function onFieldChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
@@ -176,6 +180,9 @@ export function InquiryForm({
   return (
     <form onSubmit={onSubmit} className="rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6">
       {title && <h3 className="mb-5 text-xl font-bold text-navy">{title}</h3>}
+      <p className="mb-5 rounded-lg bg-slate-50 px-4 py-3 text-xs leading-5 text-muted">
+        {trustText}
+      </p>
       <input type="hidden" name="formType" value={formType} />
       <div className={`grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
         {fields.map(([name, label]) => (

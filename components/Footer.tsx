@@ -12,8 +12,12 @@ export function Footer() {
     <footer className="border-t border-line bg-navy text-white">
       <div className="container-page grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <div className="text-xl font-bold">{t.brand}</div>
+          <div className="text-xl font-bold">Ruilong International</div>
           <p className="mt-4 max-w-sm text-sm leading-6 text-white/70">{t.footer.desc}</p>
+          <div className="mt-5 flex flex-wrap gap-3 text-sm">
+            <Link href="/privacy-policy" className="text-white/70 hover:text-white">{t.footer.privacy}</Link>
+            <Link href="/terms" className="text-white/70 hover:text-white">{t.footer.terms}</Link>
+          </div>
         </div>
         <div>
           <h3 className="font-semibold">{t.footer.quickLinks}</h3>
@@ -28,8 +32,8 @@ export function Footer() {
         <div>
           <h3 className="font-semibold">{t.footer.products}</h3>
           <div className="mt-4 grid gap-2">
-            {products.slice(0, 4).map((product) => (
-              <Link key={product.id} href="/products" className="text-sm text-white/70 hover:text-white">
+            {products.slice(0, 6).map((product) => (
+              <Link key={product.id} href={`/products?category=${encodeURIComponent(product.filters.category)}`} className="text-sm text-white/70 hover:text-white">
                 {product[lang].category}
               </Link>
             ))}
@@ -43,6 +47,7 @@ export function Footer() {
             <span>Phone: {contactInfo.phone} (editable)</span>
             <span>WhatsApp: {contactInfo.whatsapp} (editable)</span>
             <span>WeChat: {contactInfo.wechat} (editable)</span>
+            <span>ICP: {contactInfo.icp}</span>
           </div>
         </div>
       </div>
@@ -50,7 +55,11 @@ export function Footer() {
         <div className="container-page flex flex-col gap-2 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Ruilong International. {t.footer.copyright}</span>
           <span>
-            <Link href="/privacy-policy" className="hover:text-white">{t.footer.privacy}</Link> | {contactInfo.icp}
+            <Link href="/privacy-policy" className="hover:text-white">{t.footer.privacy}</Link>
+            {" | "}
+            <Link href="/terms" className="hover:text-white">{t.footer.terms}</Link>
+            {" | "}
+            {contactInfo.icp}
           </span>
         </div>
       </div>
