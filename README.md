@@ -165,6 +165,7 @@ NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
 NEXT_PUBLIC_SANITY_PROJECT_ID=drqtm4iz
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2025-01-01
+NEXT_PUBLIC_MAP_EMBED_URL=https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE
 ```
 
 The current Sanity project ID is `drqtm4iz`.
@@ -183,6 +184,7 @@ In Vercel:
 NEXT_PUBLIC_SANITY_PROJECT_ID
 NEXT_PUBLIC_SANITY_DATASET
 NEXT_PUBLIC_SANITY_API_VERSION
+NEXT_PUBLIC_MAP_EMBED_URL
 ```
 
 4. Keep the existing Formspree variable:
@@ -248,6 +250,78 @@ sanity/lib/queries.ts
 sanity/lib/content.ts
 app/admin/[[...tool]]/page.tsx
 ```
+
+### How to Add Product in `/admin`
+
+1. Open `/admin`.
+2. Choose **Product**.
+3. Add title, category, composition, width, weight, application, MOQ and lead time.
+4. Add features and tags as short buyer-friendly points.
+5. Set `language` to `en` or `zh`.
+6. Use `sortOrder` to control display order.
+7. Turn on `isFeatured` if the product should be treated as featured content.
+8. Publish.
+
+### How to Add News in `/admin`
+
+1. Open `/admin`.
+2. Choose **News**.
+3. Add title, excerpt, category and publish date.
+4. Add body content if needed.
+5. Set `language` to `en` or `zh`.
+6. Publish.
+
+### How to Add Case Study in `/admin`
+
+1. Open `/admin`.
+2. Choose **Case Study**.
+3. Add title, challenge, solution and result.
+4. Use neutral wording. Do not add fake client names or fake numbers.
+5. Set `language` to `en` or `zh`.
+6. Publish.
+
+### How to Check Frontend CMS Sync
+
+After publishing in Sanity:
+
+1. Open `/products`, `/news` or `/cases`.
+2. Refresh the page.
+3. Confirm the new CMS content appears.
+4. If no Sanity content appears, confirm Vercel has the correct Sanity environment variables.
+
+If Sanity has no content or the request fails, the frontend continues using local fallback content from `data/content.ts`.
+
+## How to Add Google Maps or OpenStreetMap
+
+The Contact page supports a responsive embedded map through:
+
+```text
+NEXT_PUBLIC_MAP_EMBED_URL
+```
+
+Google Maps option:
+
+1. Search the company address in Google Maps.
+2. Click **Share**.
+3. Click **Embed a map**.
+4. Copy only the `src` URL from the iframe code.
+5. Add the URL to Vercel Environment Variables as:
+
+```text
+NEXT_PUBLIC_MAP_EMBED_URL
+```
+
+6. Redeploy the project.
+
+OpenStreetMap option:
+
+1. Open OpenStreetMap.
+2. Search the business address.
+3. Use the share/embed option.
+4. Copy the iframe `src` URL.
+5. Add it as `NEXT_PUBLIC_MAP_EMBED_URL`.
+
+Do not add private API keys to the frontend. The current map setup only needs a public iframe URL.
 
 ## Push to GitHub
 

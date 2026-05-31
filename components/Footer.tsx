@@ -17,6 +17,7 @@ export function Footer() {
           <div className="mt-5 flex flex-wrap gap-3 text-sm">
             <Link href="/privacy-policy" className="text-white/70 hover:text-white">{t.footer.privacy}</Link>
             <Link href="/terms" className="text-white/70 hover:text-white">{t.footer.terms}</Link>
+            <Link href="/downloads" className="text-white/70 hover:text-white">{t.footer.downloads}</Link>
           </div>
         </div>
         <div>
@@ -27,6 +28,9 @@ export function Footer() {
                 {t.nav[item.key]}
               </Link>
             ))}
+            <Link href="/downloads" className="text-sm text-white/70 hover:text-white">
+              {t.footer.downloads}
+            </Link>
           </div>
         </div>
         <div>
@@ -58,6 +62,8 @@ export function Footer() {
             <Link href="/privacy-policy" className="hover:text-white">{t.footer.privacy}</Link>
             {" | "}
             <Link href="/terms" className="hover:text-white">{t.footer.terms}</Link>
+            {" | "}
+            <Link href="/downloads" className="hover:text-white">{t.footer.downloads}</Link>
             {" | "}
             {contactInfo.icp}
           </span>

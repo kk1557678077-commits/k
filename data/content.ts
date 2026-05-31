@@ -61,6 +61,7 @@ export const ui = {
       contact: "Contact",
       privacy: "Privacy Policy",
       terms: "Terms / Disclaimer",
+      downloads: "Downloads",
       copyright: "All rights reserved."
     }
   },
@@ -103,6 +104,7 @@ export const ui = {
       contact: "联系方式",
       privacy: "隐私政策",
       terms: "条款 / 免责声明",
+      downloads: "资料下载",
       copyright: "版权所有。"
     }
   }
