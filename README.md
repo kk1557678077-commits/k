@@ -114,6 +114,141 @@ The example file is:
 
 Do not commit `.env.local`.
 
+## Phase 3A Sanity CMS Setup
+
+Phase 3A adds an optional Sanity CMS backend for:
+
+- Products
+- News
+- Cases
+
+Homepage, About, Contact and Footer content still use local files for stability. If Sanity is not configured or returns no content, the website falls back to local content from:
+
+```text
+data/content.ts
+```
+
+### Install CMS Dependencies
+
+Run:
+
+```bash
+npm install
+```
+
+The required CMS packages are:
+
+- `sanity`
+- `next-sanity`
+- `@sanity/image-url`
+
+### Create a Sanity Account and Project
+
+1. Go to `https://www.sanity.io`.
+2. Create a Sanity account.
+3. Create a new project.
+4. Choose the free plan if available.
+5. Use dataset name:
+
+```text
+production
+```
+
+6. Copy the Sanity project ID.
+
+### Add Local Environment Variables
+
+Create `.env.local` in the project root:
+
+```bash
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+NEXT_PUBLIC_SANITY_PROJECT_ID=drqtm4iz
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2025-01-01
+```
+
+The current Sanity project ID is `drqtm4iz`.
+
+Do not commit `.env.local`.
+
+### Add Vercel Environment Variables
+
+In Vercel:
+
+1. Open the project dashboard.
+2. Go to **Settings > Environment Variables**.
+3. Add:
+
+```text
+NEXT_PUBLIC_SANITY_PROJECT_ID
+NEXT_PUBLIC_SANITY_DATASET
+NEXT_PUBLIC_SANITY_API_VERSION
+```
+
+4. Keep the existing Formspree variable:
+
+```text
+NEXT_PUBLIC_FORMSPREE_ENDPOINT
+```
+
+5. Redeploy the project after saving variables.
+
+### Open Sanity Studio
+
+After environment variables are configured and the site is running:
+
+```text
+http://localhost:3000/admin
+```
+
+On Vercel:
+
+```text
+https://YOUR_DOMAIN/admin
+```
+
+The Studio lets you add and edit Products, News and Case Studies.
+
+### Add CMS Content
+
+In Sanity Studio, create entries for:
+
+- Product
+- News
+- Case Study
+
+For bilingual content, create separate entries and set the `language` field to either:
+
+```text
+en
+zh
+```
+
+### CMS Fallback Behavior
+
+If Sanity is not configured, unavailable, or empty:
+
+- Products page uses local product data
+- News page uses local news data
+- Cases page uses local case data
+
+This protects the public website while CMS setup is still in progress.
+
+### Important CMS Files
+
+```text
+sanity.config.ts
+sanity.cli.ts
+sanity/schemaTypes/index.ts
+sanity/schemaTypes/product.ts
+sanity/schemaTypes/news.ts
+sanity/schemaTypes/caseStudy.ts
+sanity/lib/client.ts
+sanity/lib/queries.ts
+sanity/lib/content.ts
+app/admin/[[...tool]]/page.tsx
+```
+
 ## Push to GitHub
 
 Create a new GitHub repository, then run these commands inside the project folder:

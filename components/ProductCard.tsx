@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { products, ui } from "@/data/content";
+import { ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { VisualPlaceholder } from "@/components/VisualPlaceholder";
+import type { DisplayProduct } from "@/sanity/lib/content";
 
-type Product = (typeof products)[number];
+type Product = DisplayProduct;
 
 export function ProductCard({
   product,

@@ -10,12 +10,13 @@ import { VisualPlaceholder } from "@/components/VisualPlaceholder";
 import { pages, products, supplySteps, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { useState } from "react";
+import type { DisplayProduct } from "@/sanity/lib/content";
 
 export default function HomePage() {
   const { lang } = useLanguage();
   const t = ui[lang];
   const home = pages.home[lang];
-  const [selected, setSelected] = useState<(typeof products)[number] | null>(null);
+  const [selected, setSelected] = useState<DisplayProduct | null>(null);
 
   return (
     <>

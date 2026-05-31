@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { X } from "lucide-react";
-import { products, ui } from "@/data/content";
+import { ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { VisualPlaceholder } from "@/components/VisualPlaceholder";
+import type { DisplayProduct } from "@/sanity/lib/content";
 
-type Product = (typeof products)[number];
+type Product = DisplayProduct;
 
 export function ProductModal({
   product,
