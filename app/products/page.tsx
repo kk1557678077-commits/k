@@ -31,8 +31,21 @@ export default function ProductsPage() {
   );
 
   const labels = lang === "en"
-    ? { title: "Products", text: "Sample product data for Phase 1. Edit details in the local content file.", category: "Category", function: "Function", application: "Application" }
-    : { title: "产品中心", text: "Phase 1 使用本地样例产品数据，可在内容文件中编辑。", category: "分类", function: "功能", application: "应用" };
+    ? {
+        title: "Products",
+        text:
+          "Browse practical fabric directions for sourcing discussion. Final composition, width, weight, MOQ and lead time are confirmed by sample, color, finishing and quantity.",
+        category: "Category",
+        function: "Function",
+        application: "Application"
+      }
+    : {
+        title: "产品中心",
+        text: "浏览适用于采购沟通的面料方向。最终成分、门幅、克重、MOQ与交期需结合样品、颜色、后整理与数量确认。",
+        category: "分类",
+        function: "功能",
+        application: "应用"
+      };
 
   return (
     <section className="section bg-slate-50">

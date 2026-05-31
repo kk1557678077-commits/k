@@ -56,6 +56,19 @@ export function ProductModal({
                 </div>
               ))}
             </dl>
+            <div className="mt-5 rounded-lg bg-slate-50 p-4">
+              <h4 className="text-sm font-bold text-navy">
+                {lang === "en" ? "Key Features" : "主要特点"}
+              </h4>
+              <ul className="mt-3 grid gap-2 text-sm leading-6 text-muted">
+                {item.features.map((feature) => (
+                  <li key={feature} className="flex gap-2">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <Link
               href="/contact"
               className="focus-ring mt-6 inline-flex rounded-full bg-gold px-5 py-3 text-sm font-semibold text-white"

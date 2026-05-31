@@ -31,7 +31,7 @@ Ruilong International is positioned as a practical B2B sourcing and supply chain
 - Header navigation with quote CTA
 - Product filters by category, function and application
 - Product detail modal
-- Inquiry, sample request and quote forms with success message
+- Inquiry, sample request, quote and custom fabric forms connected to Formspree when configured
 - Floating contact buttons
 - Basic SEO metadata and Open Graph placeholder metadata
 - Editable placeholder contact information
@@ -332,17 +332,121 @@ In Vercel:
 - `components/FloatingContact.tsx` - floating contact buttons
 - `.gitignore` - excludes `node_modules` and build output
 
-## Phase 1 Form Behavior
+## Phase 2B Editing Notes
 
-Forms currently show a success message and reset the fields. They do not send email and do not store data.
+### Update Products
 
-Future Phase 2 options:
+Product cards, product filters and product modal details are controlled by:
 
-- Email delivery through Resend, SendGrid or SMTP
-- CRM integration
-- Database storage
-- Spam protection
-- Admin notifications
+```text
+data/content.ts
+```
+
+Edit the `products` array to update:
+
+- Product name
+- Category
+- Description
+- Composition
+- Width
+- Weight
+- Application
+- MOQ placeholder
+- Lead time placeholder
+- Key features
+- Tags and filter values
+
+Keep product claims realistic. Do not add unverified certifications, production capacity, client names or export market claims.
+
+### Replace Images
+
+Prepared image folders are:
+
+```text
+public/images/hero
+public/images/products
+public/images/supply-chain
+public/images/cases
+public/images/about
+```
+
+Add real images to these folders, then replace the current Unsplash URLs in:
+
+```text
+data/content.ts
+app/page.tsx
+```
+
+Example local path:
+
+```text
+/images/products/denim-fabric.jpg
+```
+
+Recommended image use:
+
+- `hero` - business cooperation, textile sourcing or fabric warehouse visuals
+- `products` - denim, casual, functional and custom fabric photos
+- `supply-chain` - yarn, warping, weaving, finishing, inspection, packaging and warehouse photos
+- `cases` - neutral fabric/project reference images without fake client branding
+- `about` - Xiqiao/Foshan location, office, team or textile market references
+
+### Change Contact Details
+
+Contact details are centralized in:
+
+```text
+data/content.ts
+```
+
+Update the `contactInfo` object:
+
+- Email
+- Phone
+- WhatsApp
+- WeChat
+- Address
+- ICP filing placeholder
+
+These values appear in the Contact page, Footer and Floating Contact buttons.
+
+### Test Formspree
+
+Before testing live forms, confirm this environment variable exists locally and in Vercel:
+
+```text
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/YOUR_FORM_ID
+```
+
+Then:
+
+1. Run `npm run dev`.
+2. Open `/contact`.
+3. Submit a test inquiry.
+4. Confirm the page shows a success message.
+5. Check Formspree submissions and the receiving email inbox.
+6. If emails go to spam, mark them as not spam and consider using a verified business email/domain later.
+
+The form logic is in:
+
+```text
+components/InquiryForm.tsx
+```
+
+Current forms send a structured JSON payload to Formspree. They do not store data in a database.
+
+### Redeploy
+
+After editing:
+
+```bash
+npm run build
+git add .
+git commit -m "Update website content"
+git push
+```
+
+Vercel will automatically redeploy the latest GitHub commit.
 
 ## Phase 2 Upgrade Ideas
 

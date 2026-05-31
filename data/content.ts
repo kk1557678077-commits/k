@@ -117,6 +117,15 @@ export const pages = {
       supplyTitle: "Supply Chain Coordination Preview",
       whyTitle: "Why Work With Ruilong International",
       inquiryTitle: "Quick Inquiry",
+      trustTitle: "Practical Trust Signals for B2B Buyers",
+      trustText:
+        "We keep the cooperation process transparent: clear requirements, realistic sample discussion, written quotation points and inspection coordination before delivery.",
+      howWorkTitle: "How We Work",
+      howWorkText:
+        "A straightforward service flow for buyers who need fabric sourcing, sample development or quotation support from Foshan.",
+      finalCtaTitle: "Ready to discuss a fabric requirement?",
+      finalCtaText:
+        "Share your fabric type, application, estimated quantity, target price and delivery country. We will review the details and reply with a practical next step.",
       strengths: [
         ["Foshan Textile Sourcing", "Based in Xiqiao, Foshan, we help buyers communicate with relevant fabric, finishing and garment-related resources."],
         ["Buyer Requirement Clarification", "We support specification discussion, fabric comparison, sample direction and quotation preparation."],
@@ -130,6 +139,24 @@ export const pages = {
         "Chinese and English communication for international buyers",
         "Practical OEM/ODM coordination for fabric and garment-related needs",
         "Quality inspection coordination before delivery when required"
+      ],
+      trustSignals: [
+        ["Transparent sourcing process", "Requirements, sample options and quotation points are organized clearly before buyers make decisions."],
+        ["Sample request support", "We help clarify sample purpose, fabric direction, handfeel, color and delivery notes before arranging samples."],
+        ["Development communication", "For custom fabrics, we translate buyer references into practical notes for composition, weight, width and finishing."],
+        ["Inspection coordination", "Inspection points can be aligned around appearance, color, width, weight, packing and agreed specifications."],
+        ["Export communication support", "We assist with bilingual communication for packing notes, delivery timing and export-related coordination."],
+        ["Buyer-focused follow-up", "The process is built around clear next steps, realistic timelines and practical feedback after each stage."]
+      ],
+      howWeWork: [
+        ["Submit Inquiry", "Send fabric type, application, estimated quantity and any reference sample or photos."],
+        ["Confirm Requirements", "We clarify composition, width, weight, handfeel, color, function and delivery expectations."],
+        ["Recommend Fabric / Develop Sample", "Suitable stock directions or custom sample routes are discussed according to the project."],
+        ["Quotation", "Quotation points are prepared after specifications, sample route and quantity direction are clear."],
+        ["Sample Confirmation", "Buyer feedback is collected and adjustment points are communicated before order follow-up."],
+        ["Production Coordination", "Order notes, timing and technical requirements are coordinated with relevant supply chain resources."],
+        ["Inspection", "Appearance, specification and packing checks are coordinated according to agreed requirements."],
+        ["Delivery Support", "Delivery details and export communication are followed up based on buyer instructions."]
       ]
     },
     zh: {
@@ -140,6 +167,12 @@ export const pages = {
       supplyTitle: "供应链协调预览",
       whyTitle: "为什么选择瑞隆国际",
       inquiryTitle: "快速询盘",
+      trustTitle: "面向B2B买家的务实信任支持",
+      trustText: "我们重视透明协作：明确需求、务实讨论样品方向、整理报价要点，并在交付前协调检验事项。",
+      howWorkTitle: "服务流程",
+      howWorkText: "面向需要佛山面料采购、样品开发或报价支持的买家，提供清晰直接的服务流程。",
+      finalCtaTitle: "准备沟通面料需求？",
+      finalCtaText: "请提供面料类型、用途、预计数量、目标价格与交付国家/地区。我们会评估信息并回复可执行的下一步。",
       strengths: [
         ["佛山纺织采购资源", "立足佛山西樵，协助买家与相关面料、后整理及服装配套资源进行沟通。"],
         ["买家需求梳理", "支持规格沟通、面料方案比较、打样方向确认与报价准备。"],
@@ -153,6 +186,24 @@ export const pages = {
         "提供面向国际买家的中英文沟通",
         "可围绕面料与服装相关需求进行OEM/ODM协调",
         "按项目需要协助交付前质量检查协调"
+      ],
+      trustSignals: [
+        ["透明采购流程", "在买家决策前清晰整理需求、样品选项与报价要点。"],
+        ["样品申请支持", "在安排样品前协助明确样品用途、面料方向、手感、颜色与交付说明。"],
+        ["开发沟通支持", "针对定制面料，将买家参考样转化为成分、克重、门幅与后整理等可执行说明。"],
+        ["检验协调", "可围绕布面、颜色、门幅、克重、包装与约定规格协调检查要点。"],
+        ["出口沟通支持", "协助进行包装要求、交付时间与出口相关事项的中英文沟通。"],
+        ["以买家为中心的跟进", "流程围绕清晰下一步、务实时间安排与阶段性反馈展开。"]
+      ],
+      howWeWork: [
+        ["提交询盘", "发送面料类型、用途、预计数量，以及参考样或图片。"],
+        ["确认需求", "明确成分、门幅、克重、手感、颜色、功能与交付预期。"],
+        ["推荐面料 / 开发样品", "根据项目讨论现货方向或定制打样路线。"],
+        ["报价", "在规格、样品路线与数量方向明确后整理报价要点。"],
+        ["样品确认", "收集买家反馈，并在订单跟进前沟通调整点。"],
+        ["生产协调", "与相关供应链资源协调订单说明、时间安排与技术要求。"],
+        ["检验", "根据约定需求协调外观、规格与包装检查。"],
+        ["交付支持", "根据买家指示跟进交付细节与出口沟通。"]
       ]
     }
   },
@@ -222,6 +273,7 @@ export const products = [
       application: "Jeans, jackets, casual trousers",
       moq: "To be confirmed by specification",
       leadTime: "To be confirmed after sample and quotation",
+      features: ["Stretch direction available", "Indigo shade and wash direction discussion", "Suitable for denim garment development"],
       tags: ["Denim", "Stretch", "Garment"]
     },
     zh: {
@@ -234,6 +286,7 @@ export const products = [
       application: "牛仔裤、夹克、休闲裤",
       moq: "按规格确认",
       leadTime: "打样与报价后确认",
+      features: ["可讨论弹力方向", "支持靛蓝色泽与洗水方向沟通", "适合牛仔服装开发"],
       tags: ["牛仔", "弹力", "服装"]
     },
     filters: { category: "Denim Fabric", function: "Stretch", application: "Garment" }
@@ -251,6 +304,7 @@ export const products = [
       application: "Shirts, trousers, uniforms",
       moq: "To be confirmed by color and specification",
       leadTime: "To be confirmed after quotation",
+      features: ["Stable twill structure", "Color and weight options by project", "Practical for repeated casualwear programs"],
       tags: ["Twill", "Casual", "Stable"]
     },
     zh: {
@@ -263,6 +317,7 @@ export const products = [
       application: "衬衫、裤装、制服",
       moq: "按颜色与规格确认",
       leadTime: "报价后确认",
+      features: ["斜纹组织稳定", "颜色与克重可按项目沟通", "适合持续型休闲服装项目"],
       tags: ["斜纹", "休闲", "稳定"]
     },
     filters: { category: "Casual Fabric", function: "Durable", application: "Garment" }
@@ -280,6 +335,7 @@ export const products = [
       application: "Outdoor, workwear, bags",
       moq: "To be confirmed by finishing requirement",
       leadTime: "To be confirmed after sample direction",
+      features: ["Water resistant finishing direction", "Outdoor and workwear applications", "Testing requirements can be discussed"],
       tags: ["Functional", "Water Resistant", "Outdoor"]
     },
     zh: {
@@ -292,6 +348,7 @@ export const products = [
       application: "户外、工装、箱包",
       moq: "按后整理要求确认",
       leadTime: "样品方向确认后确定",
+      features: ["防泼水后整理方向", "适用于户外与工装应用", "可沟通测试要求"],
       tags: ["功能", "防泼水", "户外"]
     },
     filters: { category: "Functional Fabric", function: "Water Resistant", application: "Outdoor" }
@@ -309,6 +366,7 @@ export const products = [
       application: "Brand development, OEM/ODM coordination",
       moq: "To be confirmed by development route",
       leadTime: "To be confirmed after sample review",
+      features: ["Develop from buyer reference sample", "Coordinate handfeel, color and finish", "Suitable for OEM/ODM communication"],
       tags: ["Custom", "Sampling", "OEM/ODM"]
     },
     zh: {
@@ -321,6 +379,7 @@ export const products = [
       application: "品牌开发、OEM/ODM协调",
       moq: "按开发路线确认",
       leadTime: "样品评估后确认",
+      features: ["可根据买家参考样开发", "协调手感、颜色与后整理", "适合OEM/ODM沟通"],
       tags: ["定制", "打样", "OEM/ODM"]
     },
     filters: { category: "Custom Fabric", function: "Custom", application: "OEM/ODM" }
@@ -338,6 +397,7 @@ export const products = [
       application: "Casualwear, womenswear",
       moq: "To be confirmed by color and finish",
       leadTime: "To be confirmed after sampling",
+      features: ["Soft handfeel direction", "Comfort-focused garment use", "Color and finish discussion available"],
       tags: ["New", "Soft Touch", "Denim"]
     },
     zh: {
@@ -350,6 +410,7 @@ export const products = [
       application: "休闲装、女装",
       moq: "按颜色与后整理确认",
       leadTime: "打样后确认",
+      features: ["柔软手感方向", "适合舒适型服装应用", "可沟通颜色与后整理"],
       tags: ["新品", "柔软", "牛仔"]
     },
     filters: { category: "New Arrivals", function: "Soft Touch", application: "Garment" }
