@@ -9,7 +9,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 const categories = ["All", "Denim Fabric", "Casual Fabric", "Functional Fabric", "Custom Fabric", "New Arrivals"];
 const functions = ["All", "Stretch", "Durable", "Water Resistant", "Custom", "Soft Touch"];
-const applications = ["All", "Garment", "Outdoor", "OEM/ODM"];
+const applications = ["All", "Garment", "Outdoor", "Workwear", "OEM/ODM"];
 
 export default function ProductsPage() {
   const { lang } = useLanguage();
@@ -51,6 +51,13 @@ export default function ProductsPage() {
     <section className="section bg-slate-50">
       <div className="container-page">
         <SectionHeading title={labels.title} text={labels.text} />
+        <div className="mb-6 rounded-lg border border-line bg-white p-5 shadow-sm">
+          <p className="text-sm leading-7 text-muted">
+            {lang === "en"
+              ? "Select a fabric category or send us your target composition, weight, application and quantity. Our team will help confirm suitable sourcing options."
+              : "请选择面料分类，或直接发送目标成分、克重、用途与数量。我们会协助确认合适的采购方向。"}
+          </p>
+        </div>
         <div className="mb-8 grid gap-4 rounded-lg border border-line bg-white p-5 shadow-sm md:grid-cols-3">
           <Filter label={labels.category} value={category} options={categories} onChange={setCategory} />
           <Filter label={labels.function} value={func} options={functions} onChange={setFunc} />

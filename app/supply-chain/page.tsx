@@ -1,6 +1,7 @@
 "use client";
 
 import { SectionHeading } from "@/components/SectionHeading";
+import { VisualPlaceholder } from "@/components/VisualPlaceholder";
 import { supplySteps } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -35,6 +36,23 @@ export default function SupplyChainPage() {
         <div className="mb-8 rounded-lg border border-line bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-navy">{labels.noteTitle}</h2>
           <p className="mt-3 text-sm leading-7 text-muted">{labels.noteText}</p>
+        </div>
+        <div className="mb-8 grid gap-5 md:grid-cols-3">
+          <VisualPlaceholder
+            label={lang === "en" ? "Weaving process image placeholder" : "织造流程图片占位"}
+            sublabel="/images/supply-chain/weaving-process.jpg"
+            tone="denim"
+          />
+          <VisualPlaceholder
+            label={lang === "en" ? "Finishing process image placeholder" : "后整理流程图片占位"}
+            sublabel="/images/supply-chain/finishing-process.jpg"
+            tone="gold"
+          />
+          <VisualPlaceholder
+            label={lang === "en" ? "Quality inspection image placeholder" : "质量检验图片占位"}
+            sublabel="/images/supply-chain/quality-inspection.jpg"
+            tone="navy"
+          />
         </div>
         <div className="relative grid gap-5 lg:grid-cols-3">
           {supplySteps[lang].map(([title, text], index) => (

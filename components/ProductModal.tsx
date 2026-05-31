@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { products, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
+import { VisualPlaceholder } from "@/components/VisualPlaceholder";
 
 type Product = (typeof products)[number];
 
@@ -43,10 +43,13 @@ export function ProductModal({
           </button>
         </div>
         <div className="grid gap-6 p-5 sm:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-100">
-            <Image src={product.image} alt={item.name} fill className="object-cover" />
+          <div className="aspect-[4/3] overflow-hidden rounded-lg bg-slate-100">
+            <VisualPlaceholder label={item.imageLabel} sublabel={product.imagePath} tone={product.placeholderTone} />
           </div>
           <div>
+            <p className="mb-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-charcoal">
+              {lang === "en" ? "Suggested inquiry" : "建议询盘"}: {product.inquiryType}
+            </p>
             <p className="text-sm leading-6 text-muted">{item.description}</p>
             <dl className="mt-5 grid gap-3">
               {specs.map(([label, value]) => (

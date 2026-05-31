@@ -190,17 +190,60 @@ Edit this file to update:
 - Case cards
 - News placeholders
 
-The current images use Unsplash URLs. To replace them with real company or product images:
+The site currently uses clean textile-style placeholder blocks instead of broken or external images. Replace them with real company and product images when ready.
 
-1. Add real images to the prepared folders:
-   - `public/images/hero` - homepage hero and business cooperation visuals
-   - `public/images/products` - denim, casual, functional and custom fabric product photos
-   - `public/images/supply-chain` - yarn, weaving, finishing, inspection and warehouse photos
-   - `public/images/cases` - project or material reference images
-   - `public/images/about` - company, location or team-related images
-2. Change image paths in `data/content.ts` and `app/page.tsx`.
-3. Use paths like `/images/denim-fabric.jpg`.
-4. Keep descriptive `alt` text for SEO and accessibility.
+Recommended folders:
+
+- `public/images/hero` - homepage hero, textile sourcing, warehouse or buyer cooperation image
+- `public/images/products` - denim, casual, functional, workwear and custom fabric photos
+- `public/images/supply-chain` - yarn, warping, weaving, finishing, inspection, packaging and warehouse photos
+- `public/images/cases` - neutral fabric/project reference images without fake client branding
+- `public/images/about` - Xiqiao/Foshan location, office, team or textile market references
+
+Recommended image size and format:
+
+- Hero: 1600 x 1200 px or larger, JPG/WebP
+- Product cards: 1200 x 900 px, JPG/WebP
+- Supply chain/process: 1200 x 800 px, JPG/WebP
+- Case/about images: 1200 x 800 px, JPG/WebP
+- Keep file names lowercase and descriptive, for example `mid-weight-denim-fabric.jpg`
+
+To replace product images:
+
+1. Add the real image to `public/images/products`.
+2. Open `data/content.ts`.
+3. Update the product `imagePath`, for example:
+
+```text
+imagePath: "/images/products/mid-weight-denim-fabric.jpg"
+```
+
+4. Update `imageLabel` text if the image subject changes.
+
+To replace hero, about, cases or supply chain placeholders, update the related page component:
+
+- `app/page.tsx`
+- `app/about/page.tsx`
+- `app/cases/page.tsx`
+- `app/supply-chain/page.tsx`
+- `app/contact/page.tsx`
+
+The reusable placeholder component is:
+
+```text
+components/VisualPlaceholder.tsx
+```
+
+After image changes, run:
+
+```bash
+npm run build
+git add .
+git commit -m "Update website images"
+git push
+```
+
+Vercel will redeploy automatically after GitHub receives the push.
 
 ## Next Editing Guide
 
@@ -240,11 +283,20 @@ Recommended mapping:
 - Case images: `public/images/cases`
 - About/location images: `public/images/about`
 
-After adding files, replace Unsplash URLs with local paths such as:
+After adding files, replace placeholder image paths in `data/content.ts` with local paths such as:
 
 ```text
 /images/products/denim-fabric.jpg
 ```
+
+Recommended image sizes:
+
+- Hero: 1600 x 1200 px or larger
+- Product: 1200 x 900 px
+- Supply chain: 1200 x 800 px
+- Cases/about: 1200 x 800 px
+
+Recommended formats: JPG or WebP for photos, PNG only when transparency is needed.
 
 ### Change Contact Information
 
@@ -320,7 +372,7 @@ In Vercel:
 ## Important Files to Check Before Uploading
 
 - `package.json` - scripts and dependency versions
-- `next.config.js` - image domain configuration
+- `next.config.js` - Next.js project configuration
 - `tailwind.config.ts` - Tailwind content paths and theme colors
 - `app/layout.tsx` - global metadata and site shell
 - `app/page.tsx` - homepage
@@ -370,11 +422,15 @@ public/images/cases
 public/images/about
 ```
 
-Add real images to these folders, then replace the current Unsplash URLs in:
+Add real images to these folders, then update the related placeholder paths or page components:
 
 ```text
 data/content.ts
 app/page.tsx
+app/about/page.tsx
+app/cases/page.tsx
+app/supply-chain/page.tsx
+app/contact/page.tsx
 ```
 
 Example local path:
@@ -390,6 +446,15 @@ Recommended image use:
 - `supply-chain` - yarn, warping, weaving, finishing, inspection, packaging and warehouse photos
 - `cases` - neutral fabric/project reference images without fake client branding
 - `about` - Xiqiao/Foshan location, office, team or textile market references
+
+Recommended image size and format:
+
+- Hero: 1600 x 1200 px or larger, JPG/WebP
+- Product: 1200 x 900 px, JPG/WebP
+- Supply chain: 1200 x 800 px, JPG/WebP
+- Cases/about: 1200 x 800 px, JPG/WebP
+
+The product data includes `imagePath` for each sample product. Add the real file to `public/images/products`, then update the matching `imagePath` in `data/content.ts`.
 
 ### Change Contact Details
 

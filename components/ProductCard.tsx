@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { products, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
+import { VisualPlaceholder } from "@/components/VisualPlaceholder";
 
 type Product = (typeof products)[number];
 
@@ -24,12 +24,15 @@ export function ProductCard({
 
   return (
     <article className="overflow-hidden rounded-lg border border-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-      <div className="relative aspect-[4/3] bg-slate-100">
-        <Image src={product.image} alt={item.name} fill className="object-cover" />
+      <div className="aspect-[4/3] bg-slate-100">
+        <VisualPlaceholder label={item.imageLabel} sublabel={product.imagePath} tone={product.placeholderTone} />
       </div>
       <div className="p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
           {item.category}
+        </p>
+        <p className="mt-2 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-charcoal">
+          {lang === "en" ? "Suggested inquiry" : "建议询盘"}: {product.inquiryType}
         </p>
         <h3 className="mt-2 text-xl font-bold text-navy">{item.name}</h3>
         <p className="mt-2 min-h-12 text-sm leading-6 text-muted">{item.description}</p>

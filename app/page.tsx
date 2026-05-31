@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowRight, CheckCircle2, ClipboardCheck, FileText, PackageCheck, Search, Send, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InquiryForm } from "@/components/InquiryForm";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
 import { SectionHeading } from "@/components/SectionHeading";
+import { VisualPlaceholder } from "@/components/VisualPlaceholder";
 import { pages, products, supplySteps, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { useState } from "react";
@@ -44,13 +44,11 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-soft">
-            <Image
-              src="https://images.unsplash.com/photo-1495414785729-6bc409fb2a7c?auto=format&fit=crop&w=1200&q=80"
-              alt="Textile fabric sourcing and business cooperation"
-              fill
-              priority
-              className="object-cover"
+          <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-soft">
+            <VisualPlaceholder
+              label={lang === "en" ? "Hero textile sourcing image placeholder" : "首页纺织采购图片占位"}
+              sublabel={lang === "en" ? "Replace with a real fabric sourcing, warehouse or buyer cooperation image." : "后续替换为真实面料采购、仓储或买家合作图片。"}
+              tone="denim"
             />
           </div>
         </div>
