@@ -8,18 +8,27 @@ import { navItems, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 
 const mainNavItems = [
-  { href: "/", label: "Home" },
-  { href: "/#about", label: "About" },
-  { href: "/#location", label: "Location" },
-  { href: "/#commercial-space", label: "Commercial Space" },
-  { href: "/#opportunities", label: "Opportunities" },
-  { href: "/#cooperation", label: "Cooperation" },
-  { href: "/news", label: "News" },
-  { href: "/#contact", label: "Contact" },
-  { href: "/textile", label: "Textile" }
+  { href: "/", label: "首页" },
+  { href: "/#project", label: "项目介绍" },
+  { href: "/#location", label: "区位优势" },
+  { href: "/#opportunities", label: "招商业态" },
+  { href: "/#cooperation", label: "合作模式" },
+  { href: "/#resources", label: "商业配套" },
+  { href: "/#contact", label: "联系咨询" },
+  { href: "/textile", label: "进入瑞龙纺织" }
 ];
 
-const textilePaths = ["/textile", "/products", "/supply-chain", "/rd-technology", "/cases", "/downloads"];
+const textilePaths = [
+  "/textile",
+  "/about",
+  "/products",
+  "/supply-chain",
+  "/rd-technology",
+  "/cases",
+  "/news",
+  "/downloads",
+  "/contact"
+];
 
 export function Header() {
   const { lang, toggleLang } = useLanguage();
@@ -27,21 +36,22 @@ export function Header() {
   const pathname = usePathname();
   const t = ui[lang];
   const isTextileArea = textilePaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-  const brand = isTextileArea ? "Ruilong Textile" : "Ruilong International";
-  const subtitle = isTextileArea ? "Textile sourcing" : "Business cooperation";
-  const primaryCtaHref = isTextileArea ? "/contact" : "/#contact";
-  const primaryCtaLabel = isTextileArea ? t.cta.quote : "Contact Us";
+  const brand = isTextileArea ? "Ruilong Textile" : "瑞龙国际";
+  const subtitle = isTextileArea ? "Textile sourcing | Xiqiao, Foshan" : "招商合作平台 | 佛山西樵";
+  const logoHref = isTextileArea ? "/textile" : "/";
+  const switchHref = isTextileArea ? "/" : "/textile";
+  const switchLabel = isTextileArea ? "瑞龙国际招商" : "进入瑞龙纺织";
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
       <div className="container-page flex min-h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+        <Link href={logoHref} className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-sm font-bold text-white">
             RL
           </span>
           <span>
             <span className="block text-base font-bold text-navy">{brand}</span>
-            <span className="hidden text-xs text-muted sm:block">{subtitle} | Xiqiao, Foshan</span>
+            <span className="hidden text-xs text-muted sm:block">{subtitle}</span>
           </span>
         </Link>
 
@@ -68,17 +78,19 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <button
-            onClick={toggleLang}
-            className="focus-ring rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy"
-          >
-            {lang === "en" ? "中文" : "EN"}
-          </button>
+          {isTextileArea && (
+            <button
+              onClick={toggleLang}
+              className="focus-ring rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy"
+            >
+              {lang === "en" ? "中文" : "EN"}
+            </button>
+          )}
           <Link
-            href={primaryCtaHref}
+            href={switchHref}
             className="focus-ring rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#a27f43]"
           >
-            {primaryCtaLabel}
+            {switchLabel}
           </Link>
         </div>
 
@@ -116,18 +128,20 @@ export function Header() {
                   </Link>
                 ))}
             <div className="mt-2 flex gap-2">
-              <button
-                onClick={toggleLang}
-                className="focus-ring flex-1 rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy"
-              >
-                {lang === "en" ? "中文" : "EN"}
-              </button>
+              {isTextileArea && (
+                <button
+                  onClick={toggleLang}
+                  className="focus-ring flex-1 rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy"
+                >
+                  {lang === "en" ? "中文" : "EN"}
+                </button>
+              )}
               <Link
-                href={primaryCtaHref}
+                href={switchHref}
                 onClick={() => setOpen(false)}
                 className="focus-ring flex-1 rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white"
               >
-                {primaryCtaLabel}
+                {switchLabel}
               </Link>
             </div>
           </div>

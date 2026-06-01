@@ -34,6 +34,9 @@ export function HomeClient({ homepageContent }: { homepageContent: DisplayHomepa
               {cmsHome.heroSubtitle}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/" variant="secondary">
+                {lang === "en" ? "Ruilong Investment" : "瑞龙国际招商"}
+              </ButtonLink>
               <ButtonLink href="/contact">{cmsHome.primaryButtonText}</ButtonLink>
               <ButtonLink href="/contact" variant="secondary">{cmsHome.secondaryButtonText}</ButtonLink>
               <ButtonLink href="/products" variant="ghost">{t.cta.products}</ButtonLink>

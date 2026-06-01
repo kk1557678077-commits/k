@@ -6,23 +6,24 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 
 const siteUrl = "https://www.ruilong.icu";
-const seoTitle = "Ruilong International | Business & Investment Cooperation";
+const seoTitle = "瑞龙国际｜佛山西樵招商合作平台";
 const seoDescription =
-  "Ruilong International is a business cooperation and investment attraction platform based in Xiqiao, Foshan, Guangdong, China, supporting commercial leasing, project cooperation and business inquiries.";
+  "瑞龙国际立足佛山西樵，面向商业空间、品牌入驻、项目合作与产业资源合作提供招商咨询与合作对接。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: seoTitle,
-    template: "%s | Ruilong International"
+    template: "%s | 瑞龙国际"
   },
   description: seoDescription,
   keywords: [
-    "Ruilong International",
-    "Xiqiao Foshan investment",
-    "commercial leasing Foshan",
-    "business cooperation Guangdong",
-    "investment attraction Foshan"
+    "瑞龙国际",
+    "佛山西樵招商",
+    "商业空间",
+    "品牌入驻",
+    "项目合作",
+    "产业资源合作"
   ],
   alternates: {
     canonical: siteUrl
@@ -31,9 +32,9 @@ export const metadata: Metadata = {
     title: seoTitle,
     description: seoDescription,
     url: siteUrl,
-    siteName: "Ruilong International",
+    siteName: "瑞龙国际",
     type: "website",
-    locale: "en_US"
+    locale: "zh_CN"
   },
   twitter: {
     card: "summary_large_image",
@@ -46,7 +47,7 @@ export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body>
         <LanguageProvider>
           <Header />

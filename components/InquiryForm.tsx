@@ -57,8 +57,16 @@ export function InquiryForm({
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState<FormValues>(initialValues);
   const isInvestmentForm = formType === "Investment Inquiry";
-  const formMessages =
-    lang === "en"
+
+  const formMessages = isInvestmentForm
+    ? {
+        sending: "正在提交...",
+        success: "感谢您提交招商合作咨询，我们已收到您的信息。",
+        required: "请填写姓名、邮箱和留言后再提交。",
+        error: "抱歉，表单暂时未能发送。请稍后重试，或直接通过电话/邮箱联系。",
+        missingEndpoint: "表单服务尚未配置。请在 Vercel 环境变量中添加 NEXT_PUBLIC_FORMSPREE_ENDPOINT。"
+      }
+    : lang === "en"
       ? {
           sending: "Sending...",
           success: "Thank you. Your inquiry has been sent successfully.",
@@ -70,15 +78,16 @@ export function InquiryForm({
       : {
           sending: "正在发送...",
           success: "感谢您提交询盘，我们已收到您的信息。",
-          required: "请填写姓名、邮箱和留言内容后再提交。",
+          required: "请填写姓名、邮箱和留言后再提交。",
           error: "抱歉，表单暂时未能发送。请稍后重试，或直接通过邮箱联系我们。",
-          missingEndpoint:
-            "表单服务尚未配置。请在 Vercel 环境变量中添加 NEXT_PUBLIC_FORMSPREE_ENDPOINT。"
+          missingEndpoint: "表单服务尚未配置。请在 Vercel 环境变量中添加 NEXT_PUBLIC_FORMSPREE_ENDPOINT。"
         };
-  const trustText =
-    lang === "en"
+
+  const trustText = isInvestmentForm
+    ? "您的信息仅用于瑞龙国际招商合作咨询与项目沟通。"
+    : lang === "en"
       ? "Your information will only be used to respond to your textile sourcing inquiry."
-      : "您的信息仅用于回复您的纺织面料采购咨询。";
+      : "您的信息仅用于回复您的纺织面料采购询盘。";
 
   function onFieldChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
@@ -145,7 +154,7 @@ export function InquiryForm({
       summary: [
         `Form type: ${formType}`,
         `Name: ${cleanedValues.name}`,
-        `Company: ${cleanedValues.company || "Not provided"}`,
+        `Company / Brand: ${cleanedValues.company || "Not provided"}`,
         `Country: ${cleanedValues.country || "Not provided"}`,
         `Email: ${cleanedValues.email}`,
         `Phone: ${cleanedValues.phone || "Not provided"}`,
@@ -164,8 +173,6 @@ export function InquiryForm({
     setSubmitState("loading");
     setErrorMessage("");
 
-    // Future upgrade point: replace Formspree with a Vercel API route,
-    // Resend, Supabase, or CRM integration without changing the visible form UI.
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -190,13 +197,13 @@ export function InquiryForm({
 
   const fields = isInvestmentForm
     ? [
-        ["name", "Name"],
-        ["company", "Company"],
-        ["phone", "Phone"],
-        ["email", "Email"],
-        ["cooperationType", "Cooperation Type"],
-        ["spaceRequirement", "Space Requirement"],
-        ["businessCategory", "Business Category"]
+        ["name", "姓名"],
+        ["company", "公司/品牌"],
+        ["phone", "联系电话"],
+        ["email", "邮箱"],
+        ["cooperationType", "合作类型"],
+        ["spaceRequirement", "需求面积/空间需求"],
+        ["businessCategory", "业态类型"]
       ]
     : [
         ["name", t.forms.name],
@@ -231,7 +238,7 @@ export function InquiryForm({
           </label>
         ))}
         <label className={`grid gap-2 text-sm font-medium text-charcoal ${compact ? "" : "sm:col-span-2"}`}>
-          {isInvestmentForm ? "Message" : t.forms.message}
+          {isInvestmentForm ? "留言" : t.forms.message}
           <textarea
             name="message"
             rows={5}
@@ -247,7 +254,7 @@ export function InquiryForm({
         disabled={submitState === "loading"}
         className="focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"
       >
-        {submitState === "loading" ? formMessages.sending : t.cta.submit}
+        {submitState === "loading" ? formMessages.sending : isInvestmentForm ? "提交咨询" : t.cta.submit}
       </button>
       {submitState === "success" && (
         <p className="mt-4 rounded-lg bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
