@@ -21,6 +21,7 @@ import {
 type SanityProduct = {
   _id: string;
   title?: string;
+  translationKey?: string;
   slug?: string;
   category?: string;
   composition?: string;
@@ -39,6 +40,7 @@ type SanityProduct = {
 type SanityNews = {
   _id: string;
   title?: string;
+  translationKey?: string;
   excerpt?: string;
   category?: string;
   publishedAt?: string;
@@ -48,6 +50,7 @@ type SanityNews = {
 type SanityCase = {
   _id: string;
   title?: string;
+  translationKey?: string;
   challenge?: string;
   solution?: string;
   result?: string;
@@ -58,6 +61,7 @@ type SanityCase = {
 type SanityDownloadItem = {
   _id: string;
   title?: string;
+  translationKey?: string;
   description?: string;
   category?: string;
   fileType?: string;
@@ -69,6 +73,7 @@ type SanityDownloadItem = {
 type SanityFaqItem = {
   _id: string;
   question?: string;
+  translationKey?: string;
   answer?: string;
   category?: string;
   language?: Lang;
@@ -76,6 +81,7 @@ type SanityFaqItem = {
 };
 
 type SanityContactInfo = {
+  translationKey?: string;
   companyName?: string;
   email?: string;
   phone?: string;
@@ -88,6 +94,7 @@ type SanityContactInfo = {
 };
 
 type SanityHomepageContent = {
+  translationKey?: string;
   heroTitle?: string;
   heroSubtitle?: string;
   primaryButtonText?: string;
@@ -121,6 +128,9 @@ export type DisplayContactInfo = typeof localContactInfo & {
   mapEmbedUrl?: string;
   businessHours?: string;
 };
+export type DisplayDownloads = Record<Lang, DisplayDownloadItem[]>;
+export type DisplayFaq = Record<Lang, DisplayFaqItem[]>;
+export type DisplayContactInfoByLang = Record<Lang, DisplayContactInfo>;
 export type DisplayHomepageContent = Record<
   Lang,
   {
@@ -155,110 +165,19 @@ function productLanguageTemplate(product: SanityProduct, lang: Lang) {
   };
 }
 
-function mapSanityProduct(product: SanityProduct): DisplayProduct {
-  const lang = product.language || "en";
-  const base = localProducts[0];
-  const translated = productLanguageTemplate(product, lang);
-
-  return {
-    ...base,
-    id: product.slug || product._id,
-    cmsLanguage: lang,
-    imagePath: `/images/products/${product.slug || product._id}.jpg`,
-    inquiryType: product.category === "Custom Fabric" ? "Custom Fabric" : "Get a Quote",
-    placeholderTone: product.category === "Denim Fabric" ? "denim" : product.category === "Functional Fabric" ? "navy" : "slate",
-    en: lang === "en" ? translated : productLanguageTemplate(product, "en"),
-    zh: lang === "zh" ? translated : productLanguageTemplate(product, "zh"),
-    filters: {
-      category: product.category || "Custom Fabric",
-      function: product.category === "Functional Fabric" ? "Water Resistant" : product.category === "Custom Fabric" ? "Custom" : "Durable",
-      application: product.application?.includes("Outdoor") ? "Outdoor" : product.application?.includes("Workwear") ? "Workwear" : product.category === "Custom Fabric" ? "OEM/ODM" : "Garment"
-    }
-  };
+function normalizeLang(language?: string): Lang {
+  return language === "zh" ? "zh" : "en";
 }
 
-async function safeFetch<T>(query: string): Promise<T[]> {
-  if (!isSanityConfigured) return [];
+function pickByLanguage<T extends { language?: Lang }>(items: T[], lang: Lang): T[] {
+  const requested = items.filter((item) => normalizeLang(item.language) === lang);
+  if (requested.length) return requested;
 
-  try {
-    return await client.fetch<T[]>(query, {}, { next: { revalidate: 60 } });
-  } catch {
-    return [];
-  }
+  const english = items.filter((item) => normalizeLang(item.language) === "en");
+  return english.length ? english : [];
 }
 
-async function safeFetchOne<T>(query: string): Promise<T | null> {
-  if (!isSanityConfigured) return null;
-
-  try {
-    return await client.fetch<T | null>(query, {}, { next: { revalidate: 60 } });
-  } catch {
-    return null;
-  }
-}
-
-export async function getProductsWithFallback() {
-  const sanityProducts = await safeFetch<SanityProduct>(allProductsQuery);
-  return sanityProducts.length > 0 ? sanityProducts.map(mapSanityProduct) : localProducts;
-}
-
-export async function getFeaturedProductsWithFallback() {
-  const sanityProducts = await safeFetch<SanityProduct>(featuredProductsQuery);
-  return sanityProducts.length > 0 ? sanityProducts.map(mapSanityProduct) : localProducts.slice(0, 4);
-}
-
-export async function getNewsWithFallback(): Promise<DisplayNews> {
-  const sanityNews = await safeFetch<SanityNews>(allNewsQuery);
-  if (!sanityNews.length) return localNews as DisplayNews;
-
-  const enNews: Array<[string, string, string?]> = sanityNews
-      .filter((item) => (item.language || "en") === "en")
-      .map((item): [string, string, string?] => [item.title || "Untitled News", item.excerpt || "", item.publishedAt || ""]);
-  const zhNews: Array<[string, string, string?]> = sanityNews
-      .filter((item) => item.language === "zh")
-      .map((item): [string, string, string?] => [item.title || "未命名资讯", item.excerpt || "", item.publishedAt || ""]);
-
-  return { en: enNews, zh: zhNews };
-}
-
-export async function getCasesWithFallback(): Promise<DisplayCases> {
-  const sanityCases = await safeFetch<SanityCase>(allCasesQuery);
-  if (!sanityCases.length) return localCases as DisplayCases;
-
-  const enCases: Array<[string, string, string, string]> = sanityCases
-      .filter((item) => (item.language || "en") === "en")
-      .map((item): [string, string, string, string] => [
-        item.title || "Untitled Case",
-        item.challenge || "Challenge: To be confirmed.",
-        item.solution || "Solution: To be confirmed.",
-        item.result || "Result: To be confirmed."
-      ]);
-  const zhCases: Array<[string, string, string, string]> = sanityCases
-      .filter((item) => item.language === "zh")
-      .map((item): [string, string, string, string] => [
-        item.title || "未命名案例",
-        item.challenge || "挑战：待确认。",
-        item.solution || "方案：待确认。",
-        item.result || "结果：待确认。"
-      ]);
-
-  return { en: enCases, zh: zhCases };
-}
-
-export async function getDownloadsWithFallback(): Promise<DisplayDownloadItem[]> {
-  const sanityDownloads = await safeFetch<SanityDownloadItem>(activeDownloadItemsQuery);
-  if (sanityDownloads.length) {
-    return sanityDownloads.map((item) => ({
-      id: item._id,
-      title: item.title || "Untitled Download",
-      description: item.description || "File will be added after official material is confirmed.",
-      category: item.category || "Other",
-      fileType: item.fileType || "File",
-      fileUrl: item.fileUrl,
-      language: item.language || "en"
-    }));
-  }
-
+function localDownloads(): DisplayDownloadItem[] {
   return [
     {
       id: "product-catalogue",
@@ -327,18 +246,7 @@ export async function getDownloadsWithFallback(): Promise<DisplayDownloadItem[]>
   ];
 }
 
-export async function getFaqWithFallback(): Promise<DisplayFaqItem[]> {
-  const sanityFaqs = await safeFetch<SanityFaqItem>(activeFaqItemsQuery);
-  if (sanityFaqs.length) {
-    return sanityFaqs.map((item) => ({
-      id: item._id,
-      question: item.question || "Question to be confirmed",
-      answer: item.answer || "Answer to be confirmed.",
-      category: item.category || "Inquiry",
-      language: item.language || "en"
-    }));
-  }
-
+function localFaqs(): DisplayFaqItem[] {
   return [
     {
       id: "faq-inquiry",
@@ -413,8 +321,141 @@ export async function getFaqWithFallback(): Promise<DisplayFaqItem[]> {
   ];
 }
 
-export async function getContactInfoWithFallback(): Promise<DisplayContactInfo> {
-  const sanityContact = await safeFetchOne<SanityContactInfo>(activeContactInfoQuery);
+function groupByLanguage<T extends { language: Lang }>(items: T[], localFallback: T[]): Record<Lang, T[]> {
+  const enItems = items.filter((item) => item.language === "en");
+  const zhItems = items.filter((item) => item.language === "zh");
+  const localEn = localFallback.filter((item) => item.language === "en");
+  const localZh = localFallback.filter((item) => item.language === "zh");
+
+  return {
+    en: enItems.length ? enItems : localEn,
+    zh: zhItems.length ? zhItems : enItems.length ? enItems : localZh
+  };
+}
+
+function mapSanityProduct(product: SanityProduct): DisplayProduct {
+  const lang = normalizeLang(product.language);
+  const base = localProducts[0];
+  const translated = productLanguageTemplate(product, lang);
+
+  return {
+    ...base,
+    id: product.translationKey || product.slug || product._id,
+    cmsLanguage: lang,
+    imagePath: `/images/products/${product.slug || product._id}.jpg`,
+    inquiryType: product.category === "Custom Fabric" ? "Custom Fabric" : "Get a Quote",
+    placeholderTone: product.category === "Denim Fabric" ? "denim" : product.category === "Functional Fabric" ? "navy" : "slate",
+    en: lang === "en" ? translated : productLanguageTemplate(product, "en"),
+    zh: lang === "zh" ? translated : productLanguageTemplate(product, "zh"),
+    filters: {
+      category: product.category || "Custom Fabric",
+      function: product.category === "Functional Fabric" ? "Water Resistant" : product.category === "Custom Fabric" ? "Custom" : "Durable",
+      application: product.application?.includes("Outdoor") ? "Outdoor" : product.application?.includes("Workwear") ? "Workwear" : product.category === "Custom Fabric" ? "OEM/ODM" : "Garment"
+    }
+  };
+}
+
+async function safeFetch<T>(query: string): Promise<T[]> {
+  if (!isSanityConfigured) return [];
+
+  try {
+    return await client.fetch<T[]>(query, {}, { next: { revalidate: 60 } });
+  } catch {
+    return [];
+  }
+}
+
+export async function getProductsWithFallback() {
+  const sanityProducts = await safeFetch<SanityProduct>(allProductsQuery);
+  return sanityProducts.length > 0 ? sanityProducts.map(mapSanityProduct) : localProducts;
+}
+
+export async function getFeaturedProductsWithFallback() {
+  const sanityProducts = await safeFetch<SanityProduct>(featuredProductsQuery);
+  return sanityProducts.length > 0 ? sanityProducts.map(mapSanityProduct) : localProducts.slice(0, 4);
+}
+
+export async function getNewsWithFallback(): Promise<DisplayNews> {
+  const sanityNews = await safeFetch<SanityNews>(allNewsQuery);
+  if (!sanityNews.length) return localNews as DisplayNews;
+
+  const enNews = pickByLanguage(sanityNews, "en")
+    .filter((item) => normalizeLang(item.language) === "en")
+    .map((item): [string, string, string?] => [item.title || "Untitled News", item.excerpt || "", item.publishedAt || ""]);
+  const zhSource = sanityNews.filter((item) => normalizeLang(item.language) === "zh");
+  const zhNews = (zhSource.length ? zhSource : pickByLanguage(sanityNews, "zh"))
+    .map((item): [string, string, string?] => [item.title || "未命名资讯", item.excerpt || "", item.publishedAt || ""]);
+
+  return {
+    en: enNews.length ? enNews : (localNews as DisplayNews).en,
+    zh: zhNews.length ? zhNews : enNews.length ? enNews : (localNews as DisplayNews).zh
+  };
+}
+
+export async function getCasesWithFallback(): Promise<DisplayCases> {
+  const sanityCases = await safeFetch<SanityCase>(allCasesQuery);
+  if (!sanityCases.length) return localCases as DisplayCases;
+
+  const enCases: Array<[string, string, string, string]> = sanityCases
+      .filter((item) => normalizeLang(item.language) === "en")
+      .map((item): [string, string, string, string] => [
+        item.title || "Untitled Case",
+        item.challenge || "Challenge: To be confirmed.",
+        item.solution || "Solution: To be confirmed.",
+        item.result || "Result: To be confirmed."
+      ]);
+  const zhSource = sanityCases.filter((item) => normalizeLang(item.language) === "zh");
+  const zhCases: Array<[string, string, string, string]> = (zhSource.length ? zhSource : pickByLanguage(sanityCases, "zh"))
+      .map((item): [string, string, string, string] => [
+        item.title || "未命名案例",
+        item.challenge || "挑战：待确认。",
+        item.solution || "方案：待确认。",
+        item.result || "结果：待确认。"
+      ]);
+
+  return {
+    en: enCases.length ? enCases : (localCases as DisplayCases).en,
+    zh: zhCases.length ? zhCases : enCases.length ? enCases : (localCases as DisplayCases).zh
+  };
+}
+
+export async function getDownloadsWithFallback(): Promise<DisplayDownloads> {
+  const sanityDownloads = await safeFetch<SanityDownloadItem>(activeDownloadItemsQuery);
+  if (sanityDownloads.length) {
+    const mappedDownloads = sanityDownloads.map((item) => ({
+      id: item.translationKey || item._id,
+      title: item.title || "Untitled Download",
+      description: item.description || "File will be added after official material is confirmed.",
+      category: item.category || "Other",
+      fileType: item.fileType || "File",
+      fileUrl: item.fileUrl,
+      language: normalizeLang(item.language)
+    }));
+
+    return groupByLanguage(mappedDownloads, localDownloads());
+  }
+
+  return groupByLanguage([], localDownloads());
+}
+
+export async function getFaqWithFallback(): Promise<DisplayFaq> {
+  const sanityFaqs = await safeFetch<SanityFaqItem>(activeFaqItemsQuery);
+  if (sanityFaqs.length) {
+    const mappedFaqs = sanityFaqs.map((item) => ({
+      id: item.translationKey || item._id,
+      question: item.question || "Question to be confirmed",
+      answer: item.answer || "Answer to be confirmed.",
+      category: item.category || "Inquiry",
+      language: normalizeLang(item.language)
+    }));
+
+    return groupByLanguage(mappedFaqs, localFaqs());
+  }
+
+  return groupByLanguage([], localFaqs());
+}
+
+function mapContactInfo(sanityContact?: SanityContactInfo): DisplayContactInfo {
   return {
     ...localContactInfo,
     companyName: sanityContact?.companyName || localContactInfo.company,
@@ -429,9 +470,20 @@ export async function getContactInfoWithFallback(): Promise<DisplayContactInfo> 
   };
 }
 
+export async function getContactInfoWithFallback(): Promise<DisplayContactInfoByLang> {
+  const sanityContacts = await safeFetch<SanityContactInfo>(activeContactInfoQuery);
+  const enContact = sanityContacts.find((item) => normalizeLang(item.language) === "en");
+  const zhContact = sanityContacts.find((item) => normalizeLang(item.language) === "zh");
+
+  return {
+    en: mapContactInfo(enContact),
+    zh: mapContactInfo(zhContact || enContact)
+  };
+}
+
 export async function getHomepageContentWithFallback(): Promise<DisplayHomepageContent> {
   const sanityHomepage = await safeFetch<SanityHomepageContent>(activeHomepageContentQuery);
-  const result: DisplayHomepageContent = {
+  const localHomepage: DisplayHomepageContent = {
     en: {
       heroTitle: pages.home.en.heroTitle,
       heroSubtitle: pages.home.en.heroSubtitle,
@@ -449,18 +501,24 @@ export async function getHomepageContentWithFallback(): Promise<DisplayHomepageC
       finalCtaSubtitle: pages.home.zh.finalCtaText
     }
   };
+  const result: DisplayHomepageContent = { ...localHomepage };
+  const enHomepage = sanityHomepage.find((item) => normalizeLang(item.language) === "en");
+  const zhHomepage = sanityHomepage.find((item) => normalizeLang(item.language) === "zh");
 
-  sanityHomepage.forEach((item) => {
-    const lang = item.language || "en";
+  const applyHomepage = (item: SanityHomepageContent | undefined, lang: Lang, fallbackLang: Lang) => {
+    if (!item) return;
     result[lang] = {
-      heroTitle: item.heroTitle || result[lang].heroTitle,
-      heroSubtitle: item.heroSubtitle || result[lang].heroSubtitle,
-      primaryButtonText: item.primaryButtonText || result[lang].primaryButtonText,
-      secondaryButtonText: item.secondaryButtonText || result[lang].secondaryButtonText,
-      finalCtaTitle: item.finalCtaTitle || result[lang].finalCtaTitle,
-      finalCtaSubtitle: item.finalCtaSubtitle || result[lang].finalCtaSubtitle
+      heroTitle: item.heroTitle || result[fallbackLang].heroTitle,
+      heroSubtitle: item.heroSubtitle || result[fallbackLang].heroSubtitle,
+      primaryButtonText: item.primaryButtonText || result[fallbackLang].primaryButtonText,
+      secondaryButtonText: item.secondaryButtonText || result[fallbackLang].secondaryButtonText,
+      finalCtaTitle: item.finalCtaTitle || result[fallbackLang].finalCtaTitle,
+      finalCtaSubtitle: item.finalCtaSubtitle || result[fallbackLang].finalCtaSubtitle
     };
-  });
+  };
+
+  applyHomepage(enHomepage, "en", "en");
+  applyHomepage(zhHomepage || enHomepage, "zh", zhHomepage ? "zh" : "en");
 
   return result;
 }

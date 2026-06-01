@@ -3,12 +3,11 @@
 import { FileText } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useLanguage } from "@/components/LanguageProvider";
-import type { DisplayDownloadItem } from "@/sanity/lib/content";
+import type { DisplayDownloads } from "@/sanity/lib/content";
 
-export function DownloadsClient({ downloads }: { downloads: DisplayDownloadItem[] }) {
+export function DownloadsClient({ downloads }: { downloads: DisplayDownloads }) {
   const { lang } = useLanguage();
-  const visibleDownloads = downloads.filter((item) => item.language === lang);
-  const items = visibleDownloads.length ? visibleDownloads : downloads;
+  const items = downloads[lang];
   const labels =
     lang === "en"
       ? {

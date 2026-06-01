@@ -46,6 +46,7 @@ export function Footer() {
         <div>
           <h3 className="font-semibold">{t.footer.contact}</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/70">
+            <span>Official website: www.ruilong.icu</span>
             <span>{contactInfo.address}</span>
             <span>Email: {contactInfo.email} (editable)</span>
             <span>Phone: {contactInfo.phone} (editable)</span>

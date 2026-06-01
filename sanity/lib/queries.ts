@@ -1,6 +1,7 @@
 export const allProductsQuery = `*[_type == "product"] | order(sortOrder asc, title asc) {
   _id,
   title,
+  translationKey,
   "slug": slug.current,
   category,
   composition,
@@ -20,6 +21,7 @@ export const allProductsQuery = `*[_type == "product"] | order(sortOrder asc, ti
 export const featuredProductsQuery = `*[_type == "product" && isFeatured == true] | order(sortOrder asc, title asc) {
   _id,
   title,
+  translationKey,
   "slug": slug.current,
   category,
   composition,
@@ -39,6 +41,7 @@ export const featuredProductsQuery = `*[_type == "product" && isFeatured == true
 export const allNewsQuery = `*[_type == "news"] | order(publishedAt desc) {
   _id,
   title,
+  translationKey,
   "slug": slug.current,
   excerpt,
   body,
@@ -51,6 +54,7 @@ export const allNewsQuery = `*[_type == "news"] | order(publishedAt desc) {
 export const allCasesQuery = `*[_type == "caseStudy"] | order(_createdAt desc) {
   _id,
   title,
+  translationKey,
   "slug": slug.current,
   challenge,
   solution,
@@ -63,6 +67,7 @@ export const allCasesQuery = `*[_type == "caseStudy"] | order(_createdAt desc) {
 export const activeDownloadItemsQuery = `*[_type == "downloadItem" && isActive == true] | order(sortOrder asc, title asc) {
   _id,
   title,
+  translationKey,
   description,
   category,
   fileType,
@@ -75,6 +80,7 @@ export const activeDownloadItemsQuery = `*[_type == "downloadItem" && isActive =
 export const activeFaqItemsQuery = `*[_type == "faqItem" && isActive == true] | order(sortOrder asc, question asc) {
   _id,
   question,
+  translationKey,
   answer,
   category,
   language,
@@ -82,8 +88,9 @@ export const activeFaqItemsQuery = `*[_type == "faqItem" && isActive == true] | 
   isActive
 }`;
 
-export const activeContactInfoQuery = `*[_type == "contactInfo" && isActive == true] | order(_updatedAt desc) [0] {
+export const activeContactInfoQuery = `*[_type == "contactInfo" && isActive == true] | order(_updatedAt desc) {
   _id,
+  translationKey,
   companyName,
   email,
   phone,
@@ -98,6 +105,7 @@ export const activeContactInfoQuery = `*[_type == "contactInfo" && isActive == t
 
 export const activeHomepageContentQuery = `*[_type == "homepageContent" && isActive == true] | order(_updatedAt desc) {
   _id,
+  translationKey,
   heroTitle,
   heroSubtitle,
   primaryButtonText,

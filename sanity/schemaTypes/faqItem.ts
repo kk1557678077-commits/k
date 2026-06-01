@@ -6,6 +6,12 @@ export const faqItem = defineType({
   type: "document",
   fields: [
     defineField({ name: "question", title: "Question", type: "string", validation: (rule: any) => rule.required() }),
+    defineField({
+      name: "translationKey",
+      title: "Translation Key",
+      type: "string",
+      description: "Optional helper to group English and Chinese versions of the same content, for example sample-request-faq."
+    }),
     defineField({ name: "answer", title: "Answer", type: "text", rows: 4 }),
     defineField({
       name: "category",
@@ -17,8 +23,9 @@ export const faqItem = defineType({
       name: "language",
       title: "Language",
       type: "string",
+      description: "Create separate documents for English and Chinese versions. Use en for English and zh for Chinese.",
       initialValue: "en",
-      options: { list: [{ title: "English", value: "en" }, { title: "Chinese", value: "zh" }] }
+      options: { list: [{ title: "English", value: "en" }, { title: "中文", value: "zh" }] }
     }),
     defineField({ name: "sortOrder", title: "Sort Order", type: "number", initialValue: 0 }),
     defineField({ name: "isActive", title: "Active", type: "boolean", initialValue: true })

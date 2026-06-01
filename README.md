@@ -4,6 +4,14 @@ Phase 1 launchable bilingual B2B textile foreign trade website for **Ruilong Int
 
 Ruilong International is positioned as a practical B2B sourcing and supply chain coordination partner connecting global buyers with textile resources in Xiqiao, Foshan, Guangdong, China.
 
+Official website:
+
+```text
+https://www.ruilong.icu
+```
+
+The non-www domain `https://ruilong.icu` can be configured in Vercel to redirect to `https://www.ruilong.icu`.
+
 ## Tech Stack
 
 - Next.js
@@ -34,6 +42,7 @@ Ruilong International is positioned as a practical B2B sourcing and supply chain
 - Inquiry, sample request, quote and custom fabric forms connected to Formspree when configured
 - Floating contact buttons
 - Basic SEO metadata and Open Graph placeholder metadata
+- Sitemap and robots configuration for the official domain
 - Editable placeholder contact information
 
 ## Run Locally
@@ -210,6 +219,21 @@ https://YOUR_DOMAIN/admin
 ```
 
 The Studio lets you add and edit Products, News and Case Studies.
+
+### Sanity CORS for the Official Domain
+
+After connecting the custom domain, open the Sanity project settings and add these CORS origins:
+
+```text
+https://www.ruilong.icu
+https://ruilong.icu
+```
+
+Keep the local development origin if you still edit and test locally:
+
+```text
+http://localhost:3000
+```
 
 ### Add CMS Content
 
@@ -438,6 +462,75 @@ Redeploy is needed when:
 - Environment variables are changed in Vercel
 - New schemas or frontend fields are added
 
+## Bilingual CMS Editing Guide
+
+The website language switch uses two language values:
+
+```text
+en = English
+zh = Chinese
+```
+
+For CMS-managed content, create separate Sanity documents for English and Chinese. Do not put both languages into one field unless the field is only an internal note.
+
+CMS content types using this bilingual workflow:
+
+- Products
+- News
+- Case Studies
+- Downloads
+- FAQ
+- Contact Info
+- Homepage Content
+
+### Recommended Workflow
+
+1. Create the English document first.
+2. Set `language` to `en`.
+3. Add a simple `translationKey`, such as `mid-weight-denim-fabric`.
+4. Publish.
+5. Duplicate or create the Chinese version.
+6. Set `language` to `zh`.
+7. Use the same `translationKey`.
+8. Translate only the buyer-facing text.
+9. Publish.
+
+Example English Product:
+
+```text
+Title: Mid-weight Denim Fabric
+Language: en
+translationKey: mid-weight-denim-fabric
+```
+
+Example Chinese Product:
+
+```text
+Title: 中厚牛仔面料
+Language: zh
+translationKey: mid-weight-denim-fabric
+```
+
+The `translationKey` field is optional. It helps group matching English and Chinese versions in Sanity, but the website will still work if it is empty.
+
+### Fallback Logic
+
+The frontend uses this safe order:
+
+1. Show Sanity content matching the selected language.
+2. If that language is missing, show English Sanity content when available.
+3. If Sanity has no usable content, show local fallback content from `data/content.ts`.
+
+This means the public website should not become blank if Chinese CMS content has not been entered yet.
+
+### Practical Notes
+
+- Keep `language` values exactly as `en` or `zh`.
+- Use realistic wording and avoid unverified claims.
+- For product pairs, keep similar categories, specifications and `translationKey` values.
+- For Contact Info and Homepage Content, publish one English document and one Chinese document when possible.
+- After publishing in Sanity, refresh the frontend page. Most content should update after the short revalidation window without a full Vercel redeploy.
+
 ## Push to GitHub
 
 Create a new GitHub repository, then run these commands inside the project folder:
@@ -464,6 +557,28 @@ Replace `YOUR_USERNAME` with your real GitHub username. If you choose a differen
 5. Use the default build command: `npm run build`.
 6. Click **Deploy**.
 7. Add a custom domain later in **Project Settings > Domains**.
+
+Official domain:
+
+```text
+https://www.ruilong.icu
+```
+
+Recommended Vercel domain setup:
+
+1. Add `www.ruilong.icu` as the main production domain.
+2. Add `ruilong.icu` and configure it to redirect to `www.ruilong.icu`.
+3. Keep DNS records managed at the domain registrar.
+4. Follow the DNS values shown by Vercel.
+5. Vercel will issue and renew HTTPS automatically after DNS is verified.
+
+After the domain is active, check:
+
+```text
+https://www.ruilong.icu
+https://www.ruilong.icu/sitemap.xml
+https://www.ruilong.icu/robots.txt
+```
 
 ## Deploy on Netlify
 
@@ -861,12 +976,11 @@ Before using the website for real public business promotion, check:
 
 ## Domain Preparation Notes
 
-Possible domain options:
+Official domain:
 
-- `ruilonginternational.com`
-- `ruilongtextile.com`
-- `ruilong-sourcing.com`
-- `ruilongfabric.com`
+```text
+https://www.ruilong.icu
+```
 
 To connect a custom domain in Vercel:
 
@@ -877,8 +991,17 @@ To connect a custom domain in Vercel:
 5. Follow Vercel's DNS instructions.
 6. Update DNS records at the domain registrar.
 7. Wait for Vercel to verify DNS and issue SSL.
+8. Redirect `ruilong.icu` to `www.ruilong.icu` if both domains are connected.
 
 Keep contact email, WhatsApp and WeChat updated before promoting the custom domain.
+
+SEO files for the official domain:
+
+```text
+app/layout.tsx
+app/sitemap.ts
+app/robots.ts
+```
 
 ## Phase 2 Upgrade Ideas
 

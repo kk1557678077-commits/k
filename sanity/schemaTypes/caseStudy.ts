@@ -6,6 +6,12 @@ export const caseStudy = defineType({
   type: "document",
   fields: [
     defineField({ name: "title", title: "Title", type: "string", validation: (rule: any) => rule.required() }),
+    defineField({
+      name: "translationKey",
+      title: "Translation Key",
+      type: "string",
+      description: "Optional helper to group English and Chinese versions of the same content, for example denim-garment-fabric-sourcing."
+    }),
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 } }),
     defineField({ name: "challenge", title: "Challenge", type: "text", rows: 3 }),
     defineField({ name: "solution", title: "Solution", type: "text", rows: 3 }),
@@ -16,8 +22,9 @@ export const caseStudy = defineType({
       name: "language",
       title: "Language",
       type: "string",
+      description: "Create separate documents for English and Chinese versions. Use en for English and zh for Chinese.",
       initialValue: "en",
-      options: { list: [{ title: "English", value: "en" }, { title: "Chinese", value: "zh" }] }
+      options: { list: [{ title: "English", value: "en" }, { title: "中文", value: "zh" }] }
     })
   ],
   preview: {

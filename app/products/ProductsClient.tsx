@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useLanguage } from "@/components/LanguageProvider";
+import { products as localProducts } from "@/data/content";
 import type { DisplayProduct } from "@/sanity/lib/content";
 
 const categories = ["All", "Denim Fabric", "Casual Fabric", "Functional Fabric", "Custom Fabric", "New Arrivals"];
@@ -17,8 +18,13 @@ export function ProductsClient({ products }: { products: DisplayProduct[] }) {
   const [func, setFunc] = useState("All");
   const [application, setApplication] = useState("All");
   const [selected, setSelected] = useState<DisplayProduct | null>(null);
-  const languageProducts = products.filter((product) => !product.cmsLanguage || product.cmsLanguage === lang);
-  const visibleProducts = languageProducts.length ? languageProducts : products;
+  const selectedCmsProducts = products.filter((product) => product.cmsLanguage === lang);
+  const englishCmsProducts = products.filter((product) => product.cmsLanguage === "en");
+  const visibleProducts = selectedCmsProducts.length
+    ? selectedCmsProducts
+    : englishCmsProducts.length
+      ? englishCmsProducts
+      : (localProducts as DisplayProduct[]);
 
   const filtered = useMemo(
     () =>

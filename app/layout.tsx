@@ -5,27 +5,40 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 
+const siteUrl = "https://www.ruilong.icu";
+const seoTitle = "Ruilong International | Business & Investment Cooperation";
+const seoDescription =
+  "Ruilong International is a business cooperation and investment attraction platform based in Xiqiao, Foshan, Guangdong, China, supporting commercial leasing, project cooperation and business inquiries.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Ruilong International | Foshan Textile Sourcing & Custom Fabric Supplier",
+    default: seoTitle,
     template: "%s | Ruilong International"
   },
-  description:
-    "Ruilong International connects global buyers with textile sourcing, denim fabric, custom fabric development and supply chain coordination resources from Xiqiao, Foshan, China.",
+  description: seoDescription,
   keywords: [
-    "Foshan textile sourcing",
-    "Xiqiao textile",
-    "denim fabric supplier",
-    "custom fabric China",
-    "textile export support",
-    "fabric sourcing China"
+    "Ruilong International",
+    "Xiqiao Foshan investment",
+    "commercial leasing Foshan",
+    "business cooperation Guangdong",
+    "investment attraction Foshan"
   ],
+  alternates: {
+    canonical: siteUrl
+  },
   openGraph: {
-    title: "Ruilong International | Foshan Textile Sourcing & Custom Fabric Supplier",
-    description:
-      "Ruilong International connects global buyers with textile sourcing, denim fabric, custom fabric development and supply chain coordination resources from Xiqiao, Foshan, China.",
+    title: seoTitle,
+    description: seoDescription,
+    url: siteUrl,
+    siteName: "Ruilong International",
     type: "website",
     locale: "en_US"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seoTitle,
+    description: seoDescription
   }
 };
 

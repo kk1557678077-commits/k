@@ -6,7 +6,7 @@ import type { DisplayNews } from "@/sanity/lib/content";
 
 export function NewsClient({ news }: { news: DisplayNews }) {
   const { lang } = useLanguage();
-  const items = news[lang].length ? news[lang] : lang === "en" ? news.zh : news.en;
+  const items = news[lang];
 
   return (
     <section className="section">

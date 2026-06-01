@@ -6,7 +6,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 type InquiryFormProps = {
   compact?: boolean;
-  formType?: "Quick Inquiry" | "Request Samples" | "Get a Quote" | "Custom Fabric";
+  formType?: "Quick Inquiry" | "Request Samples" | "Get a Quote" | "Custom Fabric" | "Investment Inquiry";
   title?: string;
 };
 
@@ -20,6 +20,10 @@ type FormValues = {
   contact: string;
   productType: string;
   quantity: string;
+  phone: string;
+  cooperationType: string;
+  spaceRequirement: string;
+  businessCategory: string;
   message: string;
 };
 
@@ -31,6 +35,10 @@ const initialValues: FormValues = {
   contact: "",
   productType: "",
   quantity: "",
+  phone: "",
+  cooperationType: "",
+  spaceRequirement: "",
+  businessCategory: "",
   message: ""
 };
 
@@ -48,6 +56,7 @@ export function InquiryForm({
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [values, setValues] = useState<FormValues>(initialValues);
+  const isInvestmentForm = formType === "Investment Inquiry";
   const formMessages =
     lang === "en"
       ? {
@@ -101,6 +110,10 @@ export function InquiryForm({
       contact: cleanValue(values.contact),
       productType: cleanValue(values.productType),
       quantity: cleanValue(values.quantity),
+      phone: cleanValue(values.phone),
+      cooperationType: cleanValue(values.cooperationType),
+      spaceRequirement: cleanValue(values.spaceRequirement),
+      businessCategory: cleanValue(values.businessCategory),
       message: values.message.trim()
     };
 
@@ -120,6 +133,10 @@ export function InquiryForm({
       contact: cleanedValues.contact || "Not provided",
       productType: cleanedValues.productType || "Not provided",
       quantity: cleanedValues.quantity || "Not provided",
+      phone: cleanedValues.phone || "Not provided",
+      cooperationType: cleanedValues.cooperationType || "Not provided",
+      spaceRequirement: cleanedValues.spaceRequirement || "Not provided",
+      businessCategory: cleanedValues.businessCategory || "Not provided",
       message: cleanedValues.message,
       sourcePage: typeof window !== "undefined" ? window.location.href : "",
       submittedAt: new Date().toISOString(),
@@ -131,9 +148,13 @@ export function InquiryForm({
         `Company: ${cleanedValues.company || "Not provided"}`,
         `Country: ${cleanedValues.country || "Not provided"}`,
         `Email: ${cleanedValues.email}`,
+        `Phone: ${cleanedValues.phone || "Not provided"}`,
         `WhatsApp / WeChat: ${cleanedValues.contact || "Not provided"}`,
         `Product type: ${cleanedValues.productType || "Not provided"}`,
         `Quantity: ${cleanedValues.quantity || "Not provided"}`,
+        `Cooperation type: ${cleanedValues.cooperationType || "Not provided"}`,
+        `Space requirement: ${cleanedValues.spaceRequirement || "Not provided"}`,
+        `Business category: ${cleanedValues.businessCategory || "Not provided"}`,
         "",
         "Message:",
         cleanedValues.message
@@ -167,15 +188,25 @@ export function InquiryForm({
     }
   }
 
-  const fields = [
-    ["name", t.forms.name],
-    ["company", t.forms.company],
-    ["country", t.forms.country],
-    ["email", t.forms.email],
-    ["contact", t.forms.contact],
-    ["productType", t.forms.productType],
-    ["quantity", t.forms.quantity]
-  ];
+  const fields = isInvestmentForm
+    ? [
+        ["name", "Name"],
+        ["company", "Company"],
+        ["phone", "Phone"],
+        ["email", "Email"],
+        ["cooperationType", "Cooperation Type"],
+        ["spaceRequirement", "Space Requirement"],
+        ["businessCategory", "Business Category"]
+      ]
+    : [
+        ["name", t.forms.name],
+        ["company", t.forms.company],
+        ["country", t.forms.country],
+        ["email", t.forms.email],
+        ["contact", t.forms.contact],
+        ["productType", t.forms.productType],
+        ["quantity", t.forms.quantity]
+      ];
 
   return (
     <form onSubmit={onSubmit} className="rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6">
@@ -190,9 +221,9 @@ export function InquiryForm({
             {label}
             <input
               name={name}
-              type={name === "email" ? "email" : "text"}
+              type={name === "email" ? "email" : name === "phone" ? "tel" : "text"}
               required={["name", "email"].includes(name)}
-              autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"}
+              autoComplete={name === "email" ? "email" : name === "name" ? "name" : name === "phone" ? "tel" : "off"}
               value={values[name as keyof Omit<FormValues, "message">]}
               onChange={onFieldChange}
               className="focus-ring rounded-lg border border-line px-3 py-3 text-sm"
@@ -200,7 +231,7 @@ export function InquiryForm({
           </label>
         ))}
         <label className={`grid gap-2 text-sm font-medium text-charcoal ${compact ? "" : "sm:col-span-2"}`}>
-          {t.forms.message}
+          {isInvestmentForm ? "Message" : t.forms.message}
           <textarea
             name="message"
             rows={5}

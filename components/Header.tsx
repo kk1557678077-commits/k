@@ -1,15 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { navItems, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 
+const mainNavItems = [
+  { href: "/", label: "Home" },
+  { href: "/#about", label: "About" },
+  { href: "/#location", label: "Location" },
+  { href: "/#commercial-space", label: "Commercial Space" },
+  { href: "/#opportunities", label: "Opportunities" },
+  { href: "/#cooperation", label: "Cooperation" },
+  { href: "/news", label: "News" },
+  { href: "/#contact", label: "Contact" },
+  { href: "/textile", label: "Textile" }
+];
+
+const textilePaths = ["/textile", "/products", "/supply-chain", "/rd-technology", "/cases", "/downloads"];
+
 export function Header() {
   const { lang, toggleLang } = useLanguage();
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const t = ui[lang];
+  const isTextileArea = textilePaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
+  const brand = isTextileArea ? "Ruilong Textile" : "Ruilong International";
+  const subtitle = isTextileArea ? "Textile sourcing" : "Business cooperation";
+  const primaryCtaHref = isTextileArea ? "/contact" : "/#contact";
+  const primaryCtaLabel = isTextileArea ? t.cta.quote : "Contact Us";
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
@@ -19,21 +40,31 @@ export function Header() {
             RL
           </span>
           <span>
-            <span className="block text-base font-bold text-navy">{t.brand}</span>
-            <span className="hidden text-xs text-muted sm:block">Xiqiao, Foshan</span>
+            <span className="block text-base font-bold text-navy">{brand}</span>
+            <span className="hidden text-xs text-muted sm:block">{subtitle} | Xiqiao, Foshan</span>
           </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-full px-3 py-2 text-sm font-medium text-charcoal transition hover:bg-slate-100 hover:text-navy"
-            >
-              {t.nav[item.key]}
-            </Link>
-          ))}
+          {isTextileArea
+            ? navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-3 py-2 text-sm font-medium text-charcoal transition hover:bg-slate-100 hover:text-navy"
+                >
+                  {t.nav[item.key]}
+                </Link>
+              ))
+            : mainNavItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-full px-3 py-2 text-sm font-medium text-charcoal transition hover:bg-slate-100 hover:text-navy"
+                >
+                  {item.label}
+                </Link>
+              ))}
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
@@ -44,10 +75,10 @@ export function Header() {
             {lang === "en" ? "中文" : "EN"}
           </button>
           <Link
-            href="/contact"
+            href={primaryCtaHref}
             className="focus-ring rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#a27f43]"
           >
-            {t.cta.quote}
+            {primaryCtaLabel}
           </Link>
         </div>
 
@@ -63,16 +94,27 @@ export function Header() {
       {open && (
         <div className="border-t border-line bg-white lg:hidden">
           <div className="container-page grid gap-2 py-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm font-medium text-charcoal hover:bg-slate-100"
-              >
-                {t.nav[item.key]}
-              </Link>
-            ))}
+            {isTextileArea
+              ? navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg px-3 py-3 text-sm font-medium text-charcoal hover:bg-slate-100"
+                  >
+                    {t.nav[item.key]}
+                  </Link>
+                ))
+              : mainNavItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg px-3 py-3 text-sm font-medium text-charcoal hover:bg-slate-100"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
             <div className="mt-2 flex gap-2">
               <button
                 onClick={toggleLang}
@@ -81,11 +123,11 @@ export function Header() {
                 {lang === "en" ? "中文" : "EN"}
               </button>
               <Link
-                href="/contact"
+                href={primaryCtaHref}
                 onClick={() => setOpen(false)}
                 className="focus-ring flex-1 rounded-full bg-gold px-4 py-2 text-center text-sm font-semibold text-white"
               >
-                {t.cta.quote}
+                {primaryCtaLabel}
               </Link>
             </div>
           </div>

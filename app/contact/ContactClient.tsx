@@ -5,18 +5,18 @@ import { EmbeddedMap } from "@/components/EmbeddedMap";
 import { InquiryForm } from "@/components/InquiryForm";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useLanguage } from "@/components/LanguageProvider";
-import type { DisplayContactInfo, DisplayFaqItem } from "@/sanity/lib/content";
+import type { DisplayContactInfoByLang, DisplayFaq } from "@/sanity/lib/content";
 
 export function ContactClient({
   contactInfo,
   faqs
 }: {
-  contactInfo: DisplayContactInfo;
-  faqs: DisplayFaqItem[];
+  contactInfo: DisplayContactInfoByLang;
+  faqs: DisplayFaq;
 }) {
   const { lang } = useLanguage();
-  const visibleFaqs = faqs.filter((item) => item.language === lang);
-  const faqItems = visibleFaqs.length ? visibleFaqs : faqs;
+  const currentContactInfo = contactInfo[lang] || contactInfo.en;
+  const faqItems = faqs[lang];
   const labels = lang === "en"
     ? {
         title: "Contact / Inquiry",
@@ -29,6 +29,9 @@ export function ContactClient({
         visit: "Visit / Contact Us",
         mapPending: "Map embed will be added after confirming the business address.",
         privacyNote: "Your information will only be used to respond to your textile sourcing inquiry.",
+        launchCta: "Send an inquiry",
+        launchText:
+          "Share your fabric type, target specification, quantity and delivery country. Ruilong International will use your details to prepare a practical sourcing or quotation discussion.",
         reminderTitle: "For faster follow-up",
         reminder:
           "Please include fabric type, quantity, application, target price and delivery country when submitting an inquiry.",
@@ -62,6 +65,8 @@ export function ContactClient({
         visit: "到访 / 联系我们",
         mapPending: "确认实际业务地址后将添加地图嵌入。",
         privacyNote: "您的信息仅用于回复您的纺织面料采购咨询。",
+        launchCta: "发送询盘",
+        launchText: "请提供面料类型、目标规格、数量与交付国家/地区，Ruilong International 将根据需求沟通合适的采购或报价方向。",
         reminderTitle: "为了更快跟进",
         reminder: "提交询盘时请尽量包含面料类型、数量、用途、目标价格与交付国家/地区。",
         guideTitle: "询盘信息清单",
@@ -88,6 +93,13 @@ export function ContactClient({
     <section className="section bg-slate-50">
       <div className="container-page">
         <SectionHeading title={labels.title} text={labels.text} />
+        <div className="mb-8 grid gap-5 rounded-lg border border-line bg-white p-6 shadow-sm lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-gold">{labels.launchCta}</p>
+            <h1 className="mt-3 text-2xl font-bold text-navy">{labels.inquiry}</h1>
+          </div>
+          <p className="text-sm leading-7 text-muted">{labels.launchText}</p>
+        </div>
         <div className="mb-8 grid gap-4 md:grid-cols-3">
           {labels.cards.map(([title, text]) => (
             <article key={title} className="rounded-lg border border-line bg-white p-5 shadow-sm">
@@ -98,11 +110,11 @@ export function ContactClient({
         </div>
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            [Mail, labels.fields.email, contactInfo.email],
-            [Phone, labels.fields.phone, contactInfo.phone],
-            [MessageCircle, labels.fields.whatsapp, contactInfo.whatsapp],
-            [MessageCircle, labels.fields.wechat, contactInfo.wechat],
-            [MapPin, labels.fields.address, contactInfo.address]
+            [Mail, labels.fields.email, currentContactInfo.email],
+            [Phone, labels.fields.phone, currentContactInfo.phone],
+            [MessageCircle, labels.fields.whatsapp, currentContactInfo.whatsapp],
+            [MessageCircle, labels.fields.wechat, currentContactInfo.wechat],
+            [MapPin, labels.fields.address, currentContactInfo.address]
           ].map(([Icon, title, value]) => {
             const ContactIcon = Icon as typeof Mail;
             return (
@@ -118,13 +130,13 @@ export function ContactClient({
           <aside className="rounded-lg border border-line bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-navy">{labels.info}</h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-muted">
-              <span>{labels.fields.company}: {contactInfo.companyName}</span>
-              <span>{labels.fields.address}: {contactInfo.address}</span>
-              <span>{labels.fields.email}: {contactInfo.email} ({labels.fields.editable})</span>
-              <span>{labels.fields.phone}: {contactInfo.phone} ({labels.fields.editable})</span>
-              <span>{labels.fields.whatsapp}: {contactInfo.whatsapp} ({labels.fields.editable})</span>
-              <span>{labels.fields.wechat}: {contactInfo.wechat} ({labels.fields.editable})</span>
-              {contactInfo.businessHours && <span>{labels.fields.hours}: {contactInfo.businessHours}</span>}
+              <span>{labels.fields.company}: {currentContactInfo.companyName}</span>
+              <span>{labels.fields.address}: {currentContactInfo.address}</span>
+              <span>{labels.fields.email}: {currentContactInfo.email} ({labels.fields.editable})</span>
+              <span>{labels.fields.phone}: {currentContactInfo.phone} ({labels.fields.editable})</span>
+              <span>{labels.fields.whatsapp}: {currentContactInfo.whatsapp} ({labels.fields.editable})</span>
+              <span>{labels.fields.wechat}: {currentContactInfo.wechat} ({labels.fields.editable})</span>
+              {currentContactInfo.businessHours && <span>{labels.fields.hours}: {currentContactInfo.businessHours}</span>}
             </div>
             <div className="mt-6 rounded-lg bg-slate-50 p-5">
               <h3 className="font-bold text-navy">{labels.reminderTitle}</h3>
@@ -151,10 +163,10 @@ export function ContactClient({
         </div>
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <EmbeddedMap
-            address={contactInfo.address}
+            address={currentContactInfo.address}
             title={labels.visit}
             placeholderText={labels.mapPending}
-            mapEmbedUrl={contactInfo.mapEmbedUrl}
+            mapEmbedUrl={currentContactInfo.mapEmbedUrl}
           />
           <section className="rounded-lg border border-line bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-navy">{labels.faqTitle}</h2>

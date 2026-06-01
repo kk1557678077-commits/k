@@ -7,7 +7,7 @@ import type { DisplayCases } from "@/sanity/lib/content";
 
 export function CasesClient({ cases }: { cases: DisplayCases }) {
   const { lang } = useLanguage();
-  const items = cases[lang].length ? cases[lang] : lang === "en" ? cases.zh : cases.en;
+  const items = cases[lang];
 
   return (
     <section className="section bg-slate-50">
