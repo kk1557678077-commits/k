@@ -19,8 +19,8 @@ export function DownloadsClient({ downloads }: { downloads: DisplayDownloads }) 
         }
       : {
           title: "资料下载",
-          text: "为后续产品目录、规格表、检测报告与公司资料预留的下载区域。",
-          note: "正式资料确认后将添加文件。",
+          text: "预留瑞龙国际招商资料、项目区位调研资料、商业空间资料与合作咨询表下载入口。",
+          note: "正式资料确认并存放到 public/downloads 后，可在 Sanity 中补充文件链接。",
           download: "下载 / 查看文件",
           comingSoon: "即将添加"
         };
@@ -34,7 +34,7 @@ export function DownloadsClient({ downloads }: { downloads: DisplayDownloads }) 
             <article key={item.id} className="rounded-lg border border-line bg-white p-6 shadow-sm">
               <FileText className="text-gold" size={28} />
               <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
-                {item.category} · {item.fileType}
+                {item.category} / {item.fileType}
               </p>
               <h2 className="mt-3 text-lg font-bold text-navy">{item.title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted">{item.description || labels.note}</p>

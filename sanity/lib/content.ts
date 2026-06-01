@@ -212,6 +212,38 @@ function localDownloads(): DisplayDownloadItem[] {
       language: "en"
     },
     {
+      id: "ruilong-investment-brochure-zh",
+      title: "瑞龙国际招商手册",
+      description: "占位资料。正式招商手册文件确认并放入 public/downloads 后，可在 Sanity 中补充下载链接。",
+      category: "招商资料",
+      fileType: "PDF",
+      language: "zh"
+    },
+    {
+      id: "ruilong-location-research-zh",
+      title: "项目区位调研资料",
+      description: "占位资料。周边调研报告文件确认并放入 public/downloads 后，可在 Sanity 中补充下载链接。",
+      category: "区位调研",
+      fileType: "PDF",
+      language: "zh"
+    },
+    {
+      id: "commercial-space-materials-zh",
+      title: "商业空间资料",
+      description: "占位资料。商业空间、楼层规划或现场资料确认后，可上传文件并配置下载链接。",
+      category: "商业空间",
+      fileType: "PDF",
+      language: "zh"
+    },
+    {
+      id: "cooperation-inquiry-form-zh",
+      title: "合作咨询表",
+      description: "占位资料。可用于后续放置招商合作咨询表或品牌入驻信息表。",
+      category: "合作咨询",
+      fileType: "Form",
+      language: "zh"
+    },
+    {
       id: "product-catalogue-zh",
       title: "产品目录",
       description: "正式资料确认后将添加文件。",

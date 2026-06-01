@@ -63,10 +63,10 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-[#d6b46a]">联系方式</h3>
             <div className="mt-4 grid gap-2 text-sm text-white/70">
-              <span>地址：佛山西樵（具体地址可在后台编辑）</span>
+              <span>项目地址：佛山市南海区西樵镇碧霞路10号瑞龙国际商业中心</span>
+              <span>招商热线：13929936713</span>
+              <span>运营公司：佛山瑞龙国际酒店管理有限公司</span>
               <span>邮箱：{contactInfo.email}（可编辑）</span>
-              <span>电话：{contactInfo.phone}（可编辑）</span>
-              <span>微信：{contactInfo.wechat}（可编辑）</span>
               <span>{contactInfo.icp}</span>
             </div>
           </div>
