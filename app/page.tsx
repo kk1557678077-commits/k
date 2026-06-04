@@ -13,6 +13,7 @@ import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InquiryForm } from "@/components/InquiryForm";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const badges = ["4.2万㎡商业体量", "西樵核心区域", "多元业态组合", "统一招商运营", "招商热线：13929936713"];
 
@@ -187,7 +188,9 @@ export default function HomePage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="#project">了解招商信息</ButtonLink>
               <ButtonLink href="#contact" variant="secondary">提交合作咨询</ButtonLink>
-              <ButtonLink href="/textile" variant="secondary">进入瑞龙纺织</ButtonLink>
+              {SHOW_TEXTILE_ENTRY && (
+                <ButtonLink href="/textile" variant="secondary">进入瑞龙纺织</ButtonLink>
+              )}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               {badges.map((badge) => (
@@ -203,9 +206,9 @@ export default function HomePage() {
               ["运营主体", "佛山瑞龙国际酒店管理有限公司"],
               ["招商热线", "13929936713"]
             ].map(([title, text]) => (
-              <article key={title} className="rounded-lg border border-[#d6b46a]/40 bg-white/92 p-6 shadow-soft backdrop-blur">
-                <h2 className="text-2xl font-bold text-navy">{title}</h2>
-                <p className="mt-3 text-lg font-semibold leading-7 text-muted">{text}</p>
+              <article key={title} className="rounded-lg border border-[#d6b46a]/70 bg-[#081220]/90 p-7 shadow-soft shadow-black/20 backdrop-blur-sm">
+                <h2 className="text-2xl font-bold text-amber-300 drop-shadow-sm">{title}</h2>
+                <p className="mt-3 text-lg font-bold leading-8 text-slate-50 drop-shadow-sm">{text}</p>
               </article>
             ))}
           </div>

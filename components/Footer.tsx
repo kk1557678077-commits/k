@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { contactInfo, navItems, products, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
+import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const textilePaths = [
   "/textile",
@@ -21,8 +22,7 @@ const mainFooterLinks = [
   ["招商合作", "/#opportunities"],
   ["商业空间", "/#commercial-space"],
   ["项目介绍", "/#project"],
-  ["联系方式", "/#contact"],
-  ["瑞龙纺织入口", "/textile"]
+  ["联系方式", "/#contact"]
 ];
 
 export function Footer() {
@@ -44,7 +44,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-[#d6b46a]">招商合作</h3>
             <div className="mt-4 grid gap-2">
-              {mainFooterLinks.slice(0, 4).map(([label, href]) => (
+              {mainFooterLinks.map(([label, href]) => (
                 <Link key={href} href={href} className="text-sm text-white/70 hover:text-white">
                   {label}
                 </Link>
@@ -57,7 +57,11 @@ export function Footer() {
               <Link href="/#location" className="text-sm text-white/70 hover:text-white">区位优势</Link>
               <Link href="/#cooperation" className="text-sm text-white/70 hover:text-white">合作模式</Link>
               <Link href="/#resources" className="text-sm text-white/70 hover:text-white">商业配套</Link>
-              <Link href="/textile" className="text-sm font-semibold text-[#f0d28d] hover:text-white">进入瑞龙纺织</Link>
+              {SHOW_TEXTILE_ENTRY && (
+                <Link href="/textile" className="text-sm font-semibold text-[#f0d28d] hover:text-white">
+                  进入瑞龙纺织
+                </Link>
+              )}
             </div>
           </div>
           <div>
@@ -74,11 +78,7 @@ export function Footer() {
         <div className="border-t border-white/10">
           <div className="container-page flex flex-col gap-2 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
             <span>© {new Date().getFullYear()} 瑞龙国际。保留所有权利。</span>
-            <span>
-              <Link href="/textile" className="hover:text-white">瑞龙纺织入口</Link>
-              {" | "}
-              {contactInfo.icp}
-            </span>
+            <span>{contactInfo.icp}</span>
           </div>
         </div>
       </footer>
