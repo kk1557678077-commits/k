@@ -9,6 +9,7 @@ import {
   TrainFront,
   Users
 } from "lucide-react";
+import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InquiryForm } from "@/components/InquiryForm";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -71,11 +72,104 @@ const floorPlans = [
   ["3F", "健身运动、办公服务、综合配套等方向"]
 ];
 
+const galleryImages = [
+  {
+    src: "/images/ruilong-international/hero-exterior-01.jpg",
+    alt: "瑞龙国际招商中心外立面",
+    caption: "项目外立面"
+  },
+  {
+    src: "/images/ruilong-international/building-front-01.jpg",
+    alt: "瑞龙国际商业中心临街展示面",
+    caption: "临街展示面"
+  },
+  {
+    src: "/images/ruilong-international/commercial-center-entrance-01.jpg",
+    alt: "瑞龙国际商业中心入口及招牌",
+    caption: "商业中心入口"
+  },
+  {
+    src: "/images/ruilong-international/office-tower-01.jpg",
+    alt: "瑞龙国际写字楼外景",
+    caption: "写字楼外景"
+  },
+  {
+    src: "/images/ruilong-international/office-lobby-01.jpg",
+    alt: "瑞龙国际写字楼大堂",
+    caption: "写字楼大堂"
+  },
+  {
+    src: "/images/ruilong-international/commercial-courtyard-02.jpg",
+    alt: "瑞龙国际商业内街和中庭空间",
+    caption: "商业内街 / 中庭空间"
+  },
+  {
+    src: "/images/ruilong-international/education-tenant-01.jpg",
+    alt: "瑞龙国际教育培训业态门头",
+    caption: "教育培训业态"
+  },
+  {
+    src: "/images/ruilong-international/commercial-streetfront-01.jpg",
+    alt: "瑞龙国际商业铺面展示",
+    caption: "商业铺面展示"
+  }
+];
+
+const spaceImages = [
+  {
+    src: "/images/ruilong-international/commercial-courtyard-02.jpg",
+    alt: "瑞龙国际中庭与内街空间",
+    title: "中庭 / 内街空间"
+  },
+  {
+    src: "/images/ruilong-international/office-tower-01.jpg",
+    alt: "瑞龙国际写字楼外景",
+    title: "写字楼外景"
+  },
+  {
+    src: "/images/ruilong-international/office-lobby-01.jpg",
+    alt: "瑞龙国际写字楼大堂",
+    title: "写字楼大堂"
+  },
+  {
+    src: "/images/ruilong-international/education-tenant-02.jpg",
+    alt: "瑞龙国际教育培训现有业态",
+    title: "教育培训现有业态"
+  }
+];
+
+const sceneImages = [
+  {
+    src: "/images/ruilong-international/education-tenant-01.jpg",
+    alt: "瑞龙国际教育培训门店场景",
+    title: "教育培训场景"
+  },
+  {
+    src: "/images/ruilong-international/education-tenant-02.jpg",
+    alt: "瑞龙国际教育培训室内展示",
+    title: "教育培训室内"
+  },
+  {
+    src: "/images/ruilong-international/commercial-shopfront-01.jpg",
+    alt: "瑞龙国际商业铺面现状",
+    title: "商业铺面场景"
+  }
+];
+
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[#f7f3ea]">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#111c2e_0%,#1b2c45_44%,#f7f3ea_44%,#fffaf0_100%)]" />
+      <section className="relative overflow-hidden bg-[#111c2e]">
+        <Image
+          src="/images/ruilong-international/hero-exterior-01.jpg"
+          alt="瑞龙国际招商中心建筑外立面"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[#07111f]/72" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.95)_0%,rgba(7,17,31,0.72)_46%,rgba(7,17,31,0.38)_100%)]" />
         <div className="container-page relative grid min-h-[calc(100vh-5rem)] items-center gap-10 py-14 lg:grid-cols-[1.02fr_0.98fr]">
           <div className="text-white">
             <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-[#d6b46a]">
@@ -85,10 +179,13 @@ export default function HomePage() {
               瑞龙国际招商合作平台
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-9 text-white/80">
-              雄踞西樵政务、商业与居住核心，打造集商务办公、精品零售、特色餐饮、教育培训与生活配套于一体的综合性商业综合体。
+              佛山市南海区西樵镇碧霞路10号
+            </p>
+            <p className="mt-2 max-w-2xl text-xl font-semibold leading-9 text-[#f3d98f]">
+              4.2万㎡商业体量｜多元业态招商中
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="#opportunities">了解招商业态</ButtonLink>
+              <ButtonLink href="#project">了解招商信息</ButtonLink>
               <ButtonLink href="#contact" variant="secondary">提交合作咨询</ButtonLink>
               <ButtonLink href="/textile" variant="secondary">进入瑞龙纺织</ButtonLink>
             </div>
@@ -106,7 +203,7 @@ export default function HomePage() {
               ["运营主体", "佛山瑞龙国际酒店管理有限公司"],
               ["招商热线", "13929936713"]
             ].map(([title, text]) => (
-              <article key={title} className="rounded-lg border border-[#e6d8b8] bg-white/95 p-6 shadow-soft">
+              <article key={title} className="rounded-lg border border-[#d6b46a]/40 bg-white/92 p-6 shadow-soft backdrop-blur">
                 <h2 className="text-2xl font-bold text-navy">{title}</h2>
                 <p className="mt-3 text-lg font-semibold leading-7 text-muted">{text}</p>
               </article>
@@ -138,6 +235,27 @@ export default function HomePage() {
       </section>
 
       <section className="section bg-[#f7f3ea]">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="项目视频"
+            title="项目实景视频"
+            text="通过项目实景视频，了解瑞龙国际商业空间、楼宇外立面、现有业态与整体招商环境。"
+          />
+          <div className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-[#111c2e] shadow-soft">
+            <video
+              controls
+              preload="metadata"
+              poster="/images/ruilong-international/hero-exterior-01.jpg"
+              className="aspect-video w-full bg-black object-cover"
+            >
+              <source src="/videos/project-video.mp4" type="video/mp4" />
+              您的浏览器暂不支持视频播放。
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
         <div className="container-page">
           <SectionHeading
             eyebrow="核心价值"
@@ -190,7 +308,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="opportunities" className="section bg-[#f7f3ea]">
+      <section className="section bg-[#f7f3ea]">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="实景图册"
+            title="项目实景展示"
+            text="以下图片展示瑞龙国际外立面、临街展示面、商业中心入口、写字楼空间、商业内街与现有业态场景。"
+          />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {galleryImages.map((image) => (
+              <figure key={image.src} className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-white shadow-sm">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-sm font-semibold text-navy">{image.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="opportunities" className="section bg-white">
         <div className="container-page">
           <SectionHeading
             eyebrow="招商业态"
@@ -229,6 +373,27 @@ export default function HomePage() {
                 <p className="mt-2 text-sm leading-7 text-muted">可根据品牌和企业需求进一步沟通匹配。</p>
               </article>
             ))}
+          </div>
+          <div className="lg:col-span-2">
+            <p className="mb-5 max-w-3xl text-sm leading-7 text-muted">
+              瑞龙国际具备商业铺面、商务办公、教育培训、休闲体验等多类空间形态，可根据不同品牌与经营需求进行沟通匹配。
+            </p>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {spaceImages.map((image) => (
+                <figure key={image.src} className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-white shadow-sm">
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="px-4 py-3 text-sm font-semibold text-navy">{image.title}</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -273,6 +438,32 @@ export default function HomePage() {
       </section>
 
       <section className="section bg-[#f7f3ea]">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="经营场景"
+            title="现有业态与经营场景"
+            text="项目现场已具备教育培训、生活服务、商业铺面等实际经营与展示场景，后续招商可围绕餐饮、零售、教育、休闲、办公及生活配套等方向持续完善。"
+          />
+          <div className="grid gap-5 md:grid-cols-3">
+            {sceneImages.map((image) => (
+              <figure key={image.src} className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-white shadow-sm">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-sm font-semibold text-navy">{image.title}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
         <div className="container-page">
           <SectionHeading
             eyebrow="空间规划方向"

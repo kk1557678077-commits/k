@@ -1,7 +1,7 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { SectionHeading } from "@/components/SectionHeading";
+import Image from "next/image";
 import { useLanguage } from "@/components/LanguageProvider";
 import type { DisplayDownloads } from "@/sanity/lib/content";
 
@@ -26,9 +26,25 @@ export function DownloadsClient({ downloads }: { downloads: DisplayDownloads }) 
         };
 
   return (
-    <section className="section bg-slate-50">
+    <section className="relative overflow-hidden bg-slate-50 py-16 sm:py-20">
+      <div className="absolute inset-x-0 top-0 h-80">
+        <Image
+          src="/images/ruilong-international/building-front-01.jpg"
+          alt="瑞龙国际项目外立面"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[#111c2e]/72" />
+      </div>
       <div className="container-page">
-        <SectionHeading title={labels.title} text={labels.text} />
+        <div className="relative mb-10 max-w-3xl text-white">
+          <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[#d6b46a]">
+            {lang === "en" ? "Project Materials" : "招商资料"}
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{labels.title}</h1>
+          <p className="mt-4 text-sm leading-7 text-white/78">{labels.text}</p>
+        </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {items.map((item) => (
             <article key={item.id} className="rounded-lg border border-line bg-white p-6 shadow-sm">
