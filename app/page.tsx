@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InquiryForm } from "@/components/InquiryForm";
+import { ProjectVideoCard } from "@/components/ProjectVideoCard";
 import { RuilongInternationalLogo } from "@/components/RuilongInternationalLogo";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
@@ -76,42 +77,42 @@ const floorPlans = [
 
 const galleryImages = [
   {
-    src: "/images/ruilong-international/hero-exterior-03.jpg",
+    src: "/images/ruilong-international/hero-exterior-new-01.jpg",
     alt: "瑞龙国际招商中心外立面",
     caption: "项目外立面"
   },
   {
-    src: "/images/ruilong-international/storefront-02.jpg",
+    src: "/images/ruilong-international/streetfront-new-01.jpg",
     alt: "瑞龙国际商业中心临街展示面",
     caption: "临街展示面"
   },
   {
-    src: "/images/ruilong-international/commercial-center-entrance-01.jpg",
+    src: "/images/ruilong-international/building-front-new-01.jpg",
     alt: "瑞龙国际商业中心入口及招牌",
     caption: "商业中心入口"
   },
   {
-    src: "/images/ruilong-international/office-tower-01.jpg",
+    src: "/images/ruilong-international/overview-new-01.jpg",
     alt: "瑞龙国际写字楼外景",
     caption: "写字楼外景"
   },
   {
-    src: "/images/ruilong-international/office-lobby-02.jpg",
+    src: "/images/ruilong-international/office-lobby-new-01.jpg",
     alt: "瑞龙国际写字楼大堂",
     caption: "写字楼大堂"
   },
   {
-    src: "/images/ruilong-international/commercial-courtyard-02.jpg",
+    src: "/images/ruilong-international/courtyard-new-01.jpg",
     alt: "瑞龙国际商业内街和中庭空间",
     caption: "商业内街 / 中庭空间"
   },
   {
-    src: "/images/ruilong-international/education-tenant-03.jpg",
+    src: "/images/ruilong-international/tenant-scene-new-01.jpg",
     alt: "瑞龙国际教育培训业态门头",
     caption: "教育培训业态"
   },
   {
-    src: "/images/ruilong-international/education-tenant-04.jpg",
+    src: "/images/ruilong-international/streetfront-new-02.jpg",
     alt: "瑞龙国际商业铺面展示",
     caption: "商业铺面展示"
   }
@@ -119,40 +120,40 @@ const galleryImages = [
 
 const spaceImages = [
   {
-    src: "/images/ruilong-international/commercial-courtyard-02.jpg",
+    src: "/images/ruilong-international/courtyard-new-01.jpg",
     alt: "瑞龙国际中庭与内街空间",
     title: "中庭 / 内街空间"
   },
   {
-    src: "/images/ruilong-international/office-tower-01.jpg",
+    src: "/images/ruilong-international/overview-new-01.jpg",
     alt: "瑞龙国际写字楼外景",
     title: "写字楼外景"
   },
   {
-    src: "/images/ruilong-international/office-lobby-02.jpg",
+    src: "/images/ruilong-international/office-lobby-new-01.jpg",
     alt: "瑞龙国际写字楼大堂",
     title: "写字楼大堂"
   },
   {
-    src: "/images/ruilong-international/education-tenant-04.jpg",
-    alt: "瑞龙国际教育培训现有业态",
-    title: "教育培训现有业态"
+    src: "/images/ruilong-international/streetfront-new-02.jpg",
+    alt: "瑞龙国际临街商业铺面",
+    title: "临街商业铺面"
   }
 ];
 
 const sceneImages = [
   {
-    src: "/images/ruilong-international/education-tenant-03.jpg",
+    src: "/images/ruilong-international/tenant-scene-new-01.jpg",
     alt: "瑞龙国际教育培训门店场景",
     title: "教育培训场景"
   },
   {
-    src: "/images/ruilong-international/education-tenant-04.jpg",
+    src: "/images/ruilong-international/courtyard-new-01.jpg",
     alt: "瑞龙国际教育培训室内展示",
-    title: "教育培训室内"
+    title: "幼儿园 / 培训机构"
   },
   {
-    src: "/images/ruilong-international/storefront-02.jpg",
+    src: "/images/ruilong-international/tenant-scene-new-02.jpg",
     alt: "瑞龙国际商业铺面现状",
     title: "商业铺面场景"
   }
@@ -163,7 +164,7 @@ export default function HomePage() {
     <>
       <section className="relative overflow-hidden bg-[#111c2e]">
         <Image
-          src="/images/ruilong-international/hero-exterior-03.jpg"
+          src="/images/ruilong-international/hero-exterior-new-01.jpg"
           alt="瑞龙国际招商中心建筑外立面"
           fill
           priority
@@ -246,17 +247,12 @@ export default function HomePage() {
             title="现场空间与招商环境展示"
             text="通过项目实景视频快速了解建筑外立面、商业入口、公共空间、写字楼环境与现有经营场景，辅助品牌进行初步选址判断。"
           />
-          <div className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-[#111c2e] shadow-soft">
-            <video
-              controls
-              preload="metadata"
-              poster="/images/ruilong-international/hero-exterior-03.jpg"
-              className="aspect-video w-full bg-black object-cover"
-            >
-              <source src="/videos/project-video.mp4" type="video/mp4" />
-              您的浏览器暂不支持视频播放。
-            </video>
-          </div>
+          <ProjectVideoCard
+            title="外立面与整体项目实景"
+            description="展示瑞龙国际建筑外立面、临街展示面与整体招商环境。若分段视频暂未生成，页面会自动以新上传外立面图展示。"
+            videoSrc="/videos/ruilong-exterior-01.mp4"
+            posterSrc="/images/ruilong-international/hero-exterior-new-01.jpg"
+          />
         </div>
       </section>
 
@@ -383,6 +379,14 @@ export default function HomePage() {
             <p className="mb-5 max-w-3xl text-sm leading-7 text-muted">
               瑞龙国际具备商业铺面、商务办公、教育培训、休闲体验等多类空间形态。招商沟通可围绕楼层位置、门头展示、动线条件、用电用水、停车到达和物业服务等要点展开。
             </p>
+            <div className="mb-5">
+              <ProjectVideoCard
+                title="商业空间与公共动线"
+                description="用于展示临街铺面、内街、中庭、大堂等空间条件。若分段视频暂未生成，页面会自动以新上传商业空间图展示。"
+                videoSrc="/videos/ruilong-commercial-01.mp4"
+                posterSrc="/images/ruilong-international/courtyard-new-01.jpg"
+              />
+            </div>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               {spaceImages.map((image) => (
                 <figure key={image.src} className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-white shadow-sm">
@@ -449,6 +453,14 @@ export default function HomePage() {
             title="现有业态与经营场景"
             text="项目现场已具备教育培训、生活服务、商业铺面等实际经营与展示场景。后续招商可围绕餐饮、零售、教育、休闲、办公及生活配套等方向持续丰富，形成更完整的消费与服务组合。"
           />
+          <div className="mb-5">
+            <ProjectVideoCard
+              title="现有业态与运营场景"
+              description="用于展示教育培训、幼儿园/培训机构和商铺实际经营画面。若分段视频暂未生成，页面会自动以新上传运营场景图展示。"
+              videoSrc="/videos/ruilong-tenant-01.mp4"
+              posterSrc="/images/ruilong-international/tenant-scene-new-01.jpg"
+            />
+          </div>
           <div className="grid gap-5 md:grid-cols-3">
             {sceneImages.map((image) => (
               <figure key={image.src} className="overflow-hidden rounded-lg border border-[#e6d8b8] bg-white shadow-sm">

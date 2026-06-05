@@ -55,7 +55,7 @@ export function DownloadsClient({ downloads }: { downloads: DisplayDownloads }) 
     <section className="relative overflow-hidden bg-slate-50 py-16 sm:py-20">
       <div className="absolute inset-x-0 top-0 h-80">
         <Image
-          src="/images/ruilong-international/hero-exterior-03.jpg"
+          src="/images/ruilong-international/hero-exterior-new-01.jpg"
           alt="瑞龙国际项目外立面"
           fill
           sizes="100vw"

@@ -15,4 +15,7 @@ tsconfig.tsbuildinfo
 .codex
 public/videos/project-video-original.mp4
 public/videos/*.original.mp4
+public/videos/*original*.mp4
 public/videos/raw-*.mp4
+picture/
+*.zip
