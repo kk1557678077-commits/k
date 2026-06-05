@@ -76,12 +76,12 @@ const floorPlans = [
 
 const galleryImages = [
   {
-    src: "/images/ruilong-international/hero-exterior-01.jpg",
+    src: "/images/ruilong-international/hero-exterior-03.jpg",
     alt: "瑞龙国际招商中心外立面",
     caption: "项目外立面"
   },
   {
-    src: "/images/ruilong-international/building-front-01.jpg",
+    src: "/images/ruilong-international/storefront-02.jpg",
     alt: "瑞龙国际商业中心临街展示面",
     caption: "临街展示面"
   },
@@ -96,7 +96,7 @@ const galleryImages = [
     caption: "写字楼外景"
   },
   {
-    src: "/images/ruilong-international/office-lobby-01.jpg",
+    src: "/images/ruilong-international/office-lobby-02.jpg",
     alt: "瑞龙国际写字楼大堂",
     caption: "写字楼大堂"
   },
@@ -106,12 +106,12 @@ const galleryImages = [
     caption: "商业内街 / 中庭空间"
   },
   {
-    src: "/images/ruilong-international/education-tenant-01.jpg",
+    src: "/images/ruilong-international/education-tenant-03.jpg",
     alt: "瑞龙国际教育培训业态门头",
     caption: "教育培训业态"
   },
   {
-    src: "/images/ruilong-international/commercial-streetfront-01.jpg",
+    src: "/images/ruilong-international/education-tenant-04.jpg",
     alt: "瑞龙国际商业铺面展示",
     caption: "商业铺面展示"
   }
@@ -129,12 +129,12 @@ const spaceImages = [
     title: "写字楼外景"
   },
   {
-    src: "/images/ruilong-international/office-lobby-01.jpg",
+    src: "/images/ruilong-international/office-lobby-02.jpg",
     alt: "瑞龙国际写字楼大堂",
     title: "写字楼大堂"
   },
   {
-    src: "/images/ruilong-international/education-tenant-02.jpg",
+    src: "/images/ruilong-international/education-tenant-04.jpg",
     alt: "瑞龙国际教育培训现有业态",
     title: "教育培训现有业态"
   }
@@ -142,17 +142,17 @@ const spaceImages = [
 
 const sceneImages = [
   {
-    src: "/images/ruilong-international/education-tenant-01.jpg",
+    src: "/images/ruilong-international/education-tenant-03.jpg",
     alt: "瑞龙国际教育培训门店场景",
     title: "教育培训场景"
   },
   {
-    src: "/images/ruilong-international/education-tenant-02.jpg",
+    src: "/images/ruilong-international/education-tenant-04.jpg",
     alt: "瑞龙国际教育培训室内展示",
     title: "教育培训室内"
   },
   {
-    src: "/images/ruilong-international/commercial-shopfront-01.jpg",
+    src: "/images/ruilong-international/storefront-02.jpg",
     alt: "瑞龙国际商业铺面现状",
     title: "商业铺面场景"
   }
@@ -163,7 +163,7 @@ export default function HomePage() {
     <>
       <section className="relative overflow-hidden bg-[#111c2e]">
         <Image
-          src="/images/ruilong-international/hero-exterior-01.jpg"
+          src="/images/ruilong-international/hero-exterior-03.jpg"
           alt="瑞龙国际招商中心建筑外立面"
           fill
           priority
@@ -250,7 +250,7 @@ export default function HomePage() {
             <video
               controls
               preload="metadata"
-              poster="/images/ruilong-international/hero-exterior-01.jpg"
+              poster="/images/ruilong-international/hero-exterior-03.jpg"
               className="aspect-video w-full bg-black object-cover"
             >
               <source src="/videos/project-video.mp4" type="video/mp4" />
