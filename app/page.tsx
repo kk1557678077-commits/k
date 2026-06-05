@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
 import { InquiryForm } from "@/components/InquiryForm";
+import { RuilongInternationalLogo } from "@/components/RuilongInternationalLogo";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
@@ -173,6 +174,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,17,31,0.95)_0%,rgba(7,17,31,0.72)_46%,rgba(7,17,31,0.38)_100%)]" />
         <div className="container-page relative grid min-h-[calc(100vh-5rem)] items-center gap-10 py-14 lg:grid-cols-[1.02fr_0.98fr]">
           <div className="text-white">
+            <RuilongInternationalLogo className="mb-6 shadow-lg shadow-black/20" imageClassName="h-20 w-auto sm:h-24" priority />
             <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-[#d6b46a]">
               佛山市南海区西樵镇碧霞路10号
             </p>

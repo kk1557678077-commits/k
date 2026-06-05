@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { navItems, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
+import { RuilongInternationalLogo } from "@/components/RuilongInternationalLogo";
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const mainNavItemsBase = [
@@ -49,14 +50,25 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
       <div className="container-page flex min-h-20 items-center justify-between gap-4">
-        <Link href={logoHref} className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-sm font-bold text-white">
-            RL
-          </span>
-          <span>
-            <span className="block text-base font-bold text-navy">{brand}</span>
-            <span className="hidden text-xs text-muted sm:block">{subtitle}</span>
-          </span>
+        <Link href={logoHref} className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
+          {isTextileArea ? (
+            <>
+              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-sm font-bold text-white">
+                RL
+              </span>
+              <span>
+                <span className="block text-base font-bold text-navy">{brand}</span>
+                <span className="hidden text-xs text-muted sm:block">{subtitle}</span>
+              </span>
+            </>
+          ) : (
+            <>
+              <RuilongInternationalLogo imageClassName="h-12 w-auto sm:h-14" priority />
+              <span className="hidden min-w-0 sm:block">
+                <span className="block text-xs font-semibold text-muted">{subtitle}</span>
+              </span>
+            </>
+          )}
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">

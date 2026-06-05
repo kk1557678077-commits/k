@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { contactInfo, navItems, products, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
+import { RuilongInternationalLogo } from "@/components/RuilongInternationalLogo";
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const textilePaths = [
@@ -36,7 +37,7 @@ export function Footer() {
       <footer className="border-t border-[#d9c79f] bg-[#111c2e] text-white">
         <div className="container-page grid gap-10 py-12 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
           <div>
-            <div className="text-2xl font-bold">瑞龙国际</div>
+            <RuilongInternationalLogo className="shadow-sm" imageClassName="h-16 w-auto" />
             <p className="mt-4 max-w-sm text-sm leading-7 text-white/72">
               立足佛山西樵，面向商业空间、品牌入驻、项目合作与产业资源合作提供招商咨询与合作对接。
             </p>
