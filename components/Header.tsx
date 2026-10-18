@@ -94,6 +94,14 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          {!isTextileArea && (
+            <Link
+              href="/#contact"
+              className="focus-ring rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ink active:translate-y-0"
+            >
+              预约看场
+            </Link>
+          )}
           {isTextileArea && (
             <button
               onClick={toggleLang}

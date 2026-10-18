@@ -21,6 +21,31 @@ export function FloatingContact() {
   const pathname = usePathname();
   const isTextileArea = textilePaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
   const contactHref = isTextileArea ? "/contact" : "/#contact";
+
+  // 招商首页：手机底部两个带文字的主入口，桌面右下角一枚紧凑胶囊
+  if (!isTextileArea) {
+    return (
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-sand bg-white/95 p-2 backdrop-blur md:inset-x-auto md:bottom-6 md:right-5 md:rounded-full md:border md:p-1.5 md:shadow-warm lg:hidden">
+        <div className="grid grid-cols-2 gap-2 md:flex md:gap-1">
+          <a
+            href="tel:13929936713"
+            className="focus-ring flex min-h-11 items-center justify-center gap-2 rounded-full border border-sand text-sm font-semibold text-navy transition hover:bg-paper md:border-0 md:px-4"
+          >
+            <Phone size={17} />
+            电话咨询
+          </a>
+          <Link
+            href={contactHref}
+            className="focus-ring flex min-h-11 items-center justify-center gap-2 rounded-full bg-navy text-sm font-semibold text-white transition hover:bg-ink active:scale-[0.98] md:px-5"
+          >
+            <Send size={16} />
+            预约看场
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const items = isTextileArea
     ? [
         { label: "Phone", icon: Phone, href: contactHref },

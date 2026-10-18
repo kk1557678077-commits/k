@@ -215,10 +215,14 @@ export function InquiryForm({
         ["quantity", t.forms.quantity]
       ];
 
+  const fieldClass = isInvestmentForm
+    ? "focus-ring rounded-xl border border-sand bg-paper/50 px-4 py-3 text-sm transition duration-200 hover:border-gold/60 focus:border-gold focus:bg-white"
+    : "focus-ring rounded-lg border border-line px-3 py-3 text-sm";
+
   return (
-    <form onSubmit={onSubmit} className="rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6">
-      {title && <h3 className="mb-5 text-xl font-bold text-navy">{title}</h3>}
-      <p className="mb-5 rounded-lg bg-slate-50 px-4 py-3 text-xs leading-5 text-muted">
+    <form onSubmit={onSubmit} className={isInvestmentForm ? "rounded-[1.75rem] bg-white p-6 text-charcoal shadow-warm sm:p-9" : "rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6"}>
+      {title && <h3 className={isInvestmentForm ? "mb-5 font-display text-2xl font-bold text-navy" : "mb-5 text-xl font-bold text-navy"}>{title}</h3>}
+      <p className={isInvestmentForm ? "mb-6 rounded-xl bg-paper px-4 py-3 text-xs leading-5 text-stone" : "mb-5 rounded-lg bg-slate-50 px-4 py-3 text-xs leading-5 text-muted"}>
         {trustText}
       </p>
       <input type="hidden" name="formType" value={formType} />
@@ -233,7 +237,7 @@ export function InquiryForm({
               autoComplete={name === "email" ? "email" : name === "name" ? "name" : name === "phone" ? "tel" : "off"}
               value={values[name as keyof Omit<FormValues, "message">]}
               onChange={onFieldChange}
-              className="focus-ring rounded-lg border border-line px-3 py-3 text-sm"
+              className={fieldClass}
             />
           </label>
         ))}
@@ -245,14 +249,14 @@ export function InquiryForm({
             required
             value={values.message}
             onChange={onFieldChange}
-            className="focus-ring rounded-lg border border-line px-3 py-3 text-sm"
+            className={fieldClass}
           />
         </label>
       </div>
       <button
         type="submit"
         disabled={submitState === "loading"}
-        className="focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"
+        className={isInvestmentForm ? "focus-ring mt-6 w-full rounded-full bg-navy px-8 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ink active:translate-y-0 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70 sm:w-auto" : "focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"}
       >
         {submitState === "loading" ? formMessages.sending : isInvestmentForm ? "提交咨询" : t.cta.submit}
       </button>

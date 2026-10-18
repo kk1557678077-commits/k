@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
+import { Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 
-const siteUrl = "https://www.ruilong.icu";
+const displayFont = Noto_Serif_SC({
+  weight: ["600", "700"],
+  display: "swap",
+  preload: false,
+  variable: "--font-display"
+});
+
+const siteUrl ="https://www.ruilong.icu";
 const seoTitle = "瑞龙国际｜佛山西樵招商合作平台";
 const seoDescription =
   "瑞龙国际立足佛山西樵，面向商业空间、品牌入驻、项目合作与产业资源合作提供招商咨询与合作对接。";
@@ -47,7 +55,7 @@ export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" className={displayFont.variable}>
       <body>
         <LanguageProvider>
           <Header />

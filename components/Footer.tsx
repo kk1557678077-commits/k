@@ -32,6 +32,9 @@ export function Footer() {
   const t = ui[lang];
   const isTextileArea = textilePaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
 
+  // 备案号未填写真实值前不在招商首页展示占位文字
+  const showIcp = !/placeholder/i.test(contactInfo.icp);
+
   if (!isTextileArea) {
     return (
       <footer className="border-t border-[#d9c79f] bg-[#111c2e] text-white">
@@ -69,17 +72,17 @@ export function Footer() {
             <h3 className="font-semibold text-[#d6b46a]">联系方式</h3>
             <div className="mt-4 grid gap-2 text-sm text-white/70">
               <span>项目地址：佛山市南海区西樵镇碧霞路10号瑞龙国际商业中心</span>
-              <span>招商热线：13929936713</span>
+              <a href="tel:13929936713" className="hover:text-white">招商热线：13929936713</a>
               <span>运营公司：佛山瑞龙国际酒店管理有限公司</span>
-              <span>邮箱：{contactInfo.email}（可编辑）</span>
-              <span>{contactInfo.icp}</span>
+              <span>邮箱：{contactInfo.email}</span>
+              {showIcp && <span>{contactInfo.icp}</span>}
             </div>
           </div>
         </div>
         <div className="border-t border-white/10">
           <div className="container-page flex flex-col gap-2 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
             <span>© {new Date().getFullYear()} 瑞龙国际。保留所有权利。</span>
-            <span>{contactInfo.icp}</span>
+            {showIcp && <span>{contactInfo.icp}</span>}
           </div>
         </div>
       </footer>
