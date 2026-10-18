@@ -42,12 +42,21 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: "瑞龙国际",
     type: "website",
-    locale: "zh_CN"
+    locale: "zh_CN",
+    images: [
+      {
+        url: "/images/ruilong-international/hero-exterior-new-01.jpg",
+        width: 1800,
+        height: 1200,
+        alt: "瑞龙国际写字楼与岭南风格商业外立面"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: seoTitle,
-    description: seoDescription
+    description: seoDescription,
+    images: ["/images/ruilong-international/hero-exterior-new-01.jpg"]
   }
 };
 
@@ -57,9 +66,15 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={displayFont.variable}>
       <body id="top">
+        <a
+          href="#main"
+          className="sr-only z-50 bg-navy px-4 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          跳到正文
+        </a>
         <LanguageProvider>
           <Header />
-          <main className="pb-16 md:pb-0">{children}</main>
+          <main id="main" className="pb-16 md:pb-0">{children}</main>
           <Footer />
           <FloatingContact />
         </LanguageProvider>
