@@ -1,11 +1,10 @@
-import { ArrowDown, ArrowUpRight, Handshake, Landmark, MapPin, Phone, TrainFront } from "lucide-react";
+import { Handshake, Landmark, MapPin, Phone, TrainFront } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { HeroScene } from "@/components/HeroScene";
 import { HomeMotion } from "@/components/HomeMotion";
 import { InquiryForm } from "@/components/InquiryForm";
 import { LuxHeading } from "@/components/LuxHeading";
 import { ProjectVideoCard } from "@/components/ProjectVideoCard";
-import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const HOTLINE = "13929936713";
 
@@ -84,84 +83,10 @@ function PhotoTile({ src, alt, caption, sizes, className = "" }: { src: string; 
   );
 }
 
-const primaryBtn =
-  "focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gold px-7 text-sm font-semibold text-ink shadow-warm transition duration-300 hover:-translate-y-0.5 hover:bg-[#c9a25f] active:translate-y-0 active:scale-[0.98]";
-const glassBtn =
-  "focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white/20 active:translate-y-0 active:scale-[0.98]";
-
 export default function HomePage() {
   return (
     <HomeMotion>
-      {/* 首屏 */}
-      <section data-hero className="grain relative isolate overflow-hidden bg-ink">
-        <div data-hero-media className="absolute inset-0 -z-10">
-          <Image
-            src="/images/ruilong-international/hero-exterior-new-01.jpg"
-            alt="瑞龙国际招商中心建筑外立面"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[60%_40%]"
-          />
-        </div>
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,rgba(13,26,42,0.94)_0%,rgba(13,26,42,0.78)_38%,rgba(13,26,42,0.25)_75%,rgba(13,26,42,0.1)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-[linear-gradient(180deg,rgba(13,26,42,0)_0%,rgba(13,26,42,0.85)_100%)]" />
-
-        <div className="container-page flex min-h-[calc(100dvh-5rem)] flex-col justify-end pb-10 pt-24 sm:pb-12">
-          <div className="max-w-3xl text-white">
-            <p data-hero-item className="flex items-center gap-3 text-sm font-semibold tracking-[0.2em] text-gold">
-              <span className="h-px w-10 bg-gold/80" aria-hidden />
-              佛山市南海区西樵镇碧霞路10号
-            </p>
-            <h1 data-hero-item className="mt-6 font-display text-5xl font-bold leading-[1.12] tracking-tight sm:text-6xl lg:text-7xl">
-              <span className="block">瑞龙国际</span>
-              <span className="block text-[#f1dfb6]">商业综合体招商</span>
-            </h1>
-            <p data-hero-item className="mt-7 max-w-xl text-lg leading-9 text-white/80">
-              立足佛山南海西樵核心生活圈，面向品牌入驻、商业租赁、商务办公与项目合作开放招商。
-            </p>
-            <p data-hero-item className="mt-3 text-base font-semibold tracking-wide text-[#f1dfb6]">
-              4.2万㎡商业体量 · 实景空间可看样 · 多元业态招商中
-            </p>
-            <div data-hero-item className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link href="#contact" className={primaryBtn}>
-                预约看场
-                <ArrowUpRight size={18} />
-              </Link>
-              <a href={`tel:${HOTLINE}`} className={glassBtn}>
-                <Phone size={17} />
-                电话咨询 {HOTLINE}
-              </a>
-              <Link href="#project" className="focus-ring inline-flex min-h-12 items-center gap-2 px-2 text-sm font-semibold text-white/75 transition hover:text-white">
-                查看项目定位
-                <ArrowDown size={16} />
-              </Link>
-              {SHOW_TEXTILE_ENTRY && (
-                <Link href="/textile" className={glassBtn}>进入瑞龙纺织</Link>
-              )}
-            </div>
-          </div>
-
-          <dl data-hero-item className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md sm:grid-cols-3">
-            {[
-              ["项目定位", "商业、办公、教育、休闲与生活配套复合型项目"],
-              ["运营主体", "佛山瑞龙国际酒店管理有限公司"],
-              ["招商热线", HOTLINE]
-            ].map(([title, text]) => (
-              <div key={title} className="bg-ink/40 px-6 py-5">
-                <dt className="text-xs font-semibold tracking-[0.2em] text-gold">{title}</dt>
-                <dd className="mt-2 text-[15px] font-medium leading-7 text-white">
-                  {title === "招商热线" ? (
-                    <a href={`tel:${text}`} className="tabular hover:text-gold">{text}</a>
-                  ) : (
-                    text
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      <HeroScene />
 
       {/* 项目概况 */}
       <section id="project" className="section-lux bg-paper">
