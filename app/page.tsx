@@ -1,425 +1,281 @@
-import { Handshake, Landmark, MapPin, Phone, TrainFront } from "lucide-react";
 import Image from "next/image";
+import { FloorFinder } from "@/components/FloorFinder";
 import { HeroScene } from "@/components/HeroScene";
 import { HomeMotion } from "@/components/HomeMotion";
 import { InquiryForm } from "@/components/InquiryForm";
-import { LuxHeading } from "@/components/LuxHeading";
-import { ProjectVideoCard } from "@/components/ProjectVideoCard";
+import { NameIndex } from "@/components/NameIndex";
+import ScrollReveal from "@/components/reactbits/ScrollReveal";
 
 const HOTLINE = "13929936713";
+const IMG = "/images/ruilong-international";
 
-const coreValues = [
-  ["区位客群", "位于西樵镇碧霞路10号，周边居住、办公、教育与日常消费场景集中。"],
-  ["空间组合", "商业铺面、内街中庭、写字楼与配套空间组合，可承接不同经营尺度。"],
-  ["业态适配", "餐饮、零售、教育、休闲体验、办公服务和生活配套均可沟通匹配。"],
-  ["现场基础", "项目已有教育培训、商业铺面及办公场景，便于品牌判断真实经营环境。"],
-  ["运营协同", "统一招商、统一运营、统一物业服务，降低品牌入驻后的沟通成本。"],
-  ["合作开放", "面向品牌入驻、商业租赁、长期合作和产业资源合作开放洽谈。"]
+// count / decimals 只用于滚动计数；数据原样来自项目周边调研资料
+const stats = [
+  { pre: "约", count: 10.2, decimals: 2, unit: "万", text: "周边2公里常驻人口。" },
+  { pre: "约", count: 6.84, decimals: 2, unit: "万", text: "周边居住人口，与常驻人口为不同统计口径。" },
+  { pre: "", count: 83, decimals: 0, unit: "个", text: "周边小区。" },
+  { pre: "", count: 145, decimals: 0, unit: "所", text: "周边教育配套。" },
+  { pre: "约", count: 730, decimals: 0, unit: "家", text: "周边餐饮门店。" },
+  { pre: "约", count: 2017, decimals: 0, unit: "家", text: "周边零售门店。" },
+  { pre: "", count: 48, decimals: 0, unit: "个", text: "周边公交站点，为客流导入和商务往来提供基础。" }
 ];
 
-// value 原样展示，count / decimals 只用于滚动计数动效
-const researchStats = [
-  { prefix: "约", count: 10.2, decimals: 2, unit: "万人", label: "周边2km常驻人口" },
-  { prefix: "", count: 83, decimals: 0, unit: "个", label: "周边小区" },
-  { prefix: "约", count: 6.84, decimals: 2, unit: "万人", label: "周边居住人口" },
-  { prefix: "", count: 48, decimals: 0, unit: "个", label: "周边公交站点" },
-  { prefix: "", count: 145, decimals: 0, unit: "所", label: "周边教育配套" },
-  { prefix: "约", count: 730, decimals: 0, unit: "家", label: "周边餐饮门店" },
-  { prefix: "约", count: 2017, decimals: 0, unit: "家", label: "周边零售门店" }
+const indexGroups: { title: string; summary: string; items: [string, string][] }[] = [
+  {
+    title: "入驻价值",
+    summary: "区位、空间、业态、现场、运营与合作六个方面，帮助品牌判断入驻可行性。",
+    items: [
+      ["区位客群", "位于西樵镇碧霞路10号，周边居住、办公、教育与日常消费场景集中。"],
+      ["空间组合", "商业铺面、内街中庭、写字楼与配套空间组合，可承接不同经营尺度。"],
+      ["业态适配", "餐饮、零售、教育、休闲体验、办公服务和生活配套均可沟通匹配。"],
+      ["现场基础", "项目已有教育培训、商业铺面及办公场景，便于品牌判断真实经营环境。"],
+      ["运营协同", "统一招商、统一运营、统一物业服务，降低品牌入驻后的沟通成本。"],
+      ["合作开放", "面向品牌入驻、商业租赁、长期合作和产业资源合作开放洽谈。"]
+    ]
+  },
+  {
+    title: "招商业态",
+    summary: "餐饮、零售、教育、休闲体验、商务办公与生活配套六个方向开放咨询。",
+    items: [
+      ["餐饮美食", "特色餐饮、品牌快餐、火锅烧烤、咖啡茶饮、轻食甜品等消费品牌。"],
+      ["精品零售", "生活超市、服饰配饰、母婴美妆、家居文创及社区零售。"],
+      ["教育培训", "早教启蒙、艺术培训、素质教育、成人技能培训等教育机构。"],
+      ["休闲体验", "美容护理、健身运动、亲子娱乐、棋牌桌球、文创体验。"],
+      ["商务办公", "企业办公、电商文创、专业服务、咨询机构与轻办公团队。"],
+      ["生活配套", "便利店、药房、家政服务、社区便民服务与本地生活品牌。"]
+    ]
+  },
+  {
+    title: "空间形态",
+    summary: "临街铺面到组合空间，可根据品牌调性、客流需求和经营面积进一步匹配。",
+    items: [
+      ["临街铺面", "临街展示面，适合需要门头展示与到店客流的品牌。"],
+      ["内街商铺", "内街与中庭动线上的铺位，适合社区消费与体验业态。"],
+      ["中庭展示", "公共中庭空间，可沟通展示与活动需求。"],
+      ["商务办公", "写字楼办公空间，适合企业办公、专业服务与轻办公团队。"],
+      ["组合空间", "可结合业态类型、经营面积、展示需求和到访客群进一步沟通匹配。"],
+      ["项目合作", "面向产业资源与服务商的合作洽谈。"]
+    ]
+  }
 ];
 
-const businessTypes = [
-  ["餐饮美食", "特色餐饮、品牌快餐、火锅烧烤、咖啡茶饮、轻食甜品等消费品牌"],
-  ["精品零售", "生活超市、服饰配饰、母婴美妆、家居文创及社区零售"],
-  ["教育培训", "早教启蒙、艺术培训、素质教育、成人技能培训等教育机构"],
-  ["休闲体验", "美容护理、健身运动、亲子娱乐、棋牌桌球、文创体验"],
-  ["商务办公", "企业办公、电商文创、专业服务、咨询机构与轻办公团队"],
-  ["生活配套", "便利店、药房、家政服务、社区便民服务与本地生活品牌"]
+const gallery = [
+  { src: `${IMG}/building-front-new-01.jpg`, alt: "瑞龙国际商业中心入口及招牌", caption: "商业中心入口", ratio: "aspect-[3/4]", pos: "50% 50%", place: "col-span-9 sm:col-span-4 sm:col-start-1" },
+  { src: `${IMG}/overview-new-01.jpg`, alt: "瑞龙国际商业楼外景", caption: "商业楼外景", ratio: "aspect-[16/10]", pos: "50% 20%", place: "col-span-10 col-start-3 sm:col-span-6 sm:col-start-7 sm:mt-[30vh]" },
+  { src: `${IMG}/streetfront-new-02.jpg`, alt: "瑞龙国际临街商业铺面", caption: "临街商业铺面", ratio: "aspect-[3/2]", pos: "50% 50%", place: "col-span-12 sm:col-span-6 sm:col-start-6 sm:mt-[24vh]" },
+  { src: `${IMG}/office-lobby-new-01.jpg`, alt: "瑞龙国际大厦入口大堂", caption: "写字楼大堂", ratio: "aspect-[4/5]", pos: "50% 50%", place: "col-span-7 sm:col-span-3 sm:col-start-2 sm:-mt-[18vh]" }
 ];
 
-const spaceTypes = ["临街铺面", "内街商铺", "中庭展示", "商务办公", "组合空间", "项目合作"];
-
-const cooperationModels = ["品牌入驻", "商业租赁", "联营合作", "办公空间合作", "产业资源合作", "服务商合作"];
-
-const supportItems = ["统一招商", "统一运营", "统一物业", "场地看样", "商务对接", "物业维修", "业态匹配", "资料对接"];
-
-const floorPlans = [
-  ["1F", "餐饮、咖啡茶饮、精品零售、生活服务及临街展示型品牌"],
-  ["2F", "教育培训、休闲娱乐、体验业态、棋牌桌球等消费方向"],
-  ["3F", "健身运动、商务办公、专业服务、综合配套等方向"]
+// 手机上两行 64/36、36/64；桌面一条 5:2:3:2 的长带，悬停的一格展开
+const band = [
+  { src: `${IMG}/courtyard-new-01.jpg`, alt: "瑞龙国际商业内街与中庭空间", size: "w-[64%] sm:grow-[5]", pos: "45% 50%" },
+  { src: `${IMG}/streetfront-new-01.jpg`, alt: "瑞龙国际写字楼与临街铺面", size: "w-[36%] sm:grow-[2]", pos: "50% 20%" },
+  { src: `${IMG}/hero-exterior-new-01.jpg`, alt: "瑞龙国际岭南风格外立面", size: "w-[36%] sm:grow-[3]", pos: "75% 50%" },
+  { src: `${IMG}/storefront-02.jpg`, alt: "瑞龙国际商业楼临街立面", size: "w-[64%] sm:grow-[2]", pos: "26% 50%" }
 ];
 
-const galleryImages = [
-  { src: "/images/ruilong-international/streetfront-new-01.jpg", alt: "瑞龙国际商业中心临街展示面", caption: "临街展示面" },
-  { src: "/images/ruilong-international/building-front-new-01.jpg", alt: "瑞龙国际商业中心入口及招牌", caption: "商业中心入口" },
-  { src: "/images/ruilong-international/overview-new-01.jpg", alt: "瑞龙国际写字楼外景", caption: "写字楼外景" },
-  { src: "/images/ruilong-international/office-lobby-new-01.jpg", alt: "瑞龙国际写字楼大堂", caption: "写字楼大堂" },
-  { src: "/images/ruilong-international/courtyard-new-01.jpg", alt: "瑞龙国际商业内街和中庭空间", caption: "商业内街 / 中庭空间" },
-  { src: "/images/ruilong-international/tenant-scene-new-01.jpg", alt: "瑞龙国际教育培训业态门头", caption: "教育培训业态" },
-  { src: "/images/ruilong-international/streetfront-new-02.jpg", alt: "瑞龙国际商业铺面展示", caption: "商业铺面展示" },
-  { src: "/images/ruilong-international/hero-exterior-new-01.jpg", alt: "瑞龙国际招商中心外立面", caption: "项目外立面" }
-];
-
-const spaceImages = [
-  { src: "/images/ruilong-international/courtyard-new-01.jpg", alt: "瑞龙国际中庭与内街空间", title: "中庭 / 内街空间" },
-  { src: "/images/ruilong-international/overview-new-01.jpg", alt: "瑞龙国际写字楼外景", title: "写字楼外景" },
-  { src: "/images/ruilong-international/office-lobby-new-01.jpg", alt: "瑞龙国际写字楼大堂", title: "写字楼大堂" },
-  { src: "/images/ruilong-international/streetfront-new-02.jpg", alt: "瑞龙国际临街商业铺面", title: "临街商业铺面" }
-];
-
-const sceneImages = [
-  { src: "/images/ruilong-international/tenant-scene-new-01.jpg", alt: "瑞龙国际教育培训门店场景", title: "教育培训场景" },
-  { src: "/images/ruilong-international/courtyard-new-01.jpg", alt: "瑞龙国际教育培训室内展示", title: "幼儿园 / 培训机构" },
-  { src: "/images/ruilong-international/tenant-scene-new-02.jpg", alt: "瑞龙国际商业铺面现状", title: "商业铺面场景" }
-];
-
-function PhotoTile({ src, alt, caption, sizes, className = "" }: { src: string; alt: string; caption: string; sizes: string; className?: string }) {
-  return (
-    <figure className={`group relative isolate overflow-hidden rounded-2xl bg-sand ${className}`} data-reveal>
-      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition duration-700 ease-out group-hover:scale-[1.04]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,26,42,0)_55%,rgba(13,26,42,0.78)_100%)]" />
-      <figcaption className="absolute bottom-0 left-0 p-4 text-sm font-semibold text-white sm:p-5">{caption}</figcaption>
-    </figure>
-  );
-}
+const services = ["统一招商", "统一运营", "统一物业", "场地看样", "商务对接", "物业维修", "业态匹配", "资料对接"];
 
 export default function HomePage() {
   return (
     <HomeMotion>
-      <HeroScene />
+      <div className="rl">
+        <HeroScene />
 
-      {/* 项目概况 */}
-      <section id="project" className="section-lux bg-paper">
-        <div className="container-page grid items-center gap-14 lg:grid-cols-[1fr_1.05fr]">
-          <div>
-            <LuxHeading
-              eyebrow="项目概况"
-              title="4.2万㎡复合型商业招商项目"
-              text="瑞龙国际位于佛山市南海区西樵镇碧霞路10号，以商业铺面、商务办公、教育培训、餐饮零售、休闲体验与生活服务为主要招商方向，服务周边社区消费、办公配套与品牌落地需求。"
-              className="mb-8"
-            />
-            <p className="max-w-[42rem] text-base leading-8 text-stone" data-reveal>
-              项目以“真实空间、清晰业态、统一运营”为招商基础，既适合餐饮、零售、教育、休闲与生活服务品牌入驻，也可承接企业办公、服务机构、项目合作及产业资源对接。具体面积、楼层、价格和合作条件以现场沟通为准。
-            </p>
-            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-sand pt-6" data-reveal>
-              {["品牌入驻", "商业租赁", "商务办公"].map((item) => (
-                <li key={item} className="flex items-center gap-2 font-display text-lg font-semibold text-navy">
-                  <span className="h-1.5 w-1.5 rotate-45 bg-gold" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative" data-reveal>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-warm sm:aspect-[5/4] lg:aspect-[4/5]">
-              <Image
-                src="/images/ruilong-international/overview-new-01.jpg"
-                alt="瑞龙国际写字楼外景"
-                fill
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="lattice absolute -bottom-6 -left-4 hidden h-28 w-28 rounded-xl opacity-40 sm:block" aria-hidden />
-            <div className="absolute -bottom-8 right-4 rounded-2xl bg-ink px-7 py-5 text-white shadow-warm sm:right-8">
-              <div className="font-display text-4xl font-bold text-[#f1dfb6]">4.2万㎡</div>
-              <div className="mt-1 text-sm text-white/70">商业体量</div>
+        {/* 一句标题为一幅全景作注 */}
+        <section id="project" className="pt-[clamp(6rem,3rem+8vw,11rem)]">
+          <div className="rl-frame">
+            <h2 className="t-head max-w-[10.5em]" data-reveal>
+              4.2万㎡商业综合体
+            </h2>
+            <div className="t-small mt-8 flex flex-col gap-4 text-[var(--ink)] sm:flex-row sm:gap-12" data-reveal>
+              <p className="max-w-[16em]">立足西樵核心生活圈，佛山市南海区西樵镇碧霞路10号。运营：佛山瑞龙国际酒店管理有限公司。</p>
+              <p className="max-w-[16em]">商业铺面、商务办公、教育培训、餐饮零售、休闲体验与生活服务。</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 招商优势 */}
-      <section className="section-lux bg-white">
-        <div className="container-page grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <LuxHeading
-              eyebrow="招商优势"
-              title="面向品牌与企业的六项入驻价值"
-              text="瑞龙国际以区位客群、空间组合、业态适配、现场基础、运营协同与合作开放为核心优势，帮助品牌更高效判断入驻可行性。"
-              className="mb-0"
+          <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden sm:aspect-[21/9]" data-wipe>
+            <Image
+              src={`${IMG}/building-front-new-02.jpg`}
+              alt="瑞龙国际岭南风格商业楼全景，铜色回纹窗花与青砖立柱"
+              fill
+              sizes="100vw"
+              className="scale-110 object-cover"
+              data-drift
             />
           </div>
-          <ol className="grid gap-x-10 sm:grid-cols-2">
-            {coreValues.map(([title, text], index) => (
-              <li key={title} className="border-t border-sand py-7" data-reveal>
-                <div className="flex items-baseline gap-4">
-                  <span className="tabular font-display text-sm font-bold text-gold">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="font-display text-xl font-bold text-navy">{title}</h3>
+        </section>
+
+        {/* 安静的数字 */}
+        <section id="location" className="rl-gap">
+          <div className="rl-frame grid gap-14 lg:grid-cols-12">
+            <div className="lg:col-span-6 lg:col-start-2">
+              <h2 className="t-lead mb-14 pl-[7rem] font-semibold sm:pl-[9.75rem]" data-reveal>
+                周边2公里
+              </h2>
+              <dl className="grid gap-7">
+                {stats.map((s) => (
+                  <div key={s.text} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-6 sm:grid-cols-[8.25rem_1fr]" data-reveal>
+                    <dt className="tabular whitespace-nowrap text-right font-display text-[length:var(--step-lead)] font-bold">
+                      {s.pre && <span className="t-small font-normal">{s.pre}</span>}
+                      <span data-count={s.count} data-decimals={s.decimals}>
+                        {s.count.toFixed(s.decimals)}
+                      </span>
+                      <span className="t-small font-normal">{s.unit}</span>
+                    </dt>
+                    <dd className="max-w-[40ch] text-[var(--ink)]">{s.text}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="t-small mt-10 pl-[7rem] text-[var(--ink-soft)] sm:pl-[9.75rem]" data-reveal>
+                数据来自项目周边调研资料，统计口径以招商资料为准。
+              </p>
+            </div>
+            <div className="relative ml-auto aspect-square w-[56%] overflow-hidden lg:col-span-3 lg:col-start-9 lg:mt-20 lg:w-full lg:self-start" data-wipe>
+              <Image src={`${IMG}/courtyard-new-01.jpg`} alt="瑞龙国际内街上的幼儿园与教育业态" fill sizes="(min-width: 1024px) 22vw, 56vw" className="object-cover" />
+            </div>
+          </div>
+        </section>
+
+        {/* 一字号名录 */}
+        <section className="rl-gap bg-[var(--ground-2)]">
+          <div className="rl-frame">
+            <h2 className="t-lead mb-16 font-semibold" data-reveal>
+              为品牌准备的条件
+            </h2>
+            <NameIndex groups={indexGroups} />
+          </div>
+        </section>
+
+        {/* 交错成对的实景 */}
+        <section aria-label="项目实景" className="rl-gap">
+          <div className="rl-frame grid grid-cols-12 gap-y-16 sm:gap-y-0">
+            {gallery.map((g) => (
+              <figure key={g.src} className={g.place}>
+                <div className={`relative w-full overflow-hidden ${g.ratio}`} data-wipe>
+                  <Image src={g.src} alt={g.alt} fill sizes="(min-width: 640px) 50vw, 90vw" className="object-cover" style={{ objectPosition: g.pos }} />
                 </div>
-                <p className="mt-3 pl-9 text-sm leading-7 text-stone">{text}</p>
-              </li>
+                <figcaption className="t-small mt-2.5 text-[var(--ink-soft)]">{g.caption}</figcaption>
+              </figure>
             ))}
-          </ol>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* 区位与周边配套 */}
-      <section id="location" className="section-lux relative overflow-hidden bg-paper-deep">
-        <div className="lattice pointer-events-none absolute -right-10 top-10 h-64 w-64 opacity-[0.18]" aria-hidden />
-        <div className="container-page relative">
-          <LuxHeading
-            eyebrow="区位与周边配套"
-            title="覆盖居住、教育、餐饮、零售与公共服务资源"
-            text="据项目周边调研资料显示，瑞龙国际周边2公里范围内覆盖居住、教育、餐饮、零售、酒店及公共服务等多类配套资源，为日常消费、亲子教育、商务往来和社区服务提供客群基础。"
-          />
-          <dl className="grid grid-cols-2 gap-x-8 gap-y-10 border-y border-sand py-10 sm:grid-cols-4 lg:grid-cols-7">
-            {researchStats.map((stat) => (
-              <div key={stat.label} data-reveal>
-                <dd className="tabular whitespace-nowrap font-display text-navy">
-                  {stat.prefix && <span className="mr-0.5 text-base font-semibold text-stone">{stat.prefix}</span>}
-                  <span className="text-3xl font-bold sm:text-4xl lg:text-[2rem]" data-count={stat.count} data-decimals={stat.decimals}>
-                    {stat.count.toFixed(stat.decimals)}
-                  </span>
-                  <span className="ml-0.5 text-base font-semibold text-stone">{stat.unit}</span>
-                </dd>
-                <dt className="mt-2 text-sm leading-6 text-stone">{stat.label}</dt>
+        {/* 陈述 + 推到右侧的楼层表（可按业态筛选） */}
+        <section id="opportunities" className="rl-gap bg-[var(--ground-2)]">
+          <div id="cooperation" className="rl-frame">
+            <h2 className="t-head mb-24 max-w-[11em] sm:indent-[3vw]" data-reveal>
+              按业态，找到合适的楼层
+            </h2>
+            <FloorFinder />
+          </div>
+        </section>
+
+        {/* 不等宽实景长带 */}
+        <section id="commercial-space" className="rl-gap">
+          <div className="rl-frame">
+            <h2 className="t-lead mb-16 font-semibold lg:ml-[16.66%]" data-reveal>
+              现场空间
+            </h2>
+          </div>
+          <div className="flex h-[84svh] flex-wrap sm:h-[68svh] sm:flex-nowrap" data-reveal>
+            {band.map((b, i) => (
+              <div
+                key={b.src}
+                className={`relative h-1/2 overflow-hidden transition-[flex-grow] duration-500 ease-out sm:h-full sm:w-auto sm:basis-0 sm:hover:grow-[6] ${b.size}`}
+              >
+                <Image src={b.src} alt={b.alt} fill sizes="(min-width: 640px) 40vw, 64vw" className="object-cover" style={{ objectPosition: b.pos }} />
+                {i === 0 && (
+                  <p className="t-lead absolute left-0 top-0 bg-[var(--inverse)] px-6 py-5 font-semibold text-[var(--ground)]">
+                    内街、中庭
+                    <br />
+                    与临街铺面
+                  </p>
+                )}
               </div>
             ))}
-          </dl>
-          <div className="mt-12 grid gap-10 md:grid-cols-3">
-            {[
-              [MapPin, "西樵核心生活圈", "位于佛山市南海区西樵镇碧霞路10号，连接周边社区、办公、教育和公共服务场景。"],
-              [Landmark, "多类配套聚集", "周边商业、酒店、公共服务及教育资源较为完善，适合承接复合型消费需求。"],
-              [TrainFront, "到达条件清晰", "周边道路与公交站点为客流导入、商务往来和日常消费提供基础。"]
-            ].map(([Icon, title, text]) => {
-              const CardIcon = Icon as typeof MapPin;
-              return (
-                <article key={String(title)} data-reveal>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-bronze shadow-sm">
-                    <CardIcon size={22} strokeWidth={1.6} />
-                  </span>
-                  <h3 className="mt-5 font-display text-xl font-bold text-navy">{String(title)}</h3>
-                  <p className="mt-3 text-sm leading-7 text-stone">{String(text)}</p>
-                </article>
-              );
-            })}
           </div>
-        </div>
-      </section>
+          <p className="rl-frame t-body mt-6 text-[var(--ink)]" data-reveal>
+            具体可租面积、交付条件、楼层位置、费用方案及合作细节，以项目实际招商方案及现场沟通为准。
+          </p>
+        </section>
 
-      {/* 实景图册（含项目实景视频位） */}
-      <section className="section-lux bg-white">
-        <div className="container-page">
-          <LuxHeading
-            eyebrow="项目实景"
-            title="现场空间与招商环境展示"
-            text="以下实景展示瑞龙国际外立面、临街展示面、商业中心入口、写字楼大堂、商业内街、中庭空间与现有业态场景，辅助品牌进行初步选址判断。"
-          />
-          <div className="grid auto-rows-[13rem] gap-4 sm:grid-cols-2 sm:auto-rows-[15rem] lg:grid-cols-4">
-            <div className="sm:col-span-2 sm:row-span-2" data-reveal>
-              <ProjectVideoCard
-                className="h-full"
-                title="外立面与整体项目实景"
-                description="瑞龙国际建筑外立面、临街展示面与整体招商环境。"
-                videoSrc="/videos/ruilong-exterior-01.mp4"
-                posterSrc="/images/ruilong-international/hero-exterior-new-01.jpg"
-              />
-            </div>
-            {galleryImages.slice(0, 7).map((image, index) => (
-              <PhotoTile
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                caption={image.caption}
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className={index === 4 ? "lg:col-span-2" : ""}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 招商业态 + 楼层规划 */}
-      <section id="opportunities" className="section-lux bg-paper">
-        <div className="container-page">
-          <LuxHeading
-            eyebrow="招商业态"
-            title="多元业态招商，补充区域消费与办公配套"
-            text="围绕餐饮、零售、教育、休闲体验、商务办公与生活配套等方向开放咨询，适合品牌门店、服务机构、轻办公团队及长期合作伙伴洽谈。"
-          />
-          <div className="grid gap-px overflow-hidden rounded-2xl bg-sand sm:grid-cols-2 lg:grid-cols-3">
-            {businessTypes.map(([title, text]) => (
-              <article key={title} className="group relative bg-paper p-7 transition duration-300 hover:bg-white" data-reveal>
-                <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gold transition duration-500 group-hover:scale-x-100" aria-hidden />
-                <h3 className="font-display text-xl font-bold text-navy">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-stone">{text}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-20 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <LuxHeading
-              eyebrow="空间规划方向"
-              title="楼层业态规划参考"
-              text="以下为招商方向参考，具体楼层组合、面积划分和入驻条件以项目实际招商方案及现场沟通为准。"
-              className="mb-0"
-            />
-            <ol className="grid gap-3">
-              {[...floorPlans].reverse().map(([floor, text]) => (
-                <li key={floor} className="flex items-center gap-6 rounded-2xl border border-sand bg-white px-6 py-5 transition duration-300 hover:border-gold/60 hover:shadow-warm" data-reveal>
-                  <span className="font-display text-3xl font-bold text-gold">{floor}</span>
-                  <span className="h-8 w-px bg-sand" aria-hidden />
-                  <p className="text-base font-medium leading-7 text-navy">{text}</p>
-                </li>
+        {/* 侧栏事实 + 宽段落 */}
+        <section id="resources" className="rl-gap bg-[var(--ground-2)]">
+          <div className="rl-frame grid gap-12 lg:grid-cols-[34%_1fr]">
+            <dl className="t-small grid grid-cols-2 gap-5 lg:block lg:max-w-[12rem] lg:space-y-5">
+              {[
+                ["运营公司", "佛山瑞龙国际酒店管理有限公司"],
+                ["项目地址", "西樵镇碧霞路10号"],
+                ["商业体量", "4.2万㎡"]
+              ].map(([k, v]) => (
+                <div key={k} data-reveal>
+                  <dt className="text-[var(--ink-soft)]">{k}</dt>
+                  <dd className="text-[var(--ink)]">{v}</dd>
+                </div>
               ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+            </dl>
+            <ScrollReveal
+              splitBy="chars"
+              baseOpacity={0.15}
+              blurStrength={3}
+              stagger={0.012}
+              containerClassName="max-w-[20em] text-[var(--ink)]"
+              textClassName="text-[length:var(--step-lead)] leading-[1.45] font-semibold"
+            >
+              项目以“真实空间、清晰业态、统一运营”为招商基础。
+            </ScrollReveal>
 
-      {/* 商业空间 */}
-      <section id="commercial-space" className="section-lux bg-white">
-        <div className="container-page">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
-            <LuxHeading
-              eyebrow="商业空间"
-              title="4.2万㎡商业体量，覆盖多类空间需求"
-              text="项目具备临街铺面、内街商铺、中庭展示、商务办公和组合空间等形态，可根据品牌调性、客流需求和经营面积进一步沟通匹配。"
-              className="mb-0"
-            />
-            <div data-reveal>
-              <ul className="flex flex-wrap gap-2">
-                {spaceTypes.map((item) => (
-                  <li key={item} className="rounded-lg border border-sand bg-paper px-4 py-2 text-sm font-semibold text-navy">
-                    {item}
+            <p className="t-body max-w-[32em] text-[var(--ink)] lg:col-start-2 lg:-mt-4" data-reveal>
+              既适合餐饮、零售、教育、休闲与生活服务品牌入驻，也可承接企业办公、服务机构、项目合作及产业资源对接。具体面积、楼层、价格和合作条件以现场沟通为准。
+            </p>
+
+            <p className="t-small font-semibold text-[var(--ink)] lg:pt-24">招商服务</p>
+            <div className="lg:pt-24">
+              <ul className="t-small grid max-w-[38rem] grid-cols-2 gap-x-16 gap-y-2.5 text-[var(--ink)]">
+                {services.map((s) => (
+                  <li key={s} data-reveal>
+                    {s}
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 border-l-2 border-gold pl-4 text-sm leading-7 text-stone">
-                具体可租面积、交付条件、楼层位置、费用方案及合作细节，以项目实际招商方案及现场沟通为准。
+              <p className="t-small mt-8 max-w-[44ch] text-[var(--ink-soft)]">
+                涉及政策、补贴或特殊条件的信息，以实际沟通和确认文件为准。
               </p>
             </div>
           </div>
-          <p className="mt-12 max-w-3xl text-sm leading-7 text-stone" data-reveal>
-            招商沟通可围绕楼层位置、门头展示、动线条件、用电用水、停车到达和物业服务等要点展开。
-          </p>
-          <div className="mt-6 grid auto-rows-[13rem] gap-4 sm:grid-cols-2 sm:auto-rows-[14rem] lg:grid-cols-4">
-            <div className="sm:col-span-2 sm:row-span-2" data-reveal>
-              <ProjectVideoCard
-                className="h-full"
-                title="商业空间与公共动线"
-                description="临街铺面、内街、中庭、大堂等空间条件。"
-                videoSrc="/videos/ruilong-commercial-01.mp4"
-                posterSrc="/images/ruilong-international/courtyard-new-01.jpg"
-              />
-            </div>
-            {spaceImages.map((image) => (
-              <PhotoTile
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                caption={image.title}
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 合作模式 + 招商服务 */}
-      <section className="section-lux bg-paper-deep">
-        <div className="container-page grid gap-16 lg:grid-cols-2">
-          <div id="cooperation">
-            <LuxHeading
-              eyebrow="合作模式"
-              title="开放品牌入驻、租赁与项目合作洽谈"
-              text="瑞龙国际面向品牌方、企业客户、服务机构与产业资源伙伴，提供招商咨询、现场看样、空间匹配与后续合作沟通入口。"
-              className="mb-8"
-            />
-            <ol className="grid gap-x-6 sm:grid-cols-2">
-              {cooperationModels.map((item, index) => (
-                <li key={item} className="flex items-center gap-4 border-t border-sand py-4" data-reveal>
-                  <span className="tabular flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-navy text-xs font-bold text-[#f1dfb6]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-semibold text-navy">{item}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-6 text-sm leading-7 text-stone" data-reveal>
-              提交需求后，可进一步沟通合作方式、空间条件、入驻节奏与运营支持内容。
+        {/* 热线即标题 */}
+        <section id="contact" className="bg-[var(--inverse)] text-[var(--ground)]">
+          <div className="rl-frame flex min-h-[86svh] flex-col justify-between py-16 sm:min-h-[100svh] sm:py-12">
+            <p className="t-lead max-w-[22ch] font-semibold" data-reveal>
+              预约看场或咨询入驻，直接拨打招商热线。
             </p>
-          </div>
-          <div id="resources">
-            <LuxHeading
-              eyebrow="招商服务"
-              title="统一招商、统一运营、统一物业服务"
-              text="项目围绕招商对接、现场看样、物业服务、业态匹配和商务沟通提供支持。涉及政策、补贴或特殊条件的信息，以实际沟通和确认文件为准。"
-              className="mb-8"
-            />
-            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {supportItems.map((item) => (
-                <li key={item} className="rounded-xl bg-white px-3 py-4 text-center text-sm font-semibold text-navy shadow-sm" data-reveal>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 经营场景 */}
-      <section className="section-lux bg-white">
-        <div className="container-page">
-          <LuxHeading
-            eyebrow="经营场景"
-            title="现有业态与经营场景"
-            text="项目现场已具备教育培训、生活服务、商业铺面等实际经营与展示场景。后续招商可围绕餐饮、零售、教育、休闲、办公及生活配套等方向持续丰富，形成更完整的消费与服务组合。"
-          />
-          <div className="grid auto-rows-[14rem] gap-4 md:grid-cols-3 md:auto-rows-[15rem]">
-            <div className="md:col-span-2 md:row-span-2" data-reveal>
-              <ProjectVideoCard
-                className="h-full"
-                title="现有业态与运营场景"
-                description="教育培训、幼儿园 / 培训机构和商铺的实际经营画面。"
-                videoSrc="/videos/ruilong-tenant-01.mp4"
-                posterSrc="/images/ruilong-international/tenant-scene-new-01.jpg"
-              />
-            </div>
-            {sceneImages.slice(1).map((image) => (
-              <PhotoTile key={image.src} src={image.src} alt={image.alt} caption={image.title} sizes="(min-width: 768px) 33vw, 100vw" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 招商联系 */}
-      <section id="contact" className="section-lux relative isolate overflow-hidden bg-ink text-white">
-        <div className="lattice pointer-events-none absolute inset-0 -z-10 opacity-[0.035]" aria-hidden />
-        <div className="pointer-events-none absolute -left-40 top-0 -z-10 h-[32rem] w-[32rem] rounded-full bg-gold/10 blur-3xl" aria-hidden />
-        <div className="container-page grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <LuxHeading
-              tone="dark"
-              eyebrow="招商联系"
-              title="预约看场与合作洽谈"
-              text="请留下合作类型、意向面积、业态方向和联系方式。瑞龙国际将根据您提交的信息安排项目沟通、资料对接或现场看样，相关信息仅用于招商合作联系。"
-              className="mb-10"
-            />
             <a
               href={`tel:${HOTLINE}`}
-              className="focus-ring group flex items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-white/5 px-6 py-5 transition duration-300 hover:border-gold hover:bg-white/10"
+              className="tabular focus-ring block font-display text-[clamp(3rem,11.5vw,11rem)] font-bold leading-none tracking-[-0.03em] transition-colors duration-300 hover:text-[var(--accent)]"
               data-reveal
             >
-              <span>
-                <span className="block text-xs font-semibold tracking-[0.2em] text-gold">招商热线 · 点击拨打</span>
-                <span className="tabular mt-1 block font-display text-3xl font-bold text-white">{HOTLINE}</span>
-              </span>
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold text-ink transition duration-300 group-hover:scale-105">
-                <Phone size={20} />
-              </span>
+              139 2993 6713
             </a>
-            <div className="mt-6 grid gap-4 text-sm leading-7 text-white/70" data-reveal>
-              <div className="flex gap-3"><MapPin className="mt-1 shrink-0 text-gold" size={18} />佛山市南海区西樵镇碧霞路10号瑞龙国际商业中心</div>
-              <div className="flex gap-3"><Handshake className="mt-1 shrink-0 text-gold" size={18} />运营公司：佛山瑞龙国际酒店管理有限公司</div>
+            <div className="t-small flex flex-col gap-3 opacity-80 sm:flex-row sm:justify-between">
+              <p>佛山市南海区西樵镇碧霞路10号瑞龙国际商业中心</p>
+              <p className="flex gap-6">
+                <a href="#opportunities" className="rl-link">楼层业态</a>
+                <a href="#inquiry" className="rl-link">在线留言</a>
+              </p>
             </div>
           </div>
-          <div data-reveal>
-            <InquiryForm formType="Investment Inquiry" title="招商合作咨询" />
+          <div id="inquiry" className="rl-frame grid gap-10 pb-28 pt-24 lg:grid-cols-12">
+            <p className="t-lead font-semibold lg:col-span-4" data-reveal>
+              也可以留下需求，我们安排项目沟通、资料对接或现场看样。
+            </p>
+            <div className="lg:col-span-7 lg:col-start-6" data-reveal>
+              <InquiryForm formType="Investment Inquiry" title="招商合作咨询" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </HomeMotion>
   );
 }

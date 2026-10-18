@@ -10,13 +10,10 @@ import { RuilongInternationalLogo } from "@/components/RuilongInternationalLogo"
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const mainNavItemsBase = [
-  { href: "/", label: "首页" },
-  { href: "/#project", label: "项目介绍" },
-  { href: "/#location", label: "区位优势" },
-  { href: "/#opportunities", label: "招商业态" },
-  { href: "/#cooperation", label: "合作模式" },
-  { href: "/#resources", label: "商业配套" },
-  { href: "/#contact", label: "联系咨询" }
+  { href: "/#project", label: "项目" },
+  { href: "/#location", label: "区位" },
+  { href: "/#opportunities", label: "楼层业态" },
+  { href: "/#commercial-space", label: "现场空间" }
 ];
 
 const textileEntry = { href: "/textile", label: "进入瑞龙纺织" };
@@ -48,7 +45,7 @@ export function Header() {
   const showSwitchButton = isTextileArea || SHOW_TEXTILE_ENTRY;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+    <header className={isTextileArea ? "sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur" : "sticky top-0 z-40 bg-[#eeede9]"}>
       <div className="container-page flex min-h-20 items-center justify-between gap-4">
         <Link href={logoHref} className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           {isTextileArea ? (
@@ -65,7 +62,7 @@ export function Header() {
             <>
               <RuilongInternationalLogo imageClassName="h-12 w-auto sm:h-14" priority />
               <span className="hidden min-w-0 sm:block">
-                <span className="block text-xs font-semibold text-muted">{subtitle}</span>
+                <span className="block text-[13px] font-semibold text-[#46505e]">{subtitle}</span>
               </span>
             </>
           )}
@@ -86,7 +83,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-full px-3 py-2 text-sm font-medium text-charcoal transition hover:bg-slate-100 hover:text-navy"
+                  className="px-4 py-2 text-[15px] font-medium text-navy underline decoration-transparent underline-offset-8 transition hover:decoration-current"
                 >
                   {item.label}
                 </Link>
@@ -97,7 +94,7 @@ export function Header() {
           {!isTextileArea && (
             <Link
               href="/#contact"
-              className="focus-ring rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ink active:translate-y-0"
+              className="focus-ring bg-navy px-6 py-3 text-[15px] font-semibold text-white transition duration-300 hover:bg-[#1d3350] active:scale-[0.98]"
             >
               预约看场
             </Link>
@@ -130,7 +127,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-line bg-white lg:hidden">
+        <div className={isTextileArea ? "border-t border-line bg-white lg:hidden" : "bg-[#e3e1db] lg:hidden"}>
           <div className="container-page grid gap-2 py-4">
             {isTextileArea
               ? navItems.map((item) => (

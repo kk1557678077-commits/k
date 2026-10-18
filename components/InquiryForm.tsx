@@ -216,13 +216,13 @@ export function InquiryForm({
       ];
 
   const fieldClass = isInvestmentForm
-    ? "focus-ring rounded-xl border border-sand bg-paper/50 px-4 py-3 text-sm transition duration-200 hover:border-gold/60 focus:border-gold focus:bg-white"
+    ? "focus-ring border border-sand bg-white px-4 py-3 text-base transition duration-200 hover:border-navy/40 focus:border-navy"
     : "focus-ring rounded-lg border border-line px-3 py-3 text-sm";
 
   return (
-    <form onSubmit={onSubmit} className={isInvestmentForm ? "rounded-[1.75rem] bg-white p-6 text-charcoal shadow-warm sm:p-9" : "rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6"}>
-      {title && <h3 className={isInvestmentForm ? "mb-5 font-display text-2xl font-bold text-navy" : "mb-5 text-xl font-bold text-navy"}>{title}</h3>}
-      <p className={isInvestmentForm ? "mb-6 rounded-xl bg-paper px-4 py-3 text-xs leading-5 text-stone" : "mb-5 rounded-lg bg-slate-50 px-4 py-3 text-xs leading-5 text-muted"}>
+    <form onSubmit={onSubmit} className={isInvestmentForm ? "bg-[#eeede9] p-6 text-charcoal sm:p-10" : "rounded-lg border border-line bg-white p-5 shadow-soft sm:p-6"}>
+      {title && <h3 className={isInvestmentForm ? "mb-5 font-display text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-bold text-navy" : "mb-5 text-xl font-bold text-navy"}>{title}</h3>}
+      <p className={isInvestmentForm ? "mb-6 text-sm leading-6 text-stone" : "mb-5 rounded-lg bg-slate-50 px-4 py-3 text-xs leading-5 text-muted"}>
         {trustText}
       </p>
       <input type="hidden" name="formType" value={formType} />
@@ -256,7 +256,7 @@ export function InquiryForm({
       <button
         type="submit"
         disabled={submitState === "loading"}
-        className={isInvestmentForm ? "focus-ring mt-6 w-full rounded-full bg-navy px-8 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-ink active:translate-y-0 active:scale-[0.98] disabled:cursor-wait disabled:opacity-70 sm:w-auto" : "focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"}
+        className={isInvestmentForm ? "focus-ring mt-6 min-h-12 w-full bg-navy px-8 py-3 text-base font-semibold text-white transition duration-300 hover:bg-[#1d3350] active:scale-[0.98] disabled:cursor-wait disabled:opacity-70 sm:w-auto" : "focus-ring mt-5 w-full rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white transition hover:bg-charcoal sm:w-auto"}
       >
         {submitState === "loading" ? formMessages.sending : isInvestmentForm ? "提交咨询" : t.cta.submit}
       </button>

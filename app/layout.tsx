@@ -7,13 +7,13 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 
 const displayFont = Noto_Serif_SC({
-  weight: ["600", "700"],
+  weight: ["600", "700", "900"],
   display: "swap",
   preload: false,
   variable: "--font-display"
 });
 
-const siteUrl ="https://www.ruilong.icu";
+const siteUrl = "https://www.ruilong.icu";
 const seoTitle = "瑞龙国际｜佛山西樵招商合作平台";
 const seoDescription =
   "瑞龙国际立足佛山西樵，面向商业空间、品牌入驻、项目合作与产业资源合作提供招商咨询与合作对接。";
@@ -56,7 +56,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN" className={displayFont.variable}>
-      <body>
+      <body id="top">
         <LanguageProvider>
           <Header />
           <main className="pb-16 md:pb-0">{children}</main>

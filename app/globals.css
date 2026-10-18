@@ -4,6 +4,19 @@
 
 :root {
   color-scheme: light;
+  /* 招商首页色彩：骨白地面、墨蓝文字、铜金只用于主操作 */
+  --ground: #eeede9;
+  --ground-2: #e3e1db;
+  --ink: #102033;
+  --ink-soft: #46505e;
+  --accent: #b8904d;
+  --inverse: #0e1b2b;
+  /* 五级字号：纪念碑 / 标题 / 引言 / 正文 / 小字 */
+  --step-mono: clamp(5rem, 20.5vw, 18.5rem);
+  --step-head: clamp(2.5rem, 1.5rem + 4vw, 5.25rem);
+  --step-lead: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-small: 0.875rem;
 }
 
 html {
@@ -23,12 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3 {
-  text-wrap: balance;
-}
-
 ::selection {
   background: #ead9b4;
   color: #102033;
@@ -42,59 +49,88 @@ h3 {
   @apply py-16 sm:py-20;
 }
 
-/* 招商首页的分区留白：底部略大于顶部 */
-.section-lux {
-  @apply pb-24 pt-20 sm:pb-32 sm:pt-28;
-}
-
 .focus-ring {
   @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue;
+}
+
+/* ---------- 招商首页 ---------- */
+.rl {
+  background: var(--ground);
+  color: var(--ink);
+  font-size: var(--step-body);
+  line-height: 1.6;
+}
+
+.rl-frame {
+  @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8;
+}
+
+.rl-gap {
+  padding-top: clamp(7rem, 4rem + 8vw, 13rem);
+  padding-bottom: clamp(7.5rem, 4.5rem + 8vw, 14rem);
+}
+
+.t-mono {
+  font-family: var(--font-display), "Songti SC", serif;
+  font-size: var(--step-mono);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.t-head {
+  font-family: var(--font-display), "Songti SC", serif;
+  font-size: var(--step-head);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.t-lead {
+  font-size: var(--step-lead);
+  line-height: 1.4;
+}
+
+.t-body {
+  font-size: var(--step-body);
+  line-height: 1.6;
+}
+
+.t-small {
+  font-size: var(--step-small);
+  line-height: 1.55;
 }
 
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* 取自项目外立面的岭南回纹窗花，作为低对比度底纹 */
-.lattice {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56' fill='none' stroke='%23b8904d' stroke-width='1.5'%3E%3Cpath d='M4 4h48v48H4z'/%3E%3Cpath d='M14 14h28v28H14z'/%3E%3Cpath d='M14 28h14V14M42 28H28v14'/%3E%3C/svg%3E");
-  background-size: 56px 56px;
+.rl-btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 px-7 font-semibold transition duration-300 active:scale-[0.98];
+  font-size: var(--step-body);
 }
 
-.grain {
-  position: relative;
+.rl-btn-accent {
+  background: var(--accent);
+  color: var(--ink);
 }
 
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.rl-btn-accent:hover {
+  background: #c9a25f;
 }
 
-/* 首屏透视网格地面：金色细线，远处渐隐，缓慢向前推进 */
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(214, 180, 106, 0.55) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(214, 180, 106, 0.55) 1px, transparent 1px);
-  background-size: 72px 72px;
-  -webkit-mask-image: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.6) 35%, transparent 75%);
-  mask-image: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.6) 35%, transparent 75%);
-  opacity: 0.6;
-  animation: hero-grid-move 3.2s linear infinite;
+.rl-btn-ink {
+  background: var(--ink);
+  color: var(--ground);
 }
 
-@keyframes hero-grid-move {
-  to {
-    background-position: 0 72px;
-  }
+.rl-btn-ink:hover {
+  background: #1d3350;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-grid {
-    animation: none;
-  }
+.rl-link {
+  @apply underline decoration-transparent underline-offset-4 transition-colors duration-300 hover:decoration-current;
 }
