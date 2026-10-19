@@ -46,7 +46,7 @@ export function Header() {
 
   return (
     <header className={isTextileArea ? "sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur" : "sticky top-0 z-40 bg-[#eeede9]"}>
-      <div className="container-page flex min-h-20 items-center justify-between gap-4">
+      <div className={`${isTextileArea ? "container-page" : "mx-auto w-full max-w-[90rem] px-5 sm:px-8"} flex min-h-20 items-center justify-between gap-4`}>
         <Link href={logoHref} className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           {isTextileArea ? (
             <>

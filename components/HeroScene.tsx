@@ -20,6 +20,12 @@ const portraits = [
   { src: "/images/ruilong-international/storefront-02.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与招商中心", pos: "74% 50%", ground: "#e6e3dc" }
 ];
 
+// 电脑宽屏两侧的实景，错落放置，让首屏不只中间一张图
+const flanks = [
+  { src: "/images/ruilong-international/streetfront-new-02.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与青砖立柱", pos: "12% 50%", side: "left" },
+  { src: "/images/ruilong-international/overview-new-01.jpg", alt: "瑞龙国际商业楼外景", pos: "20% 25%", side: "right" }
+] as const;
+
 export function HeroScene() {
   const root = useRef<HTMLElement>(null);
 
@@ -33,7 +39,12 @@ export function HeroScene() {
           .timeline({ defaults: { ease: "power4.out" } })
           .from("[data-mono-char]", { yPercent: 105, rotationX: -70, transformOrigin: "50% 100%", duration: 1.2, stagger: 0.08 })
           .from("[data-portrait='0']", { rotationX: 22, transformPerspective: 1400, y: 80, autoAlpha: 0, duration: 1.4 }, 0.15)
-          .from("[data-hero-foot]", { y: 24, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.6);
+          .from("[data-hero-foot]", { y: 24, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.6)
+          .from(
+            "[data-flank-img]",
+            { y: 120, rotationY: (i: number) => (i === 0 ? 28 : -28), transformPerspective: 1200, autoAlpha: 0, duration: 1.5, stagger: 0.12 },
+            0.35
+          );
 
         // 钉住的故事：每滚过一屏，下一张照片从底部擦入并翻正，底色随之换成该照片的颜色
         const stage = root.current?.querySelector<HTMLElement>("[data-stage]");
@@ -58,6 +69,10 @@ export function HeroScene() {
             .to(`[data-portrait='${i}']`, { scale: 0.92, y: -30, duration: 1 }, i)
             .to(stage ?? {}, { backgroundColor: p.ground, duration: 1 }, i);
         });
+        // 两侧照片以不同速度上浮，和中间的翻页拉开纵深
+        story
+          .to("[data-flank='left']", { yPercent: -18, ease: "none", duration: portraits.length - 1 }, 0)
+          .to("[data-flank='right']", { yPercent: -34, ease: "none", duration: portraits.length - 1 }, 0);
       });
 
       // 桌面：照片组随鼠标轻微倾斜，名字反向平移，形成纵深
@@ -67,6 +82,8 @@ export function HeroScene() {
         const ry = gsap.quickTo("[data-portrait-stack]", "rotationY", { duration: 1, ease: "power3.out" });
         const rx = gsap.quickTo("[data-portrait-stack]", "rotationX", { duration: 1, ease: "power3.out" });
         const tx = gsap.quickTo("[data-mono]", "x", { duration: 1.4, ease: "power3.out" });
+        const fx = gsap.quickTo("[data-flank-img]", "x", { duration: 1.2, ease: "power3.out" });
+        const fry = gsap.quickTo("[data-flank-img]", "rotationY", { duration: 1.2, ease: "power3.out" });
         const onMove = (e: PointerEvent) => {
           const r = section.getBoundingClientRect();
           const nx = (e.clientX - r.left) / r.width - 0.5;
@@ -74,11 +91,15 @@ export function HeroScene() {
           ry(nx * 10);
           rx(-ny * 6);
           tx(nx * -24);
+          fx(nx * 44);
+          fry(nx * 12);
         };
         const onLeave = () => {
           ry(0);
           rx(0);
           tx(0);
+          fx(0);
+          fry(0);
         };
         section.addEventListener("pointermove", onMove);
         section.addEventListener("pointerleave", onLeave);
@@ -100,6 +121,23 @@ export function HeroScene() {
         className="relative h-[calc(100svh-5rem)] min-h-[34rem] overflow-hidden"
         style={{ backgroundColor: portraits[0].ground }}
       >
+        {/* 电脑宽屏：两侧错落的实景 */}
+        {flanks.map((f) => (
+          <div
+            key={f.src}
+            data-flank={f.side}
+            className={`absolute hidden aspect-[3/4] w-[min(20vw,24rem)] lg:block ${
+              f.side === "left"
+                ? "left-[calc(50%-min(37vw,34rem)/2-2.5vw-min(20vw,24rem))] top-[22vh]"
+                : "left-[calc(50%+min(37vw,34rem)/2+2.5vw)] top-[30vh]"
+            }`}
+          >
+            <div data-flank-img className="relative h-full w-full overflow-hidden">
+              <Image src={f.src} alt={f.alt} fill sizes="20vw" className="object-cover" style={{ objectPosition: f.pos }} />
+            </div>
+          </div>
+        ))}
+
         {/* 竖幅照片组 */}
         <div className="absolute inset-x-4 top-[12.5vw] aspect-[2/3] [perspective:1400px] sm:inset-x-auto sm:bottom-0 sm:left-1/2 sm:top-[6vh] sm:aspect-auto sm:w-[min(37vw,34rem)] sm:-translate-x-1/2">
           <div data-portrait-stack className="relative h-full w-full">
@@ -133,7 +171,7 @@ export function HeroScene() {
         </h1>
 
         {/* 左下：一句话；右下：唯一的主操作 */}
-        <div className="absolute inset-x-4 bottom-20 z-10 flex items-end justify-between gap-6 sm:inset-x-8 sm:bottom-8">
+        <div className="rl-frame absolute inset-x-0 bottom-20 z-10 flex items-end justify-between gap-6 sm:bottom-8">
           <div data-hero-foot className="max-w-[26ch] bg-[var(--ground)] px-4 py-3 sm:bg-transparent sm:p-0">
             <p className="t-body font-semibold text-[var(--ink)]">
               佛山西樵碧霞路10号，4.2万㎡商业与写字楼综合体，面向品牌入驻、商业租赁与商务办公开放招商。
