@@ -1,5 +1,8 @@
+import { pageSeo } from "@/data/seo";
 import { ContactClient } from "./ContactClient";
 import { getContactInfoWithFallback, getFaqWithFallback } from "@/sanity/lib/content";
+
+export const metadata = pageSeo("/contact");
 
 export default async function ContactPage() {
   const [contactInfo, faqs] = await Promise.all([

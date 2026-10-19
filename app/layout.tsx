@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
+import { baseOpenGraph, seoDescription, seoTitle, siteUrl } from "@/data/seo";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -12,11 +13,6 @@ const displayFont = Noto_Serif_SC({
   preload: false,
   variable: "--font-display"
 });
-
-const siteUrl = "https://www.ruilong.icu";
-const seoTitle = "瑞龙国际｜佛山西樵招商合作平台";
-const seoDescription =
-  "瑞龙国际立足佛山西樵，面向商业空间、品牌入驻、项目合作与产业资源合作提供招商咨询与合作对接。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -33,25 +29,8 @@ export const metadata: Metadata = {
     "项目合作",
     "产业资源合作"
   ],
-  alternates: {
-    canonical: siteUrl
-  },
-  openGraph: {
-    title: seoTitle,
-    description: seoDescription,
-    url: siteUrl,
-    siteName: "瑞龙国际",
-    type: "website",
-    locale: "zh_CN",
-    images: [
-      {
-        url: "/images/ruilong-international/hero-exterior-new-01.jpg",
-        width: 1800,
-        height: 1200,
-        alt: "瑞龙国际写字楼与岭南风格商业外立面"
-      }
-    ]
-  },
+  // canonical 不在根布局里写死，由各页面通过 pageSeo() 指向自己
+  openGraph: baseOpenGraph,
   twitter: {
     card: "summary_large_image",
     title: seoTitle,

@@ -5,6 +5,9 @@ import { HomeMotion } from "@/components/HomeMotion";
 import { InquiryForm } from "@/components/InquiryForm";
 import { NameIndex } from "@/components/NameIndex";
 import ScrollReveal from "@/components/reactbits/ScrollReveal";
+import { pageSeo } from "@/data/seo";
+
+export const metadata = pageSeo("/");
 
 const HOTLINE = "13929936713";
 const IMG = "/images/ruilong-international";
