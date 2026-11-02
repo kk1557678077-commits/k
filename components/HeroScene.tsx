@@ -13,17 +13,17 @@ const HOTLINE = "13929936713";
 
 // 钉住的“瑞龙国际”下，实景竖幅依次翻入；每张照片带一块取自照片本身的平涂底色
 const portraits = [
-  { src: "/images/ruilong-international/hero-exterior-new-01.jpg", alt: "瑞龙国际写字楼与岭南风格商业外立面", pos: "38% 50%", ground: "#dfe4e8" },
-  { src: "/images/ruilong-international/streetfront-new-01.jpg", alt: "瑞龙国际写字楼与临街商业", pos: "30% 50%", ground: "#e2e2df" },
-  { src: "/images/ruilong-international/office-lobby-new-01.jpg", alt: "瑞龙国际大厦入口大堂", pos: "52% 50%", ground: "#e9e2d6" },
-  { src: "/images/ruilong-international/courtyard-new-01.jpg", alt: "瑞龙国际商业内街与教育业态", pos: "48% 50%", ground: "#dde5ec" },
-  { src: "/images/ruilong-international/storefront-02.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与招商中心", pos: "74% 50%", ground: "#e6e3dc" }
+  { src: "/images/ruilong-international/2026/front.jpg", alt: "瑞龙国际商业中心正面，铜色回纹窗花与青砖立柱", pos: "50% 80%", ground: "#dfe4e8" },
+  { src: "/images/ruilong-international/2026/tower.jpg", alt: "楼顶立着瑞龙国际四个字的写字楼与临街商业", pos: "50% 100%", ground: "#dde3ea" },
+  { src: "/images/ruilong-international/2026/center.jpg", alt: "瑞龙国际招商中心与门前的棕榈树", pos: "70% 50%", ground: "#e2e6ea" },
+  { src: "/images/ruilong-international/2026/tenant-suning-hall.jpg", alt: "已入驻的苏宁易购店内展区", pos: "50% 50%", ground: "#e9e2d6" },
+  { src: "/images/ruilong-international/2026/tenant-baozheng-hall.jpg", alt: "已入驻的煲正点煲仔饭店内用餐区", pos: "50% 50%", ground: "#e6e3dc" }
 ];
 
 // 电脑宽屏两侧的实景，错落放置，让首屏不只中间一张图
 const flanks = [
-  { src: "/images/ruilong-international/streetfront-new-02.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与青砖立柱", pos: "12% 50%", side: "left" },
-  { src: "/images/ruilong-international/overview-new-01.jpg", alt: "瑞龙国际商业楼外景", pos: "20% 25%", side: "right" }
+  { src: "/images/ruilong-international/2026/lattice.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与青砖立柱", pos: "50% 30%", side: "left" },
+  { src: "/images/ruilong-international/2026/tenant-jd.jpg", alt: "已入驻的京东养车门店", pos: "50% 80%", side: "right" }
 ] as const;
 
 export function HeroScene() {
@@ -63,7 +63,7 @@ export function HeroScene() {
             .fromTo(
               `[data-portrait='${i + 1}']`,
               { autoAlpha: 1, clipPath: "inset(100% 0% 0% 0%)", rotationX: 16, transformPerspective: 1400, y: 60, scale: 1.06 },
-              { clipPath: "inset(0% 0% 0% 0%)", rotationX: 0, y: 0, scale: 1, duration: 1 },
+              { autoAlpha: 1, clipPath: "inset(0% 0% 0% 0%)", rotationX: 0, y: 0, scale: 1, duration: 1 },
               i
             )
             .to(`[data-portrait='${i}']`, { scale: 0.92, y: -30, duration: 1 }, i)

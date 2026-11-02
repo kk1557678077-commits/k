@@ -11,6 +11,7 @@ export const metadata = pageSeo("/");
 
 const HOTLINE = "13929936713";
 const IMG = "/images/ruilong-international";
+const NEW = `${IMG}/2026`;
 
 // count / decimals 只用于滚动计数；数据原样来自项目周边调研资料
 const stats = [
@@ -31,7 +32,7 @@ const indexGroups: { title: string; summary: string; items: [string, string][] }
       ["区位客群", "位于西樵镇碧霞路10号，周边居住、办公、教育与日常消费场景集中。"],
       ["空间组合", "商业铺面、内街中庭、写字楼与配套空间组合，可承接不同经营尺度。"],
       ["业态适配", "餐饮、零售、教育、休闲体验、办公服务和生活配套均可沟通匹配。"],
-      ["现场基础", "项目已有教育培训、商业铺面及办公场景，便于品牌判断真实经营环境。"],
+      ["现场基础", "项目已有家电、餐饮、桌球、皮肤管理和汽车养护门店，也有教育培训及办公场景，便于品牌判断真实经营环境。"],
       ["运营协同", "统一招商、统一运营、统一物业服务，降低品牌入驻后的沟通成本。"],
       ["合作开放", "面向品牌入驻、商业租赁、长期合作和产业资源合作开放洽谈。"]
     ]
@@ -62,19 +63,67 @@ const indexGroups: { title: string; summary: string; items: [string, string][] }
   }
 ];
 
+// 门店实拍；名单与照片由业主提供，不写面积、楼层或开业日期
+const tenants: {
+  name: string;
+  kind: string;
+  place: string;
+  mainPlace: string;
+  main: { src: string; alt: string; ratio: string; pos?: string };
+  side?: { src: string; alt: string; ratio: string; place: string };
+}[] = [
+  {
+    name: "苏宁易购",
+    kind: "家电专业店",
+    place: "col-span-12",
+    mainPlace: "col-span-12 sm:col-span-7",
+    main: { src: `${NEW}/tenant-suning-door.jpg`, alt: "苏宁易购家电专业店门头", ratio: "aspect-[3/2]" },
+    side: { src: `${NEW}/tenant-suning-hall.jpg`, alt: "苏宁易购店内洗衣机展区与大理石地面", ratio: "aspect-[3/4]", place: "col-span-8 col-start-5 sm:col-span-4 sm:col-start-9 sm:mt-28" }
+  },
+  {
+    name: "煲正点煲仔饭",
+    kind: "餐饮 · 碧霞路店",
+    place: "col-span-12",
+    mainPlace: "col-span-12 sm:col-span-5 sm:col-start-8 sm:row-start-1",
+    main: { src: `${NEW}/tenant-baozheng-door.jpg`, alt: "煲正点煲仔饭碧霞路店门头", ratio: "aspect-[9/10]" },
+    side: { src: `${NEW}/tenant-baozheng-hall.jpg`, alt: "煲正点煲仔饭店内用餐区", ratio: "aspect-[7/8]", place: "col-span-9 sm:col-span-5 sm:col-start-2 sm:row-start-1 sm:mt-32" }
+  },
+  {
+    name: "炫8台球俱乐部",
+    kind: "休闲体验",
+    place: "col-span-12",
+    mainPlace: "col-span-12",
+    main: { src: `${NEW}/tenant-xuan8.jpg`, alt: "炫8台球俱乐部球厅内景，彩色灯带下的多张球台", ratio: "aspect-[4/3] sm:aspect-[21/9]", pos: "50% 58%" }
+  },
+  {
+    name: "柏愉皮肤管理中心",
+    kind: "美容护理",
+    place: "col-span-12 sm:col-span-7",
+    mainPlace: "col-span-12",
+    main: { src: `${NEW}/tenant-boyu-hall.jpg`, alt: "柏愉皮肤管理中心前厅与接待台", ratio: "aspect-[5/3]" }
+  },
+  {
+    name: "京东养车",
+    kind: "汽车养护",
+    place: "col-span-12 sm:col-span-5 sm:mt-40",
+    mainPlace: "col-span-12",
+    main: { src: `${NEW}/tenant-jd-wide.jpg`, alt: "京东养车门店与工位", ratio: "aspect-[8/5]" }
+  }
+];
+
 const gallery = [
-  { src: `${IMG}/building-front-new-01.jpg`, alt: "瑞龙国际商业中心入口及招牌", caption: "商业中心入口", ratio: "aspect-[3/4]", pos: "50% 50%", place: "col-span-9 sm:col-span-4 sm:col-start-1" },
-  { src: `${IMG}/overview-new-01.jpg`, alt: "瑞龙国际商业楼外景", caption: "商业楼外景", ratio: "aspect-[16/10]", pos: "50% 20%", place: "col-span-10 col-start-3 sm:col-span-6 sm:col-start-7 sm:mt-[30vh]" },
-  { src: `${IMG}/streetfront-new-02.jpg`, alt: "瑞龙国际临街商业铺面", caption: "临街商业铺面", ratio: "aspect-[3/2]", pos: "50% 50%", place: "col-span-12 sm:col-span-6 sm:col-start-6 sm:mt-[24vh]" },
+  { src: `${NEW}/tower.jpg`, alt: "楼顶立着瑞龙国际四个字的写字楼与商业楼", caption: "写字楼与商业楼", ratio: "aspect-[3/4]", pos: "50% 70%", place: "col-span-9 sm:col-span-4 sm:col-start-1" },
+  { src: `${NEW}/front-sign.jpg`, alt: "瑞龙国际商业中心招牌与临街铺面", caption: "商业中心招牌与铺面", ratio: "aspect-[16/10]", pos: "50% 50%", place: "col-span-10 col-start-3 sm:col-span-6 sm:col-start-7 sm:mt-[30vh]" },
+  { src: `${NEW}/center.jpg`, alt: "瑞龙国际招商中心与门前的棕榈树", caption: "招商中心", ratio: "aspect-[3/2]", pos: "50% 50%", place: "col-span-12 sm:col-span-6 sm:col-start-6 sm:mt-[24vh]" },
   { src: `${IMG}/office-lobby-new-01.jpg`, alt: "瑞龙国际大厦入口大堂", caption: "写字楼大堂", ratio: "aspect-[4/5]", pos: "50% 50%", place: "col-span-7 sm:col-span-3 sm:col-start-2 sm:-mt-[18vh]" }
 ];
 
 // 手机上两行 64/36、36/64；桌面一条 5:2:3:2 的长带，悬停的一格展开
 const band = [
   { src: `${IMG}/courtyard-new-01.jpg`, alt: "瑞龙国际商业内街与中庭空间", size: "w-[64%] sm:grow-[5]", pos: "45% 50%" },
-  { src: `${IMG}/streetfront-new-01.jpg`, alt: "瑞龙国际写字楼与临街铺面", size: "w-[36%] sm:grow-[2]", pos: "50% 20%" },
-  { src: `${IMG}/hero-exterior-new-01.jpg`, alt: "瑞龙国际岭南风格外立面", size: "w-[36%] sm:grow-[3]", pos: "75% 50%" },
-  { src: `${IMG}/storefront-02.jpg`, alt: "瑞龙国际商业楼临街立面", size: "w-[64%] sm:grow-[2]", pos: "26% 50%" }
+  { src: `${NEW}/center-palms.jpg`, alt: "瑞龙国际招商中心立面与棕榈树", size: "w-[36%] sm:grow-[2]", pos: "50% 50%" },
+  { src: `${NEW}/street-row.jpg`, alt: "瑞龙国际临街商业铺面", size: "w-[36%] sm:grow-[3]", pos: "60% 50%" },
+  { src: `${NEW}/lattice.jpg`, alt: "瑞龙国际商业楼的铜色回纹窗花与青砖立柱", size: "w-[64%] sm:grow-[2]", pos: "50% 30%" }
 ];
 
 const services = ["统一招商", "统一运营", "统一物业", "场地看样", "商务对接", "物业维修", "业态匹配", "资料对接"];
@@ -98,11 +147,11 @@ export default function HomePage() {
           </div>
           <div className="relative mt-10 aspect-[4/5] w-full overflow-hidden sm:aspect-[21/9]" data-wipe>
             <Image
-              src={`${IMG}/building-front-new-02.jpg`}
-              alt="瑞龙国际岭南风格商业楼全景，铜色回纹窗花与青砖立柱"
+              src={`${NEW}/tower-wide.jpg`}
+              alt="瑞龙国际写字楼与岭南风格商业楼全景，铜色回纹窗花与青砖立柱"
               fill
               sizes="100vw"
-              className="scale-110 object-cover"
+              className="scale-110 object-cover object-[50%_72%]"
               data-drift
             />
           </div>
@@ -134,7 +183,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative ml-auto aspect-square w-[56%] overflow-hidden lg:col-span-3 lg:col-start-9 lg:mt-20 lg:w-full lg:self-start" data-wipe>
-              <Image src={`${IMG}/courtyard-new-01.jpg`} alt="瑞龙国际内街上的幼儿园与教育业态" fill sizes="(min-width: 1024px) 22vw, 56vw" className="object-cover" />
+              <Image src={`${NEW}/tower-top.jpg`} alt="写字楼楼顶的瑞龙国际招牌" fill sizes="(min-width: 1024px) 22vw, 56vw" className="object-cover" />
             </div>
           </div>
         </section>
@@ -146,6 +195,46 @@ export default function HomePage() {
               为品牌准备的条件
             </h2>
             <NameIndex groups={indexGroups} />
+          </div>
+        </section>
+
+        {/* 已入驻门店：整块换成深底，让门头的颜色跳出来 */}
+        <section id="tenants" className="rl-gap bg-[var(--inverse)] text-[var(--ground)]">
+          <div className="rl-frame">
+            <h2 className="t-head max-w-[11em]" data-reveal>
+              这些品牌已经入驻
+            </h2>
+            <p className="t-body mt-8 max-w-[32em]" data-reveal>
+              家电、餐饮、桌球、皮肤管理和汽车养护门店都在项目内。以下是门店实拍，仅列部分入驻品牌。
+            </p>
+            <div className="mt-20 grid grid-cols-12 gap-x-4 gap-y-16 sm:gap-y-28">
+              {tenants.map((t) => (
+                <article key={t.name} className={`${t.place} grid grid-cols-12 gap-x-4 gap-y-6`}>
+                  <div className={t.mainPlace}>
+                    <div className={`relative w-full overflow-hidden ${t.main.ratio}`} data-wipe>
+                      <Image src={t.main.src} alt={t.main.alt} fill sizes="(min-width: 640px) 60vw, 100vw" className="object-cover" style={t.main.pos ? { objectPosition: t.main.pos } : undefined} />
+                    </div>
+                    <h3 className="t-lead mt-4 font-semibold" data-reveal>
+                      {t.name}
+                    </h3>
+                    <p className="t-small mt-1 opacity-80" data-reveal>
+                      {t.kind}
+                    </p>
+                  </div>
+                  {t.side && (
+                    <div className={`relative overflow-hidden ${t.side.ratio} ${t.side.place}`} data-wipe>
+                      <Image src={t.side.src} alt={t.side.alt} fill sizes="(min-width: 640px) 36vw, 70vw" className="object-cover" />
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+            <div className="mt-24 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+              <p className="t-lead max-w-[22ch] font-semibold">想看看这里的实际经营环境，可以预约到现场走一走。</p>
+              <a href="#contact" className="rl-btn rl-btn-accent focus-ring">
+                预约看场
+              </a>
+            </div>
           </div>
         </section>
 

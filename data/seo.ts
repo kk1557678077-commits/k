@@ -14,9 +14,9 @@ export const baseOpenGraph = {
   locale: "zh_CN",
   images: [
     {
-      url: "/images/ruilong-international/hero-exterior-new-01.jpg",
-      width: 1800,
-      height: 1200,
+      url: "/images/ruilong-international/2026/tower-wide.jpg",
+      width: 2000,
+      height: 1500,
       alt: "瑞龙国际写字楼与岭南风格商业外立面"
     }
   ]
