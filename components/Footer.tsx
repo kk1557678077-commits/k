@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { contactInfo, navItems, products, ui } from "@/data/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
+import { landline, mobiles } from "@/data/contacts";
 
 const textilePaths = [
   "/textile",
@@ -20,6 +21,7 @@ const textilePaths = [
 
 const mainFooterLinks = [
   ["项目介绍", "/#project"],
+  ["入驻品牌", "/#tenants"],
   ["楼层业态", "/#opportunities"],
   ["现场空间", "/#commercial-space"],
   ["联系咨询", "/#contact"]
@@ -44,8 +46,13 @@ export function Footer() {
           </p>
           <div className="mt-[4.5rem] grid gap-12 md:grid-cols-12">
             <div className="grid gap-3 text-[clamp(1.375rem,1.1rem+0.9vw,1.875rem)] font-semibold text-[#d6b46a] md:col-span-5">
-              <a href="tel:13929936713" className="tabular hover:text-white">139 2993 6713</a>
-              <span>佛山市南海区西樵镇碧霞路10号</span>
+              <a href={`tel:${landline.tel}`} className="tabular hover:text-white">{landline.display}</a>
+              {mobiles.map((m) => (
+                <a key={m.tel} href={`tel:${m.tel}`} className="tabular text-[length:var(--step-body)] font-normal text-[#eeede9] hover:text-white">
+                  {m.name} {m.display}
+                </a>
+              ))}
+              <span className="text-[length:var(--step-body)] font-normal text-[#eeede9]">佛山市南海区西樵镇碧霞路10号</span>
             </div>
             <div className="grid grid-cols-2 gap-8 text-[15px] md:col-span-6 md:col-start-7 md:grid-cols-3">
               <div className="grid content-start gap-2">

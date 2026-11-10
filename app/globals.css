@@ -16,7 +16,7 @@
   --step-head: clamp(2.5rem, 1.5rem + 4vw, 5.25rem);
   --step-lead: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --step-small: 0.875rem;
+  --step-small: 0.9375rem;
 }
 
 html {
@@ -66,8 +66,8 @@ body {
 }
 
 .rl-gap {
-  padding-top: clamp(7rem, 4rem + 8vw, 13rem);
-  padding-bottom: clamp(7.5rem, 4.5rem + 8vw, 14rem);
+  padding-top: clamp(4.5rem, 2.5rem + 8vw, 13rem);
+  padding-bottom: clamp(5rem, 3rem + 8vw, 14rem);
 }
 
 .t-mono {

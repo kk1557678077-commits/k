@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ui } from "@/data/content";
+import { landline } from "@/data/contacts";
 import { useLanguage } from "@/components/LanguageProvider";
 
 type InquiryFormProps = {
@@ -66,8 +67,8 @@ export function InquiryForm({
         required: "请填写称呼和联系电话后再提交。",
         invalidPhone: "联系电话格式不正确，请填写手机号或带区号的固定电话。",
         invalidEmail: "邮箱格式不正确；不方便填写可以留空。",
-        error: "提交没有成功，请稍后重试，或直接拨打招商热线 13929936713。",
-        missingEndpoint: "在线提交暂不可用，请直接拨打招商热线 13929936713 预约看场。"
+        error: `提交没有成功，请稍后重试，或直接拨打招商座机 ${landline.display}。`,
+        missingEndpoint: `在线提交暂不可用，请直接拨打招商座机 ${landline.display} 预约看场。`
       }
     : lang === "en"
       ? {

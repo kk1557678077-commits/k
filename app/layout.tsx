@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: seoTitle,
     description: seoDescription,
-    images: ["/images/ruilong-international/2026/tower-wide.jpg"]
+    images: ["/images/ruilong-international/2026/pano-wide.jpg"]
   }
 };
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { contactInfo } from "@/data/content";
+import { landline } from "@/data/contacts";
 
 const textilePaths = [
   "/textile",
@@ -28,7 +29,7 @@ export function FloatingContact() {
       <div className="fixed inset-x-0 bottom-0 z-30 bg-[#eeede9] p-2 md:inset-x-auto md:bottom-6 md:right-5 md:p-1.5 lg:hidden">
         <div className="grid grid-cols-2 gap-2 md:flex md:gap-1">
           <a
-            href="tel:13929936713"
+            href={`tel:${landline.tel}`}
             className="focus-ring flex min-h-11 items-center justify-center gap-2 bg-[#e3e1db] text-[15px] font-semibold text-navy transition hover:bg-paper md:px-4"
           >
             <Phone size={17} />

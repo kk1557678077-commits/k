@@ -11,10 +11,10 @@ import { SHOW_TEXTILE_ENTRY } from "@/components/siteFlags";
 
 const mainNavItemsBase = [
   { href: "/#project", label: "项目" },
-  { href: "/#location", label: "区位" },
   { href: "/#tenants", label: "入驻品牌" },
-  { href: "/#opportunities", label: "楼层业态" },
-  { href: "/#commercial-space", label: "现场空间" }
+  { href: "/#commercial-space", label: "现场空间" },
+  { href: "/#location", label: "周边" },
+  { href: "/#opportunities", label: "楼层业态" }
 ];
 
 const textileEntry = { href: "/textile", label: "进入瑞龙纺织" };

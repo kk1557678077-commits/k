@@ -6,24 +6,22 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Magnet from "@/components/reactbits/Magnet";
+import { landline } from "@/data/contacts";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const HOTLINE = "13929936713";
-
 // 钉住的“瑞龙国际”下，实景竖幅依次翻入；每张照片带一块取自照片本身的平涂底色
 const portraits = [
-  { src: "/images/ruilong-international/2026/front.jpg", alt: "瑞龙国际商业中心正面，铜色回纹窗花与青砖立柱", pos: "50% 80%", ground: "#dfe4e8" },
-  { src: "/images/ruilong-international/2026/tower.jpg", alt: "楼顶立着瑞龙国际四个字的写字楼与临街商业", pos: "50% 100%", ground: "#dde3ea" },
-  { src: "/images/ruilong-international/2026/center.jpg", alt: "瑞龙国际招商中心与门前的棕榈树", pos: "70% 50%", ground: "#e2e6ea" },
-  { src: "/images/ruilong-international/2026/tenant-suning-hall.jpg", alt: "已入驻的苏宁易购店内展区", pos: "50% 50%", ground: "#e9e2d6" },
-  { src: "/images/ruilong-international/2026/tenant-baozheng-hall.jpg", alt: "已入驻的煲正点煲仔饭店内用餐区", pos: "50% 50%", ground: "#e6e3dc" }
+  { src: "/images/ruilong-international/2026/hero-tower.jpg", alt: "楼顶立着瑞龙国际招牌的写字楼与临街商业", pos: "50% 60%", ground: "#dfe4e8" },
+  { src: "/images/ruilong-international/2026/hero-front.jpg", alt: "瑞龙国际商业中心正面，铜色回纹窗花与青砖立柱", pos: "50% 70%", ground: "#dde3ea" },
+  { src: "/images/ruilong-international/2026/hero-center.jpg", alt: "瑞龙国际招商中心与门前的棕榈树", pos: "50% 50%", ground: "#e2e6ea" },
+  { src: "/images/ruilong-international/2026/hero-park.jpg", alt: "瑞龙双拥主题公园入口的棕榈树与园名标识", pos: "50% 60%", ground: "#e3e8e2" }
 ];
 
 // 电脑宽屏两侧的实景，错落放置，让首屏不只中间一张图
 const flanks = [
-  { src: "/images/ruilong-international/2026/lattice.jpg", alt: "瑞龙国际商业楼的铜色回纹窗花与青砖立柱", pos: "50% 30%", side: "left" },
-  { src: "/images/ruilong-international/2026/tenant-jd.jpg", alt: "已入驻的京东养车门店", pos: "50% 80%", side: "right" }
+  { src: "/images/ruilong-international/2026/flank-gate.jpg", alt: "瑞龙国际大厦与内街入口", pos: "50% 50%", side: "left" },
+  { src: "/images/ruilong-international/2026/flank-path.jpg", alt: "双拥主题公园里开满三角梅的步道", pos: "50% 50%", side: "right" }
 ] as const;
 
 export function HeroScene() {
@@ -176,8 +174,8 @@ export function HeroScene() {
             <p className="t-body font-semibold text-[var(--ink)]">
               佛山西樵碧霞路10号，4.2万㎡商业与写字楼综合体，面向品牌入驻、商业租赁与商务办公开放招商。
             </p>
-            <a href={`tel:${HOTLINE}`} className="rl-link t-small mt-2 inline-block font-semibold text-[var(--ink)]">
-              招商热线 <span className="tabular">{HOTLINE}</span>
+            <a href={`tel:${landline.tel}`} className="rl-link t-body mt-2 inline-block font-semibold text-[var(--ink)]">
+              {landline.label} <span className="tabular">{landline.display}</span>
             </a>
           </div>
           <div data-hero-foot className="hidden sm:block">
